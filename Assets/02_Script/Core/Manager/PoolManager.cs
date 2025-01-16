@@ -24,18 +24,18 @@ public class PoolManager : MonoBehaviour
         }
     }
 
-    private PoolableObject CreatePO(PoolType poolType)
+    private void CreatePO(PoolType poolType)
     {
         PoolableObject po = Instantiate(SettingPoolObjectDict[poolType]);
         po.poolType = poolType;
-        return po;
+        po.PushThisObject();
     }
 
     public PoolableObject PopObject(PoolType poolType, Vector3 position)
     {
         if(_pools[poolType].PoolCount <= 0)
         {
-            _pools[poolType].PushObject(CreatePO(poolType));
+            CreatePO(poolType);
         }
 
         return _pools[poolType].PopObject(position);
@@ -45,7 +45,7 @@ public class PoolManager : MonoBehaviour
     {
         if (_pools[poolType].PoolCount <= 0)
         {
-            _pools[poolType].PushObject(CreatePO(poolType));
+            CreatePO(poolType);
         }
 
         return _pools[poolType].PopObject(position, parent);

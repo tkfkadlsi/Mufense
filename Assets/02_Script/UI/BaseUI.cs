@@ -19,12 +19,12 @@ public class BaseUI : BaseInit
 
     protected virtual void ActiveOn()
     {
-        Debug.Log($"{name} active is on");
+        Debug.Log($"[사람이냐] : {name} active is on");
     }
 
     protected virtual void ActiveOff()
     {
-        Debug.Log($"{name} active is off");
+        Debug.Log($"[사람이냐] : {name} active is off");
     }
 
     protected void Bind<T>(Type type) where T : Object
@@ -47,7 +47,7 @@ public class BaseUI : BaseInit
 
             if (objects[i] == null)
             {
-                Debug.LogError($"{names[i]} (이)라는 오브젝트는 없습니다.");
+                Debug.LogError($"[사람이냐] : {names[i]} (이)라는 오브젝트는 없습니다.");
             }
         }
     }
@@ -60,7 +60,7 @@ public class BaseUI : BaseInit
         }
 
 
-        Debug.LogError($"{typeof(T)} 타입이 Bind되지 않았습니다.");
+        Debug.LogError($"[사람이냐] : {typeof(T)} 타입이 Bind되지 않았습니다.");
         return null;
     }
 }

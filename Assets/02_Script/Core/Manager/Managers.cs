@@ -16,11 +16,13 @@ public class Managers : BaseInit
     #region 매니저 스크립트
     private GameManager _gameManager;
     private PoolManager _poolManager;
+    private UIManager _uiManager;
     #endregion
 
     #region 매니저 접근용 프로퍼티
     public GameManager Game { get { return _gameManager; } }
     public PoolManager Pool { get { return _poolManager; } }
+    public UIManager UI { get { return _uiManager; } }
     #endregion
 
     protected override bool Init()
@@ -28,8 +30,19 @@ public class Managers : BaseInit
         if (base.Init() == false)
             return false;
 
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         _gameManager = GetComponent<GameManager>();
         _poolManager = GetComponent<PoolManager>();
+        _uiManager = GetComponent<UIManager>();
 
         return true;
     }
