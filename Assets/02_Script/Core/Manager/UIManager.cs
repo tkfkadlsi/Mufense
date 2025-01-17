@@ -9,10 +9,12 @@ public class UIManager : MonoBehaviour
         get
         {
             if( _titleRootUI == null )
+            {
                 _titleRootUI = FindAnyObjectByType<TitleRootUI>();
 
-            if (_titleRootUI == null)
-                Debug.LogError($"[사람이냐] : 현재 TitleScene이 아닙니다.");
+                if (_titleRootUI == null)
+                    Debug.LogError($"[사람이냐] : 현재 TitleScene이 아닙니다.");
+            }
 
             return _titleRootUI;
         }
