@@ -24,6 +24,8 @@ public class MultiLanguageText : BaseInit
 
         _text = GetComponent<TextMeshProUGUI>();
 
+        HandleChangeLanguage(Managers.Instance.Game.Language);
+
         Managers.Instance.Game.ChangeLanguageEvent += HandleChangeLanguage;
 
         return true;
