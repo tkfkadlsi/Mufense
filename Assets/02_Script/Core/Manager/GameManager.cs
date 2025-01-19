@@ -20,5 +20,8 @@ public class GameManager : MonoBehaviour
     public float MusicVolume;
     public float EffectVolume;
 
+    public bool AutoStartSong;
+    public bool LowDetailMod;
+
     #endregion
 }

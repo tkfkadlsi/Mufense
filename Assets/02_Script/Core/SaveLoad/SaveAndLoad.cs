@@ -18,5 +18,7 @@ public class SaveAndLoad : MonoBehaviour
         instance.Game.MasterVolume = optionData.MasterVolume;
         instance.Game.MusicVolume = optionData.MusicVolume;
         instance.Game.EffectVolume = optionData.EffectVolume;
+        instance.Game.AutoStartSong = optionData.AutoStartSong;
+        instance.Game.LowDetailMod = optionData.LowDetailMod;
     }
 }

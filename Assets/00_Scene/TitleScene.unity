@@ -924,7 +924,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &215415002
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1465,7 +1465,7 @@ GameObject:
   - component: {fileID: 351554978}
   - component: {fileID: 351554977}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: AutoStartSongCheckText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1680,6 +1680,8 @@ MonoBehaviour:
   MasterVolume: 0
   MusicVolume: 0
   EffectVolume: 0
+  AutoStartSong: 0
+  LowDetailMod: 0
 --- !u!114 &419489191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5497,7 +5499,7 @@ GameObject:
   - component: {fileID: 1310174724}
   - component: {fileID: 1310174723}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: LowDetailModCheckText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
