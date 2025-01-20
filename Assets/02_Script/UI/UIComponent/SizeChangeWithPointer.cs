@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class SizeChangeWithPointer : BaseUI, IPointerEnterHandler, IPointerExitHandler
 {
-    private float SizeMultiplyWithPointer;
+    [SerializeField] private float SizeMultiplyWithPointer = 1.1f;
 
     public void OnPointerEnter(PointerEventData eventData)
     {

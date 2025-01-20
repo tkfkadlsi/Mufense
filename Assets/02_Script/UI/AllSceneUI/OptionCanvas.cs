@@ -1,10 +1,23 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.UI;
 
 public class OptionCanvas : BaseUI
 {
-    
+    private enum EGameObjects
+    {
+        SoundSetting,
+        ControlSetting,
+        GameSetting
+    }
+
+    private enum EOutlines
+    {
+        SelectSound,
+        SelectControl,
+        SelectGamePlay
+    }
 
     private enum ESliders
     {
@@ -15,8 +28,12 @@ public class OptionCanvas : BaseUI
 
     private enum EButtons
     {
+        SelectSound,
+        SelectControl,
+        SelectGamePlay,
         AutoStartSongButton,
-        LowDetailModButton
+        LowDetailModButton,
+        ExitButton
     }
 
     private enum ETexts
@@ -25,12 +42,26 @@ public class OptionCanvas : BaseUI
         LowDetailModCheckText,
     }
 
+    private GameObject _soundSetting;
+    private GameObject _controlSetting;
+    private GameObject _gameSetting;
+
+    private Outline _selectSoundOutline;
+    private Outline _selectControlOutline;
+    private Outline _selectGamePlayOutline;
+
     private Slider _masterVolumeSlider;
     private Slider _musicVolumeSlider;
     private Slider _effectVolumeSlider;
 
+    private Button _selectSound;
+    private Button _selectControl;
+    private Button _selectGamePlay;
+
     private Button _autoStartSongButton;
     private Button _lowDetailModButton;
+
+    private Button _exitButton;
 
     private TextMeshProUGUI _autoStartSongCheckText;
     private TextMeshProUGUI _lowDetailModCheckText;
@@ -42,16 +73,32 @@ public class OptionCanvas : BaseUI
             return false;
         }
 
+        Bind<GameObject>(typeof(EGameObjects));
+        Bind<Outline>(typeof(EOutlines));
         Bind<Slider>(typeof(ESliders));
         Bind<Button>(typeof(EButtons));
         Bind<TextMeshProUGUI>(typeof(ETexts));
+
+        _soundSetting = Get<GameObject>((int)EGameObjects.SoundSetting);
+        _controlSetting = Get<GameObject>((int)EGameObjects.ControlSetting);
+        _gameSetting = Get<GameObject>((int)EGameObjects.GameSetting);
+
+        _selectSoundOutline = Get<Outline>((int)EOutlines.SelectSound);
+        _selectControlOutline = Get<Outline>((int)EOutlines.SelectControl);
+        _selectGamePlayOutline = Get<Outline>((int)EOutlines.SelectGamePlay);
 
         _masterVolumeSlider = Get<Slider>((int)ESliders.MasterVolumeSlider);
         _musicVolumeSlider = Get<Slider>((int)ESliders.MusicVolumeSlider);
         _effectVolumeSlider = Get<Slider>((int)ESliders.EffectVolumeSlider);
 
+        _selectSound = Get<Button>((int)EButtons.SelectSound);
+        _selectControl = Get<Button>((int)EButtons.SelectControl);
+        _selectGamePlay = Get<Button>((int)EButtons.SelectGamePlay);
+
         _autoStartSongButton = Get<Button>((int)EButtons.AutoStartSongButton);
         _lowDetailModButton = Get<Button>((int)EButtons.LowDetailModButton);
+
+        _exitButton = Get<Button>((int)EButtons.ExitButton);
 
         _autoStartSongCheckText = Get<TextMeshProUGUI>((int)ETexts.AutoStartSongCheckText);
         _lowDetailModCheckText = Get<TextMeshProUGUI>((int)ETexts.LowDetailModCheckText);
@@ -60,8 +107,14 @@ public class OptionCanvas : BaseUI
         _musicVolumeSlider.onValueChanged.AddListener(HandleMusicVolumeSlider);
         _effectVolumeSlider.onValueChanged.AddListener(HandleEffectVolumeSlider);
 
+        _selectSound.onClick.AddListener(HandleSelectSound);
+        _selectControl.onClick.AddListener(HandleSelectControl);
+        _selectGamePlay.onClick.AddListener(HandleSelectGamePlay);
+
         _autoStartSongButton.onClick.AddListener(HandleAutoStartSong);
         _lowDetailModButton.onClick.AddListener(HandleLowDetailMod);
+
+        _exitButton.onClick.AddListener(HandleExit);
 
         return true;
     }
@@ -70,10 +123,85 @@ public class OptionCanvas : BaseUI
     {
         base.ActiveOn();
 
+        HandleSelectSound();
+
         _masterVolumeSlider.value = Managers.Instance.Game.MasterVolume;
         _musicVolumeSlider.value = Managers.Instance.Game.MusicVolume;
         _effectVolumeSlider.value = Managers.Instance.Game.EffectVolume;
+
+        _autoStartSongCheckText.text = Managers.Instance.Game.AutoStartSong ? "V" : "";
+        _lowDetailModCheckText.text = Managers.Instance.Game.LowDetailMod ? "V" : "";
     }
+
+    private void HandleExit()
+    {
+        Managers.Instance.UI.TitleRootUI.SetActiveCanvas("OptionCanvas", false);
+    }
+
+    #region Select
+
+    private void HandleSelectSound()
+    {
+        ChangeOutlineColor(EOutlines.SelectSound);
+        ChangeActiveOption(EGameObjects.SoundSetting);
+    }
+
+    private void HandleSelectControl()
+    {
+        ChangeOutlineColor(EOutlines.SelectControl);
+        ChangeActiveOption(EGameObjects.ControlSetting);
+    }
+
+    private void HandleSelectGamePlay()
+    {
+        ChangeOutlineColor(EOutlines.SelectGamePlay);
+        ChangeActiveOption(EGameObjects.GameSetting);
+    }
+
+    private void ChangeOutlineColor(EOutlines Eoutline)
+    {
+        Color yellow = new Color(1, 0.76f, 0);
+        Color gray = new Color(0.66f, 0.66f, 0.66f);
+
+        _selectSoundOutline.effectColor = gray;
+        _selectControlOutline.effectColor = gray;
+        _selectGamePlayOutline.effectColor = gray;
+
+        switch(Eoutline)
+        {
+            case EOutlines.SelectSound:
+                _selectSoundOutline.effectColor = yellow;
+                break;
+            case EOutlines.SelectControl:
+                _selectControlOutline.effectColor = yellow;
+                break;
+            case EOutlines.SelectGamePlay:
+                _selectGamePlayOutline.effectColor = yellow;
+                break;
+        }
+    }
+
+    private void ChangeActiveOption(EGameObjects Ego)
+    {
+        _soundSetting.SetActive(false);
+        _controlSetting.SetActive(false);
+        _gameSetting.SetActive(false);
+
+        switch(Ego)
+        {
+            case EGameObjects.SoundSetting:
+                _soundSetting.SetActive(true);
+                break;
+            case EGameObjects.ControlSetting:
+                _controlSetting.SetActive(true);
+                break;
+            case EGameObjects.GameSetting:
+                _gameSetting.SetActive(true);
+                break;
+        }
+    }
+
+    #endregion
 
     #region Sound
 
