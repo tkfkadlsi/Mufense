@@ -1676,6 +1676,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AudioMixer: {fileID: 24100000, guid: 08e09d8f4676b9e468e02224736929bc, type: 2}
+  InputReader: {fileID: 11400000, guid: b0e5121f49caeb948bab0674ff537407, type: 2}
+  SongCount: 0
+  PlayingMusic:
+    SongName: 
+    ArtistName: 
+    Clip: {fileID: 0}
+    BpmChangeDict:
+      _serializedList: []
+    LineSheet: {fileID: 0}
+    BombSheet: {fileID: 0}
+    BoomSheet: {fileID: 0}
+    ArcSheet: {fileID: 0}
+  CurrentBPM: 0
   Language: 1
   MasterVolume: 0
   MusicVolume: 0
@@ -2184,8 +2197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2692e927cfa8a8d4a8d78b269a51ae4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _koreanText: "\uCE90\uB9AD\uD130 \uBCF4\uAE30"
-  _englishText: Focus Character
+  _koreanText: "\uD50C\uB808\uC774\uC5B4 \uBCF4\uAE30"
+  _englishText: Focus Player
 --- !u!114 &581241754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2206,7 +2219,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Focus Character
+  m_text: Focus Player
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b6cf6ab88e144e94ea0e1b0417e27153, type: 2}
   m_sharedMaterial: {fileID: 7588812055781326491, guid: b6cf6ab88e144e94ea0e1b0417e27153, type: 2}

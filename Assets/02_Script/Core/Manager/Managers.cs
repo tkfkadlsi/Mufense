@@ -1,3 +1,6 @@
+
+using UnityEngine;
+
 public class Managers : BaseInit
 {
     private static Managers instance;   //Managers 클래스의 유일한 인스턴스
@@ -29,6 +32,8 @@ public class Managers : BaseInit
     {
         if (base.Init() == false)
             return false;
+
+        Application.targetFrameRate = -1;
 
         if(instance == null)
         {

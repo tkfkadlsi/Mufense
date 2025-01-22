@@ -6,8 +6,22 @@ using UnityEngine.Audio;
 public class GameManager : MonoBehaviour
 {
     public AudioMixer AudioMixer;
+    public InputReaderSO InputReader;
+
+    #region Music
+
     public int SongCount = 0;
-    public Music PlayingMuisc;
+    public Music PlayingMusic;
+
+    public Action BeatEvent;
+    public float CurrentBPM;
+
+    public void SetBPM(float bpm)
+    {
+        CurrentBPM = bpm;
+    }
+
+    #endregion
 
     #region Function
 
@@ -21,11 +35,6 @@ public class GameManager : MonoBehaviour
         }
 
         return _scriptDict[typeof(T)] as T;
-    }
-
-    public void SongFinish()
-    {
-        
     }
 
     #endregion

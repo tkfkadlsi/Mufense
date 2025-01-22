@@ -7,6 +7,11 @@ public class MusicPlayer : BaseInit
     public List<Music> MusicList = new List<Music>();
 
     private AudioSource _audioSource;
+    private Dictionary<string, List<float>> _beatTimingsInSong = new Dictionary<string, List<float>>();
+    private Dictionary<string, List<float>> _bpmTimingsInSong = new Dictionary<string, List<float>>();
+    private int beatCounter = 0;
+    private int bpmCounter = 0;
+    private Music PlayingMusic;
 
     protected override bool Init()
     {
@@ -17,13 +22,52 @@ public class MusicPlayer : BaseInit
 
         _audioSource = GetComponent<AudioSource>();
 
+        foreach(Music music in MusicList)
+        {
+            _beatTimingsInSong.Add(music.SongName, new List<float>());
+            _bpmTimingsInSong.Add(music.SongName, new List<float>());
+
+            MakeBeatTiming(music);
+        }
+
         return true;
     }
 
-    public IEnumerator MusicPlaying()
+    private void MakeBeatTiming(Music music)
+    {
+        List<float> timings = new List<float>();
+        foreach(var bcd in music.BpmChangeDict)
+        {
+            timings.Add(bcd.Key);
+            _bpmTimingsInSong[music.SongName].Add(bcd.Key);
+        }
+
+        float timing = 0f;
+        float unitTime = 0f;
+
+        for(int i = 0; i < timings.Count; i++)
+        {
+            timing = timings[i];
+            unitTime = 60f / music.BpmChangeDict[timings[i]];
+        
+            while(timing < (i == timings.Count ? music.Clip.length : timings[i + 1]))
+            {
+                _beatTimingsInSong[music.SongName].Add(timing);
+            }
+        }
+    }
+
+    public void GameStart()
+    {
+        StartCoroutine(MusicPlaying());
+    }
+
+    private IEnumerator MusicPlaying()
     {
         Music music = MusicList[Random.Range(0, MusicList.Count)];
-        Managers.Instance.Game.PlayingMuisc = music;
+        Managers.Instance.Game.PlayingMusic = music;
+        PlayingMusic = music;
+        beatCounter = 0;
 
         _audioSource.clip = music.Clip;
         _audioSource.Play();
@@ -32,8 +76,23 @@ public class MusicPlayer : BaseInit
 
         yield return new WaitUntil(() => _audioSource.isPlaying == false);
 
-        Managers.Instance.Game.SongFinish();
     }
 
+    private void Update()
+    {
+        if(_audioSource.isPlaying)
+        {
+            if(_beatTimingsInSong[PlayingMusic.SongName][beatCounter] < _audioSource.time)
+            {
+                Managers.Instance.Game.BeatEvent?.Invoke();
+                beatCounter++;
+            }
 
+            if (_bpmTimingsInSong[PlayingMusic.SongName][bpmCounter] < _audioSource.time)
+            {
+                Managers.Instance.Game.SetBPM(PlayingMusic.BpmChangeDict[_bpmTimingsInSong[PlayingMusic.SongName][bpmCounter]]);
+                bpmCounter++;
+            }
+        }
+    }
 }
