@@ -50,11 +50,16 @@ public class MusicPlayer : BaseInit
             timing = timings[i];
             unitTime = 60f / music.BpmChangeDict[timings[i]];
         
-            while(timing < (i == timings.Count ? music.Clip.length : timings[i + 1]))
+            while(timing < (i == timings.Count - 1 ? music.Clip.length : timings[i + 1]))
             {
                 _beatTimingsInSong[music.SongName].Add(timing);
             }
         }
+    }
+
+    private void Start()
+    {
+        GameStart();
     }
 
     public void GameStart()

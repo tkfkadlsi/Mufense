@@ -9,7 +9,7 @@ public enum ObjectType
     Attacks = 200
 }
 
-public class BaseObject : BaseInit
+public abstract class BaseObject : BaseInit
 {
     protected SpriteRenderer _spriteRenderer;
     protected ObjectType _objectType;
@@ -21,9 +21,14 @@ public class BaseObject : BaseInit
             return false;
         }
 
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = gameObject.GetOrAddComponent<SpriteRenderer>();
 
         return true;
+    }
+
+    protected void OnEnable()
+    {
+        Setting();
     }
 
     protected virtual void Setting()

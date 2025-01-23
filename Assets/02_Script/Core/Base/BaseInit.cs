@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BaseInit : MonoBehaviour
+public abstract class BaseInit : MonoBehaviour
 {
     private bool _initStart = false;    //init을 한 적이 있는지 저장하는 변수
     private bool _releaseComplete = false;  //release를 한 적이 있는지 저장하는 변수

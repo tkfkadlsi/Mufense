@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum PoolType
 {
-    TriangleEnemy
+    TriangleEnemy,
+    PlayerAttack
 }
 
 public class PoolManager : MonoBehaviour

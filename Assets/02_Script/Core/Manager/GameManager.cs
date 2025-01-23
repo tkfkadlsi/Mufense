@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     public Action BeatEvent;
     public float CurrentBPM;
+    public float UnitTime => 60f / CurrentBPM;
 
     public void SetBPM(float bpm)
     {

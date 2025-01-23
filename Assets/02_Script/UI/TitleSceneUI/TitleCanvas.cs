@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TitleCanvas : BaseUI
@@ -32,7 +33,7 @@ public class TitleCanvas : BaseUI
 
     private void HandleGameStart()
     {
-        
+        SceneManager.LoadScene("GameScene");
     }
 
     private void HandleOption()

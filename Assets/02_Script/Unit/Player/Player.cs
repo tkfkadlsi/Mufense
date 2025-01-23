@@ -1,8 +1,13 @@
+using System.Collections;
 using UnityEngine;
 
-public class Player : Unit
+public class Player : Unit, IMusicHandleObject
 {
+    [Header("Movement")]
     [SerializeField] private float _moveSpeed;
+
+    [Header("Dash")]
+    [SerializeField] private int _dashCoolBeat;
 
     protected override bool Init()
     {
@@ -13,7 +18,20 @@ public class Player : Unit
 
         _objectType = ObjectType.Player;
 
+        Managers.Instance.Game.InputReader.DashEvent += Dash;
+
         return true;
+    }
+
+    protected override void Release()
+    {
+        if(Managers.Instance != null)
+        {
+            Managers.Instance.Game.InputReader.DashEvent -= Dash;
+
+        }
+
+        base.Release();
     }
 
     private void Update()
@@ -21,9 +39,43 @@ public class Player : Unit
         Movement(Managers.Instance.Game.InputReader.MoveDirection);
     }
 
-
     private void Movement(Vector2 direction)
     {
-        _rigidbody.linearVelocity = direction * _moveSpeed * Time.deltaTime;
+        _rigidbody.linearVelocity = direction * _moveSpeed;
+    }
+
+    private void Dash()
+    {
+        if (_dashCoolBeat > 0)
+            return;
+
+        StartCoroutine(DashCoroutine());
+
+        _dashCoolBeat = 4;
+    }
+
+    private IEnumerator DashCoroutine()
+    {
+        float t = 0f;
+        float lerpTime = 60f / 120f;
+
+        float originalSpeed = _moveSpeed;
+        _moveSpeed *= 10f;
+
+        while(t < lerpTime)
+        {
+            yield return null;
+            t += Time.deltaTime;
+
+            _moveSpeed = Mathf.Lerp(_moveSpeed, originalSpeed, t / lerpTime);
+        }
+    }
+
+    public void HandleMusicBeat()
+    {
+        if(_dashCoolBeat > 0)
+            _dashCoolBeat--;
+
+        //АјАн
     }
 }

@@ -1,10 +1,8 @@
 using UnityEngine;
 
-public abstract class Unit : BaseObject
+public abstract class Attack : BaseObject
 {
-    protected Rigidbody2D _rigidbody;
-    protected Collider2D _collider;
-
+    private Collider2D _collider;
 
     protected override bool Init()
     {
@@ -13,7 +11,8 @@ public abstract class Unit : BaseObject
             return false;
         }
 
-        _rigidbody = gameObject.GetOrAddComponent<Rigidbody2D>();
+        _objectType = ObjectType.Attacks;
+
         _collider = gameObject.GetOrAddComponent<Collider2D>();
 
         return true;
@@ -22,7 +21,7 @@ public abstract class Unit : BaseObject
     protected override void Setting()
     {
         base.Setting();
-        _rigidbody.gravityScale = 0;
-        _collider.isTrigger = false;
+
+        _collider.isTrigger = true;
     }
 }
