@@ -32,6 +32,8 @@ public class PlayerAttack : Attack
         mousePos.z = 0;
 
         _direction = mousePos - transform.position;
+
+        StartCoroutine(AttackCoroutine());
     }
 
     private void Update()
@@ -41,7 +43,7 @@ public class PlayerAttack : Attack
 
     private IEnumerator AttackCoroutine()
     {
-        yield return new WaitForSeconds(Managers.Instance.Game.UnitTime);
+        yield return new WaitForSeconds(1f);
         _poolable.PushThisObject();
     }
 }

@@ -19,6 +19,7 @@ public class Player : Unit, IMusicHandleObject
         _objectType = ObjectType.Player;
 
         Managers.Instance.Game.InputReader.DashEvent += Dash;
+        Managers.Instance.Game.BeatEvent += HandleMusicBeat;
 
         return true;
     }
@@ -28,7 +29,7 @@ public class Player : Unit, IMusicHandleObject
         if(Managers.Instance != null)
         {
             Managers.Instance.Game.InputReader.DashEvent -= Dash;
-
+            Managers.Instance.Game.BeatEvent -= HandleMusicBeat;
         }
 
         base.Release();
@@ -76,6 +77,6 @@ public class Player : Unit, IMusicHandleObject
         if(_dashCoolBeat > 0)
             _dashCoolBeat--;
 
-        //АјАн
+        Managers.Instance.Pool.PopObject(PoolType.PlayerAttack, transform.position);
     }
 }

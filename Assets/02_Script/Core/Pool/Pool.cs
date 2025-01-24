@@ -13,7 +13,7 @@ public class Pool
         po.gameObject.SetActive(false);
         po.transform.SetParent(null);
 
-        po.transform.position = Vector3.positiveInfinity;
+        po.transform.position = new Vector3(0, 0, -100);
 
         _objectStack.Push(po);
     }

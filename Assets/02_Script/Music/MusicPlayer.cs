@@ -53,6 +53,7 @@ public class MusicPlayer : BaseInit
             while(timing < (i == timings.Count - 1 ? music.Clip.length : timings[i + 1]))
             {
                 _beatTimingsInSong[music.SongName].Add(timing);
+                timing += unitTime;
             }
         }
     }
@@ -73,6 +74,7 @@ public class MusicPlayer : BaseInit
         Managers.Instance.Game.PlayingMusic = music;
         PlayingMusic = music;
         beatCounter = 0;
+        bpmCounter = 0;
 
         _audioSource.clip = music.Clip;
         _audioSource.Play();
@@ -87,16 +89,22 @@ public class MusicPlayer : BaseInit
     {
         if(_audioSource.isPlaying)
         {
-            if(_beatTimingsInSong[PlayingMusic.SongName][beatCounter] < _audioSource.time)
+            if(beatCounter < _beatTimingsInSong[PlayingMusic.SongName].Count)
             {
-                Managers.Instance.Game.BeatEvent?.Invoke();
-                beatCounter++;
+                if (_beatTimingsInSong[PlayingMusic.SongName][beatCounter] < _audioSource.time)
+                {
+                    Managers.Instance.Game.BeatEvent?.Invoke();
+                    beatCounter++;
+                }
             }
 
-            if (_bpmTimingsInSong[PlayingMusic.SongName][bpmCounter] < _audioSource.time)
+            if(bpmCounter < _bpmTimingsInSong[PlayingMusic.SongName].Count)
             {
-                Managers.Instance.Game.SetBPM(PlayingMusic.BpmChangeDict[_bpmTimingsInSong[PlayingMusic.SongName][bpmCounter]]);
-                bpmCounter++;
+                if (_bpmTimingsInSong[PlayingMusic.SongName][bpmCounter] < _audioSource.time)
+                {
+                    Managers.Instance.Game.SetBPM(PlayingMusic.BpmChangeDict[_bpmTimingsInSong[PlayingMusic.SongName][bpmCounter]]);
+                    bpmCounter++;
+                }
             }
         }
     }

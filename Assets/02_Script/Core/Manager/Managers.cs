@@ -49,6 +49,8 @@ public class Managers : BaseInit
         _poolManager = GetComponent<PoolManager>();
         _uiManager = GetComponent<UIManager>();
 
+        _poolManager.Init();
+
         return true;
     }
 
