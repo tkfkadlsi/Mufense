@@ -1,6 +1,58 @@
 using UnityEngine;
 
-public class Enemy : Unit
+public class Enemy : Unit, IHealth
 {
-    
+    private float _speed;
+
+    private Player _player;
+    private Core _core;
+
+    private float _hp;
+    public float HP
+    {
+        get
+        {
+            return _hp;
+        }
+        set
+        {
+            _hp = value;
+            if(_hp <= 0f)
+            {
+                Die();
+            }
+        }
+    }
+
+    protected override bool Init()
+    {
+        if (base.Init() == false)
+        {
+            return false;
+        }
+
+        _objectType = ObjectType.Enemy;
+        
+
+        return true;
+    }
+
+    protected override void Setting()
+    {
+        base.Setting();
+        _player = FindAnyObjectByType<Player>();
+        _core = FindAnyObjectByType<Core>();
+    }
+
+    public void EnemySetting(float hp, float speed, Sprite sprite)
+    {
+        _spriteRenderer.sprite = sprite;
+        _hp = hp;
+        _speed = speed;
+    }
+
+    public void Die()
+    {
+
+    }
 }

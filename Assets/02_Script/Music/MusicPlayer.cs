@@ -65,6 +65,8 @@ public class MusicPlayer : BaseInit
 
     public void GameStart()
     {
+        Managers.Instance.Game.PlayTime = 0;
+        Managers.Instance.Game.SongCount = 0;
         StartCoroutine(MusicPlaying());
     }
 
@@ -89,6 +91,7 @@ public class MusicPlayer : BaseInit
     {
         if(_audioSource.isPlaying)
         {
+            Managers.Instance.Game.PlayTime += Time.deltaTime;
             if(beatCounter < _beatTimingsInSong[PlayingMusic.SongName].Count)
             {
                 if (_beatTimingsInSong[PlayingMusic.SongName][beatCounter] < _audioSource.time)

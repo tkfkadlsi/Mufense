@@ -8,9 +8,14 @@ public class GameManager : MonoBehaviour
     public AudioMixer AudioMixer;
     public InputReaderSO InputReader;
 
-    #region Music
+    #region Game
 
-    public int SongCount = 0;
+    public float PlayTime;
+
+    #endregion
+
+    #region Music
+    public int SongCount;
     public Music PlayingMusic;
 
     public Action BeatEvent;
