@@ -1665,6 +1665,8 @@ MonoBehaviour:
     _serializedList:
     - Key: 1
       Value: {fileID: 6934058154038173161, guid: 22d05678c7cffe64483f6c4373de321c, type: 3}
+    - Key: 0
+      Value: {fileID: 3162695737224804858, guid: 733a7be75c9fa17489aab1a697c9aef4, type: 3}
 --- !u!114 &419489190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1679,6 +1681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioMixer: {fileID: 24100000, guid: 08e09d8f4676b9e468e02224736929bc, type: 2}
   InputReader: {fileID: 11400000, guid: b0e5121f49caeb948bab0674ff537407, type: 2}
+  PlayTime: 0
   SongCount: 0
   PlayingMusic:
     SongName: 

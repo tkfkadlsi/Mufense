@@ -46,4 +46,13 @@ public class PlayerAttack : Attack
         yield return new WaitForSeconds(1f);
         _poolable.PushThisObject();
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.TryGetComponent<Enemy>(out Enemy enemy))
+        {
+            enemy.HP -= 1;
+            _poolable.PushThisObject();
+        }
+    }
 }

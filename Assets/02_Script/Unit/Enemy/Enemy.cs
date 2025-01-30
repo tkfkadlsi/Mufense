@@ -7,6 +7,9 @@ public class Enemy : Unit, IHealth
     private Player _player;
     private Core _core;
 
+    private Transform _target;
+    private PoolableObject _poolable;
+
     private float _hp;
     public float HP
     {
@@ -32,9 +35,24 @@ public class Enemy : Unit, IHealth
         }
 
         _objectType = ObjectType.Enemy;
-        
+        _poolable = GetComponent<PoolableObject>();
 
         return true;
+    }
+
+    private void Update()
+    {
+        if(10f >= Vector3.Distance(_player.transform.position, transform.position))
+        {
+            _target = _player.transform;
+        }
+        else
+        {
+            _target = _core.transform;
+        }
+
+        Vector3 direction = (_target.position - transform.position).normalized;
+        transform.position += direction * _speed * Time.deltaTime;
     }
 
     protected override void Setting()
@@ -53,6 +71,6 @@ public class Enemy : Unit, IHealth
 
     public void Die()
     {
-
+        _poolable.PushThisObject();
     }
 }
