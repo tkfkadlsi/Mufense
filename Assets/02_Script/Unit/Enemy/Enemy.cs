@@ -1,7 +1,15 @@
 using UnityEngine;
 
+public enum EnemyState
+{
+    Create,
+    Active,
+    Death
+}
+
 public class Enemy : Unit, IHealth
 {
+    private EnemyState _state;
     private float _speed;
 
     private Player _player;
@@ -42,6 +50,7 @@ public class Enemy : Unit, IHealth
 
     private void Update()
     {
+        if (_state != EnemyState.Active) return;
         if(10f >= Vector3.Distance(_player.transform.position, transform.position))
         {
             _target = _player.transform;
@@ -67,10 +76,12 @@ public class Enemy : Unit, IHealth
         _spriteRenderer.sprite = sprite;
         _hp = hp;
         _speed = speed;
+        _state = EnemyState.Create;
     }
 
     public void Die()
     {
+        _state = EnemyState.Death;
         _poolable.PushThisObject();
     }
 }

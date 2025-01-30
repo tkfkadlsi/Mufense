@@ -14,9 +14,13 @@ public class Core : Unit
         return true;
     }
 
+    private void Update()
+    {
+        transform.Rotate(0, 0, (90f / Managers.Instance.Game.UnitTime) * Time.deltaTime);
+    }
+
     protected override void Setting()
     {
         base.Setting();
-
     }
 }
