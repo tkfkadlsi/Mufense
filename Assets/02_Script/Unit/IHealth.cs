@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public interface IHealth
@@ -5,4 +6,5 @@ public interface IHealth
     public float HP { get; set; }
 
     public void Die();
+    public IEnumerator Hited();
 }

@@ -15,11 +15,13 @@ public class MusicPowerChest : BaseInit
             return false;
         }
 
-        _musicPowerSlider = gameObject.FindChild<Slider>("");
         _musicPowerCounter = gameObject.FindChild<TextMeshProUGUI>("");
+        _musicPowerSlider = GetComponent<Slider>();
 
         _maxMusicPower = 0;
         _musicPowerSlider.value = 0;
+
+        SetMaxMusicPower(1000);
 
         return true;
     }
@@ -27,6 +29,7 @@ public class MusicPowerChest : BaseInit
     public void SetMaxMusicPower(int value)
     {
         _maxMusicPower = value;
+        SetCounter();
     }
 
     public void AddMusicPower(int value)
