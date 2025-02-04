@@ -4,6 +4,7 @@ public enum ObjectType
 {
     Wall = 0,
     Core = 1,
+    MusicPowerOrb = 10,
     Enemy = 100,
     Player = 101,
     Attacks = 200

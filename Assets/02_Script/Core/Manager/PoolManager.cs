@@ -5,7 +5,8 @@ using UnityEngine;
 public enum PoolType
 {
     Enemy,
-    PlayerAttack
+    PlayerAttack,
+    MusicPowerOrb
 }
 
 public class PoolManager : MonoBehaviour

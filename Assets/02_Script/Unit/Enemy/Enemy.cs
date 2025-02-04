@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 public enum EnemyState
 {
@@ -13,6 +14,7 @@ public class Enemy : Unit, IHealth
     private EnemyState _state;
     private float _speed;
     private float _originSpeed;
+    private int _musicPower;
 
     private Player _player;
     private Core _core;
@@ -89,6 +91,7 @@ public class Enemy : Unit, IHealth
     {
         _spriteRenderer.sprite = sprite;
         _hp = hp;
+        _musicPower = (int)hp;
         _speed = speed;
         _originSpeed = speed;
         _state = EnemyState.Active;
@@ -97,8 +100,28 @@ public class Enemy : Unit, IHealth
     public void Die()
     {
         _state = EnemyState.Death;
-        //다이아몬드 작은거 드롭하고 자동으로 코어로 빨려들어가게 해서 코어에 닿는 순간 뮤직파워 얻게 해줘.
+;
+
+        while(_musicPower >= 5)
+        {
+            SpawnOrb(5);
+        }
+
+
+        while(_musicPower > 0)
+        {
+            SpawnOrb(1);
+        }
+
         _poolable.PushThisObject();
+    }
+
+    private void SpawnOrb(int musicPower)
+    {
+        MusicPowerOrb musicPowerOrb;
+        _musicPower -= musicPower;
+        musicPowerOrb = Managers.Instance.Pool.PopObject(PoolType.MusicPowerOrb, transform.position).GetComponent<MusicPowerOrb>();
+        musicPowerOrb.SetMusicPower(musicPower);
     }
 
     public IEnumerator Hited()

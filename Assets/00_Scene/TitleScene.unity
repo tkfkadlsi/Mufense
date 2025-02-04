@@ -348,6 +348,8 @@ MonoBehaviour:
       Value: {fileID: 6934058154038173161, guid: 22d05678c7cffe64483f6c4373de321c, type: 3}
     - Key: 0
       Value: {fileID: 3162695737224804858, guid: 733a7be75c9fa17489aab1a697c9aef4, type: 3}
+    - Key: 2
+      Value: {fileID: 4050863107569587097, guid: c227489ce2d73e94097bb593a5cc642c, type: 3}
 --- !u!114 &419489190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,7 +377,7 @@ MonoBehaviour:
     BoomSheet: {fileID: 0}
     ArcSheet: {fileID: 0}
   CurrentBPM: 0
-  Language: 1
+  Language: 0
   MasterVolume: 0
   MusicVolume: 0
   EffectVolume: 0
