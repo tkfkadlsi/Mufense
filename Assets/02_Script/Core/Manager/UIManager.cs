@@ -19,4 +19,23 @@ public class UIManager : MonoBehaviour
             return _titleRootUI;
         }
     }
+
+
+    private GameRootUI _gameRootUI;
+
+    public GameRootUI GameRootUI
+    {
+        get
+        {
+            if (_gameRootUI == null)
+            {
+                _gameRootUI = FindAnyObjectByType<GameRootUI>();
+
+                if (_gameRootUI == null)
+                    Debug.LogError($"[사람이냐] : 현재 GameScene이 아닙니다.");
+            }
+
+            return _gameRootUI;
+        }
+    }
 }

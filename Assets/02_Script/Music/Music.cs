@@ -9,8 +9,10 @@ public class Music
     public string ArtistName;
     public AudioClip Clip;
     [SerializedDictionary("Timing", "BPM")] public SerializedDictionary<float, float> BpmChangeDict;
-    public TextAsset LineSheet;
-    public TextAsset BombSheet;
-    public TextAsset BoomSheet;
-    public TextAsset ArcSheet;
+    public Color PlayerColor;
+    public Color EnemyColor;
+    public Color PlayerAttackColor;
+    public Color CoreColor;
+    public Color WallColor;
+    public Color BackGroundColor;
 }

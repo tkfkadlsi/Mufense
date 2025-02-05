@@ -16,11 +16,16 @@ public class Core : Unit
 
     private void Update()
     {
-        transform.Rotate(0, 0, (90f / Managers.Instance.Game.UnitTime) * Time.deltaTime);
+        transform.Rotate(0, 0, (120f / Managers.Instance.Game.UnitTime) * Time.deltaTime);
     }
 
     protected override void Setting()
     {
         base.Setting();
+    }
+
+    public void CircleArcAttack()
+    {
+        Managers.Instance.Pool.PopObject(PoolType.CircleArc, transform.position);
     }
 }

@@ -6,7 +6,10 @@ public enum PoolType
 {
     Enemy,
     PlayerAttack,
-    MusicPowerOrb
+    MusicPowerOrb,
+    CircleArc,
+    Arc,
+    Line
 }
 
 public class PoolManager : MonoBehaviour

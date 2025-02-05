@@ -11,8 +11,8 @@ public abstract class Attack : BaseObject
             return false;
         }
 
-        _objectType = ObjectType.Attacks;
 
+        _objectType = ObjectType.Attacks;
         _collider = gameObject.GetOrAddComponent<Collider2D>();
 
         return true;

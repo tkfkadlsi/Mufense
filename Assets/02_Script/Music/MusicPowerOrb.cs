@@ -33,6 +33,7 @@ public class MusicPowerOrb : BaseObject
         _core = Managers.Instance.Game.FindBaseInitScript<Core>();
         _collider = GetComponent<CircleCollider2D>();
         _poolable = GetComponent<PoolableObject>();
+        _objectType = ObjectType.MusicPowerOrb;
 
         _trailRenderer.minVertexDistance = 0.005f;
 
@@ -43,7 +44,6 @@ public class MusicPowerOrb : BaseObject
     {
         base.Setting();
         _state = OrbState.Create;
-        _objectType = ObjectType.MusicPowerOrb;
         _collider.isTrigger = true;
         _collider.radius = 1.5f;
     }

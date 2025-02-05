@@ -350,6 +350,8 @@ MonoBehaviour:
       Value: {fileID: 3162695737224804858, guid: 733a7be75c9fa17489aab1a697c9aef4, type: 3}
     - Key: 2
       Value: {fileID: 4050863107569587097, guid: c227489ce2d73e94097bb593a5cc642c, type: 3}
+    - Key: 3
+      Value: {fileID: 619320928101940299, guid: bab4d7ca00d320e42a6e0c4698c102a8, type: 3}
 --- !u!114 &419489190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,10 +374,12 @@ MonoBehaviour:
     Clip: {fileID: 0}
     BpmChangeDict:
       _serializedList: []
-    LineSheet: {fileID: 0}
-    BombSheet: {fileID: 0}
-    BoomSheet: {fileID: 0}
-    ArcSheet: {fileID: 0}
+    PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+    EnemyColor: {r: 0, g: 0, b: 0, a: 0}
+    PlayerAttackColor: {r: 0, g: 0, b: 0, a: 0}
+    CoreColor: {r: 0, g: 0, b: 0, a: 0}
+    WallColor: {r: 0, g: 0, b: 0, a: 0}
+    BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   CurrentBPM: 0
   Language: 0
   MasterVolume: 0
