@@ -5,6 +5,8 @@ public enum ObjectType
     Wall = 0,
     Core = 1,
     MusicPowerOrb = 10,
+    Tower = 11,
+    TowerIcon = 12,
     Enemy = 100,
     Player = 101,
     Attacks = 200

@@ -9,7 +9,9 @@ public enum PoolType
     MusicPowerOrb,
     CircleArc,
     Arc,
-    Line
+    Line,
+    Tower,
+    TowerIcon
 }
 
 public class PoolManager : MonoBehaviour

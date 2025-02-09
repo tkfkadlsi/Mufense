@@ -16,7 +16,7 @@ public class Core : Unit
 
     private void Update()
     {
-        transform.Rotate(0, 0, (120f / Managers.Instance.Game.UnitTime) * Time.deltaTime);
+        transform.Rotate(0, 0, (77f / Managers.Instance.Game.UnitTime) * Time.deltaTime);
     }
 
     protected override void Setting()
