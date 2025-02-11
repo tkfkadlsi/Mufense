@@ -1,8 +1,14 @@
+using DG.Tweening;
 using UnityEngine;
 
-public abstract class Attack : BaseObject
+public abstract class Attack : BaseObject, IMusicPlayHandle
 {
     private Collider2D _collider;
+
+    public void SettingColor(Music music)
+    {
+        _spriteRenderer.DOColor(music.PlayerAttackColor, 1f);
+    }
 
     protected override bool Init()
     {
@@ -15,6 +21,8 @@ public abstract class Attack : BaseObject
         _objectType = ObjectType.Attacks;
         _collider = gameObject.GetOrAddComponent<Collider2D>();
 
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
+
         return true;
     }
 
@@ -23,5 +31,16 @@ public abstract class Attack : BaseObject
         base.Setting();
 
         _collider.isTrigger = true;
+        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerAttackColor;
+    }
+
+    protected override void Release()
+    {
+        if(Managers.Instance != null)
+        {
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
+        }
+
+        base.Release();
     }
 }

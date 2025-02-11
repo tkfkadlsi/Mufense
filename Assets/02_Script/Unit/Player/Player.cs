@@ -1,7 +1,9 @@
+using DG.Tweening;
 using System.Collections;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
-public class Player : Unit, IMusicHandleObject
+public class Player : Unit, IMusicHandleObject, IMusicPlayHandle
 {
     [Header("Movement")]
     [SerializeField] private float _moveSpeed;
@@ -20,6 +22,7 @@ public class Player : Unit, IMusicHandleObject
 
         Managers.Instance.Game.InputReader.DashEvent += Dash;
         Managers.Instance.Game.BeatEvent += HandleMusicBeat;
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
 
         return true;
     }
@@ -30,6 +33,7 @@ public class Player : Unit, IMusicHandleObject
         {
             Managers.Instance.Game.InputReader.DashEvent -= Dash;
             Managers.Instance.Game.BeatEvent -= HandleMusicBeat;
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
         }
 
         base.Release();
@@ -78,5 +82,10 @@ public class Player : Unit, IMusicHandleObject
             _dashCoolBeat--;
 
         Managers.Instance.Pool.PopObject(PoolType.PlayerAttack, transform.position);
+    }
+
+    public void SettingColor(Music music)
+    {
+        _spriteRenderer.DOColor(music.PlayerColor, 1f);
     }
 }

@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MusicPlayer : BaseInit
 {
     public List<Music> MusicList = new List<Music>();
+    public event Action<Music> PlayMusic;
 
     private AudioSource _audioSource;
     private Dictionary<string, List<float>> _beatTimingsInSong = new Dictionary<string, List<float>>();
@@ -78,14 +81,16 @@ public class MusicPlayer : BaseInit
         beatCounter = 0;
         bpmCounter = 0;
 
-        _audioSource.clip = music.Clip;
+        _audioSource.clip = PlayingMusic.Clip;
         _audioSource.Play();
 
         Managers.Instance.Game.SongCount++;
 
+        PlayMusic?.Invoke(PlayingMusic);
+
         yield return new WaitUntil(() => _audioSource.isPlaying == false);
 
-
+        Managers.Instance.Pool.PopObject(PoolType.CircleArc, Vector3.zero);
     }
 
     private void Update()

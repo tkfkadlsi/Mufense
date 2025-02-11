@@ -43,7 +43,7 @@ public class PlayerAttack : Attack
 
     private IEnumerator AttackCoroutine()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(Managers.Instance.Game.UnitTime * 2);
         _poolable.PushThisObject();
     }
 

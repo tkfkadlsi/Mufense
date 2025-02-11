@@ -7,6 +7,7 @@ public enum ObjectType
     MusicPowerOrb = 10,
     Tower = 11,
     TowerIcon = 12,
+    TowerGuide = 13,
     Enemy = 100,
     Player = 101,
     Attacks = 200

@@ -30,4 +30,9 @@ public class MainCanvas : BaseUI
     {
         Managers.Instance.UI.GameRootUI.SetActiveCanvas("BuildCanvas", true);
     }
+
+    public void SetBuildButtonActive(bool active)
+    {
+        _towerBuildButton.gameObject.SetActive(active);
+    }
 }

@@ -1,6 +1,8 @@
+using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 
-public class Core : Unit
+public class Core : Unit, IMusicPlayHandle
 {
     protected override bool Init()
     {
@@ -11,7 +13,19 @@ public class Core : Unit
 
         _objectType = ObjectType.Core;
 
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
+
         return true;
+    }
+
+    protected override void Release()
+    {
+        if(Managers.Instance != null)
+        {
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
+        }
+
+        base.Release();
     }
 
     private void Update()
@@ -27,5 +41,10 @@ public class Core : Unit
     public void CircleArcAttack()
     {
         Managers.Instance.Pool.PopObject(PoolType.CircleArc, transform.position);
+    }
+
+    public void SettingColor(Music music)
+    {
+        _spriteRenderer.DOColor(music.CoreColor, 1f);
     }
 }

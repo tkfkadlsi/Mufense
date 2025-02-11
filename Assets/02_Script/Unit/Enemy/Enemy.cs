@@ -9,7 +9,7 @@ public enum EnemyState
     Death
 }
 
-public class Enemy : Unit, IHealth
+public class Enemy : Unit, IHealth, IMusicPlayHandle
 {
     private EnemyState _state;
     private float _speed;
@@ -60,7 +60,19 @@ public class Enemy : Unit, IHealth
         _objectType = ObjectType.Enemy;
         _poolable = GetComponent<PoolableObject>();
 
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
+
         return true;
+    }
+
+    protected override void Release()
+    {
+        if(Managers.Instance != null)
+        {
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
+        }
+
+        base.Release();
     }
 
     private void Update()
@@ -85,6 +97,7 @@ public class Enemy : Unit, IHealth
         _state = EnemyState.Create;
         _player = FindAnyObjectByType<Player>();
         _core = FindAnyObjectByType<Core>();
+        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
     }
 
     public void EnemySetting(float hp, float speed, Sprite sprite)
@@ -136,5 +149,10 @@ public class Enemy : Unit, IHealth
 
             _speed = Mathf.Lerp(0f, _originSpeed, t / lerpTime);
         }
+    }
+
+    public void SettingColor(Music music)
+    {
+        _spriteRenderer.DOColor(music.EnemyColor, 1f);
     }
 }

@@ -352,6 +352,10 @@ MonoBehaviour:
       Value: {fileID: 4050863107569587097, guid: c227489ce2d73e94097bb593a5cc642c, type: 3}
     - Key: 3
       Value: {fileID: 619320928101940299, guid: bab4d7ca00d320e42a6e0c4698c102a8, type: 3}
+    - Key: 6
+      Value: {fileID: -7287680015221739458, guid: 2768e2bf0121d18439c50f87d4d8e2d3, type: 3}
+    - Key: 7
+      Value: {fileID: 3110957971626711055, guid: d9264e1947deacd45bf870b68e915bfa, type: 3}
 --- !u!114 &419489190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,7 +505,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0
   far clip plane: 1000
   field of view: 34
   orthographic: 1

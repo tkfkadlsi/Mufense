@@ -1,23 +1,27 @@
+using DG.Tweening;
 using UnityEngine;
 
 public enum TowerType
 {
+    None,
     Normal,
     Line,
     Star,
     Bomb
 }
 
-public class Tower : BaseObject, IMusicHandleObject
+public class Tower : BaseObject, IMusicHandleObject, IMusicPlayHandle
 {
     private Enemy _target;
     private TowerType _type;
     private TowerIcon _towerIcon;
     private PoolableObject _poolable;
+    private CircleCollider2D _circleCollider;
 
     private int _attackCooltime;
     private int _cooldown;
     private float _range;
+    private int _life;
 
     protected override bool Init()
     {
@@ -28,6 +32,9 @@ public class Tower : BaseObject, IMusicHandleObject
 
         _poolable = GetComponent<PoolableObject>();
         _objectType = ObjectType.Tower;
+        _circleCollider = GetComponent<CircleCollider2D>();
+
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
 
         return false;
     }
@@ -36,20 +43,40 @@ public class Tower : BaseObject, IMusicHandleObject
     {
         base.Setting();
         _towerIcon = Managers.Instance.Pool.PopObject(PoolType.TowerIcon, transform.position).GetComponent<TowerIcon>();
+        _circleCollider.radius = 0.71f;
+        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.WallColor;
+    }
+
+    protected override void Release()
+    {
+        if(Managers.Instance != null)
+        {
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
+        }
+
+        base.Release();
     }
 
     private void OnDisable()
     {
-        _towerIcon.PushThisObject();
+        if(_towerIcon != null)
+            _towerIcon.PushThisObject();
     }
 
     public void TowerSetting(TowerType type, Sprite sprite, int attackCooltime, float range)
     {
+        if(type == TowerType.None)
+        {
+            _poolable.PushThisObject();
+        }
+
         _type = type;
-        _towerIcon.TowerIconSetting(sprite);
         _attackCooltime = attackCooltime;
         _cooldown = attackCooltime;
         _range = range;
+        _towerIcon.TowerIconSetting(sprite);
+
+        _life = 100;
     }
 
     private void Update()
@@ -63,8 +90,14 @@ public class Tower : BaseObject, IMusicHandleObject
         {
             _cooldown = 0;
             Attack();
+            _life--;
         }
         _cooldown++;
+
+        if(_life == 0)
+        {
+            _poolable.PushThisObject();
+        }
     }
 
     private void Attack()
@@ -88,5 +121,10 @@ public class Tower : BaseObject, IMusicHandleObject
             case TowerType.Bomb:
                 break;
         }
+    }
+
+    public void SettingColor(Music music)
+    {
+        _spriteRenderer.DOColor(music.WallColor, 1f);
     }
 }

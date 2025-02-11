@@ -37,7 +37,7 @@ public class CircleArcAttack : Attack
             yield return null;
 
             _spriteRenderer.color = Color.Lerp(Color.white, Color.clear, t / lerpTime);
-            transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 50f, t / lerpTime);
+            transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 20f, t / lerpTime);
         }
 
         _poolable.PushThisObject();
