@@ -1,4 +1,5 @@
 using AYellowpaper.SerializedCollections;
+using System.Collections.Generic;
 using System;
 using UnityEngine;
 
@@ -15,4 +16,5 @@ public class Music
     public Color CoreColor;
     public Color WallColor;
     public Color BackGroundColor;
+    public List<float> CircleArcAttackTimings = new List<float>();
 }

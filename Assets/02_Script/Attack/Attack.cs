@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Attack : BaseObject, IMusicPlayHandle
 {
-    private Collider2D _collider;
+    protected Collider2D _collider;
 
     public void SettingColor(Music music)
     {

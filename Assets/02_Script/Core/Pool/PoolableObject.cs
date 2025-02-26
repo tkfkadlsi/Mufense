@@ -6,6 +6,7 @@ public class PoolableObject : MonoBehaviour
 
     public void PushThisObject()
     {
-        Managers.Instance.Pool.PushObject(poolType, this);
+        if(Managers.Instance != null)
+            Managers.Instance.Pool.PushObject(poolType, this);
     }
 }

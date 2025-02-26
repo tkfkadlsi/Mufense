@@ -12,8 +12,10 @@ public class MusicPlayer : BaseInit
     private AudioSource _audioSource;
     private Dictionary<string, List<float>> _beatTimingsInSong = new Dictionary<string, List<float>>();
     private Dictionary<string, List<float>> _bpmTimingsInSong = new Dictionary<string, List<float>>();
+    private Dictionary<string, List<float>> _circleArcAttackTimingsInSong = new Dictionary<string, List<float>>();
     private int beatCounter = 0;
     private int bpmCounter = 0;
+    private int attackCounter = 0;
     private Music PlayingMusic;
 
     protected override bool Init()
@@ -29,6 +31,7 @@ public class MusicPlayer : BaseInit
         {
             _beatTimingsInSong.Add(music.SongName, new List<float>());
             _bpmTimingsInSong.Add(music.SongName, new List<float>());
+            _circleArcAttackTimingsInSong.Add(music.SongName, new List<float>());
 
             MakeBeatTiming(music);
         }
@@ -43,6 +46,11 @@ public class MusicPlayer : BaseInit
         {
             timings.Add(bcd.Key);
             _bpmTimingsInSong[music.SongName].Add(bcd.Key);
+        }
+
+        foreach (float t in music.CircleArcAttackTimings)
+        {
+            _circleArcAttackTimingsInSong[music.SongName].Add(t);
         }
 
         float timing = 0f;
@@ -80,6 +88,7 @@ public class MusicPlayer : BaseInit
         PlayingMusic = music;
         beatCounter = 0;
         bpmCounter = 0;
+        attackCounter = 0;
 
         _audioSource.clip = PlayingMusic.Clip;
         _audioSource.Play();
@@ -89,8 +98,7 @@ public class MusicPlayer : BaseInit
         PlayMusic?.Invoke(PlayingMusic);
 
         yield return new WaitUntil(() => _audioSource.isPlaying == false);
-
-        Managers.Instance.Pool.PopObject(PoolType.CircleArc, Vector3.zero);
+        StartCoroutine(MusicPlaying());
     }
 
     private void Update()
@@ -113,6 +121,15 @@ public class MusicPlayer : BaseInit
                 {
                     Managers.Instance.Game.SetBPM(PlayingMusic.BpmChangeDict[_bpmTimingsInSong[PlayingMusic.SongName][bpmCounter]]);
                     bpmCounter++;
+                }
+            }
+
+            if(attackCounter < _circleArcAttackTimingsInSong[PlayingMusic.SongName].Count)
+            {
+                if (_circleArcAttackTimingsInSong[PlayingMusic.SongName][attackCounter] < _audioSource.time)
+                {
+                    Managers.Instance.Game.FindBaseInitScript<Core>().CircleArcAttack();
+                    attackCounter++;
                 }
             }
         }

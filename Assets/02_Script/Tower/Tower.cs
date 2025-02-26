@@ -3,15 +3,17 @@ using UnityEngine;
 
 public enum TowerType
 {
-    None,
-    Normal,
-    Line,
-    Star,
-    Bomb
+    None = 0,
+    Normal = 1,
+    Line = 2,
+    Star = 3,
+    Bomb = 4
 }
 
 public class Tower : BaseObject, IMusicHandleObject, IMusicPlayHandle
 {
+    public static int PlusDamage = 0;
+
     private Enemy _target;
     private TowerType _type;
     private TowerIcon _towerIcon;
@@ -110,6 +112,8 @@ public class Tower : BaseObject, IMusicHandleObject, IMusicPlayHandle
         switch(_type)
         {
             case TowerType.Normal:
+                TowerAttack towerAttack = Managers.Instance.Pool.PopObject(PoolType.NormalTowerAttack, transform.position).GetComponent<TowerAttack>();
+                towerAttack.SettingTarget(_target.transform, (int)TowerType.None + PlusDamage);
                 break;
 
             case TowerType.Line:

@@ -8,9 +8,9 @@ public enum ObjectType
     Tower = 11,
     TowerIcon = 12,
     TowerGuide = 13,
-    Enemy = 100,
-    Player = 101,
-    Attacks = 200
+    Enemy = 101,
+    Player = 102,
+    Attacks = 200,
 }
 
 public abstract class BaseObject : BaseInit

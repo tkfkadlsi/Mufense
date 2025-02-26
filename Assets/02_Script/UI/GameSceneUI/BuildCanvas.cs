@@ -85,22 +85,32 @@ public class BuildCanvas : BaseUI
     {
         if (Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().RemoveMusicPower(100) == false) return;
         DisableBuildingButton();
+        HandleExitButton();
         Managers.Instance.Game.FindBaseInitScript<TowerSpawner>().SetSpawnState(TowerSpawnState.Create, TowerType.Normal);
     }
 
     private void HandleLineTower()
     {
+        if (Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().RemoveMusicPower(250) == false) return;
         DisableBuildingButton();
+        HandleExitButton();
+        Managers.Instance.Game.FindBaseInitScript<TowerSpawner>().SetSpawnState(TowerSpawnState.Create, TowerType.Line);
     }
 
     private void HandleStarTower()
     {
+        if (Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().RemoveMusicPower(300) == false) return;
         DisableBuildingButton();
+        HandleExitButton();
+        Managers.Instance.Game.FindBaseInitScript<TowerSpawner>().SetSpawnState(TowerSpawnState.Create, TowerType.Star);
     }
 
     private void HandleBombTower()
     {
+        if (Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().RemoveMusicPower(500) == false) return;
         DisableBuildingButton();
+        HandleExitButton();
+        Managers.Instance.Game.FindBaseInitScript<TowerSpawner>().SetSpawnState(TowerSpawnState.Create, TowerType.Bomb);
     }
 
     private void HandleExitButton()

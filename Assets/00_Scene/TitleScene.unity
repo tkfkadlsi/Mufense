@@ -356,6 +356,16 @@ MonoBehaviour:
       Value: {fileID: -7287680015221739458, guid: 2768e2bf0121d18439c50f87d4d8e2d3, type: 3}
     - Key: 7
       Value: {fileID: 3110957971626711055, guid: d9264e1947deacd45bf870b68e915bfa, type: 3}
+    - Key: 8
+      Value: {fileID: 4896488498506864627, guid: ed1b343f8e1e5634fb69fbb581142d35, type: 3}
+    - Key: 9
+      Value: {fileID: 3679195629801805058, guid: b9ac64f96aede4d44b867ba22ade0005, type: 3}
+    - Key: 10
+      Value: {fileID: 8791485198156573527, guid: 5af2addaf25bb0b4b9b190ad76b14267, type: 3}
+    - Key: 12
+      Value: {fileID: 7134356198859721144, guid: c3c7db3404fcedb4c925a3a6172447fb, type: 3}
+    - Key: 13
+      Value: {fileID: 5921849658302855626, guid: 06a872941f92e234da5da70b931a02d8, type: 3}
 --- !u!114 &419489190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,6 +394,7 @@ MonoBehaviour:
     CoreColor: {r: 0, g: 0, b: 0, a: 0}
     WallColor: {r: 0, g: 0, b: 0, a: 0}
     BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+    CircleArcAttackTimings: []
   CurrentBPM: 0
   Language: 0
   MasterVolume: 0

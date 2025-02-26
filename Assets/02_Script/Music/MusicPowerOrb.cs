@@ -52,14 +52,10 @@ public class MusicPowerOrb : BaseObject
     {
         _musicPower = musicPower;
 
-        if(_musicPower == 1)
-        {
-            _spriteRenderer.color = _blueColor;
-        }
-        else
-        {
-            _spriteRenderer.color = _redColor;
-        }
+
+        Color backColor = Managers.Instance.Game.PlayingMusic.BackGroundColor;
+        Color orbColor = new Color(1f - backColor.r, 1f - backColor.g, 1f - backColor.b);
+        _spriteRenderer.color = orbColor;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

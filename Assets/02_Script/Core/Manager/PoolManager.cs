@@ -11,7 +11,13 @@ public enum PoolType
     Arc,
     Line,
     Tower,
-    TowerIcon
+    TowerIcon,
+    NormalTowerAttack,
+    LineTowerAttack,
+    StarTowerAttack,
+    StarTowerAttackImpact,
+    BombTowerAttack,
+    BombTowerAttackImpact,
 }
 
 public class PoolManager : MonoBehaviour
