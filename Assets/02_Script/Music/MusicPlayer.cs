@@ -84,6 +84,7 @@ public class MusicPlayer : BaseInit
     private IEnumerator MusicPlaying()
     {
         Music music = MusicList[Random.Range(0, MusicList.Count)];
+        MusicList.Remove(music);
         Managers.Instance.Game.PlayingMusic = music;
         PlayingMusic = music;
         beatCounter = 0;

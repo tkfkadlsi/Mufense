@@ -134,6 +134,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
         MusicPowerOrb musicPowerOrb;
         _musicPower -= musicPower;
         musicPowerOrb = Managers.Instance.Pool.PopObject(PoolType.MusicPowerOrb, transform.position).GetComponent<MusicPowerOrb>();
+        Managers.Instance.Pool.PopObject(PoolType.EnemyDeathEffect, transform.position);
         musicPowerOrb.SetMusicPower(musicPower);
     }
 

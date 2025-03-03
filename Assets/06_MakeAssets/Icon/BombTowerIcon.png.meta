@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BombTowerIcon_0: -4985442391258364009
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

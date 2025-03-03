@@ -1,25 +1,28 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawner : BaseInit, IMusicHandleObject
 {
-    [SerializeField] private List<EnemyStat> _enemyStatList;
+    [SerializeField] private List<EnemyStat> _enemyStatList = new List<EnemyStat>();
 
     private float _squareEnemyPercent = 5f;
     private float _fentagonEnemyPercent = 1.5f;
 
     private int _spawnCooltime;
     private int _spawnBeatCounter;
+    private int _spawnEnemyCount;
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
 
-        _spawnCooltime = 8;
-        _spawnBeatCounter = 8;
+        _spawnCooltime = 2;
+        _spawnBeatCounter = 2;
+        _spawnEnemyCount = 1;
 
         Managers.Instance.Game.BeatEvent += HandleMusicBeat;
 
@@ -28,7 +31,7 @@ public class EnemySpawner : BaseInit, IMusicHandleObject
 
     protected override void Release()
     {
-        if(Managers.Instance != null)
+        if (Managers.Instance != null)
         {
             Managers.Instance.Game.BeatEvent -= HandleMusicBeat;
         }
@@ -42,25 +45,40 @@ public class EnemySpawner : BaseInit, IMusicHandleObject
         _spawnBeatCounter = spawnCooltime;
     }
 
+    public void SetSpawnCount(int spawnCount)
+    {
+        _spawnEnemyCount = spawnCount;
+    }
+
     public void HandleMusicBeat()
     {
-        if(_spawnBeatCounter >= _spawnCooltime)
+        if (_spawnBeatCounter >= _spawnCooltime)
         {
             _spawnBeatCounter = 0;
-            SpawnEnemy();
+            for (int i = 0; i < _spawnEnemyCount; i++)
+            {
+                SpawnEnemy();
+            }
         }
         _spawnBeatCounter++;
     }
 
     private void SpawnEnemy()
     {
+        transform.position = new Vector3(Random.Range(-30f, 30f), Random.Range(-30f, 30f));
+        if(Mathf.Abs(transform.position.x) < 3f && Mathf.Abs(transform.position.y) < 3f)
+        {
+            transform.position *= 5f;
+        }
+
+
         float rand = Random.Range(0f, 100f);
         int spawnNumber = 0;
-        if(rand <= _fentagonEnemyPercent * Managers.Instance.Game.SongCount)
+        if (rand <= _fentagonEnemyPercent * Managers.Instance.Game.SongCount)
         {
             spawnNumber = 2;
         }
-        else if(rand <= _squareEnemyPercent * Managers.Instance.Game.SongCount)
+        else if (rand <= _squareEnemyPercent * Managers.Instance.Game.SongCount)
         {
             spawnNumber = 1;
         }

@@ -53,14 +53,14 @@ public class MusicPowerOrb : BaseObject
         _musicPower = musicPower;
 
 
-        Color backColor = Managers.Instance.Game.PlayingMusic.BackGroundColor;
-        Color orbColor = new Color(1f - backColor.r, 1f - backColor.g, 1f - backColor.b);
-        _spriteRenderer.color = orbColor;
+        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
+        _trailRenderer.startColor = Managers.Instance.Game.PlayingMusic.EnemyColor;
+        _trailRenderer.endColor = Color.clear;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player") && _state == OrbState.Create)
+        if(collision.CompareTag("Player") && _state == OrbState.Create || collision.CompareTag("CircleArc") && _state == OrbState.Create)
         {
             _state = OrbState.Enable;
             _trailRenderer.enabled = true;

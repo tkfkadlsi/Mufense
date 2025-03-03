@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      StarTowerIcon_0: 6660430631818016377
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

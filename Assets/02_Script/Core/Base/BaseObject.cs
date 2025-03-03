@@ -8,6 +8,7 @@ public enum ObjectType
     Tower = 11,
     TowerIcon = 12,
     TowerGuide = 13,
+    Effect = 100,
     Enemy = 101,
     Player = 102,
     Attacks = 200,

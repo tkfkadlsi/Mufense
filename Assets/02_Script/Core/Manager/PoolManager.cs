@@ -15,9 +15,9 @@ public enum PoolType
     NormalTowerAttack,
     LineTowerAttack,
     StarTowerAttack,
-    StarTowerAttackImpact,
     BombTowerAttack,
     BombTowerAttackImpact,
+    EnemyDeathEffect
 }
 
 public class PoolManager : MonoBehaviour
