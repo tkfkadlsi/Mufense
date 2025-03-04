@@ -368,6 +368,8 @@ MonoBehaviour:
       Value: {fileID: 5921849658302855626, guid: 06a872941f92e234da5da70b931a02d8, type: 3}
     - Key: 13
       Value: {fileID: 7889139231866833665, guid: e6cacd56b04a1b347aef1cf0feab5d0e, type: 3}
+    - Key: 14
+      Value: {fileID: 3735469792663380195, guid: cc05468859d3ac64eaadd1a648ead129, type: 3}
 --- !u!114 &419489190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,9 +394,6 @@ MonoBehaviour:
       _serializedList: []
     PlayerColor: {r: 0, g: 0, b: 0, a: 0}
     EnemyColor: {r: 0, g: 0, b: 0, a: 0}
-    PlayerAttackColor: {r: 0, g: 0, b: 0, a: 0}
-    CoreColor: {r: 0, g: 0, b: 0, a: 0}
-    WallColor: {r: 0, g: 0, b: 0, a: 0}
     BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
     CircleArcAttackTimings: []
   CurrentBPM: 0

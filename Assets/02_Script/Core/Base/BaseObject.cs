@@ -3,15 +3,15 @@ using UnityEngine;
 public enum ObjectType
 {
     Wall = 0,
-    Core = 1,
-    MusicPowerOrb = 10,
-    Tower = 11,
-    TowerIcon = 12,
-    TowerGuide = 13,
-    Effect = 100,
-    Enemy = 101,
-    Player = 102,
-    Attacks = 200,
+    MusicPowerOrb = 1,
+    Effect = 2,
+    Attacks = 3,
+    Enemy = 100,
+    Player = 101,
+    Tower = 200,
+    TowerIcon = 201,
+    TowerGuide = 202,
+    Core = 300,
 }
 
 public abstract class BaseObject : BaseInit

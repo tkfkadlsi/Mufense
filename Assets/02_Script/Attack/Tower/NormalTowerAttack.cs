@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class NormalTowerAttack : TowerAttack
 {
-    private readonly float _speed = 5f;
+    private readonly float _speed = 15f;
 
     private void Update()
     {
         if(_target == null)
         {
             _poolable.PushThisObject();
+            return;
         }
 
         Vector3 direction = _target.transform.position - transform.position;

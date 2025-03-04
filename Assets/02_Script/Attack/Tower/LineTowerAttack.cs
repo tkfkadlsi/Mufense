@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class LineTowerAttack : TowerAttack
@@ -17,14 +18,21 @@ public class LineTowerAttack : TowerAttack
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         _collider.enabled = true;
+
+        StartCoroutine(AttackCoroutine());
+    }
+
+    private IEnumerator AttackCoroutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+        _poolable.PushThisObject();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.transform == _target)
+        if(collision.CompareTag("Enemy"))
         {
             _target.GetComponent<Enemy>().HP -= _musicPower;
-            _poolable.PushThisObject();
         }
     }
 }

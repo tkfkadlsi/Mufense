@@ -13,6 +13,7 @@ public enum TowerType
 public class Tower : BaseObject, IMusicHandleObject, IMusicPlayHandle
 {
     public static int PlusDamage = 0;
+    [SerializeField] private LayerMask _whatIsEnemy;
 
     private Enemy _target;
     private TowerType _type;
@@ -46,7 +47,8 @@ public class Tower : BaseObject, IMusicHandleObject, IMusicPlayHandle
         base.Setting();
         _towerIcon = Managers.Instance.Pool.PopObject(PoolType.TowerIcon, transform.position).GetComponent<TowerIcon>();
         _circleCollider.radius = 0.71f;
-        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.WallColor;
+        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
+        Managers.Instance.Game.BeatEvent += HandleMusicBeat;
     }
 
     protected override void Release()
@@ -63,6 +65,10 @@ public class Tower : BaseObject, IMusicHandleObject, IMusicPlayHandle
     {
         if(_towerIcon != null)
             _towerIcon.PushThisObject();
+        if(Managers.Instance != null)
+        {
+            Managers.Instance.Game.BeatEvent -= HandleMusicBeat;
+        }
     }
 
     public void TowerSetting(TowerType type, Sprite sprite, int attackCooltime, float range)
@@ -70,6 +76,15 @@ public class Tower : BaseObject, IMusicHandleObject, IMusicPlayHandle
         if(type == TowerType.None)
         {
             _poolable.PushThisObject();
+        }
+
+        if(type == TowerType.Bomb)
+        {
+            _towerIcon.transform.localScale = Vector3.one * 0.75f;
+        }
+        else
+        {
+            _towerIcon.transform.localScale = Vector3.one;
         }
 
         _type = type;
@@ -92,7 +107,6 @@ public class Tower : BaseObject, IMusicHandleObject, IMusicPlayHandle
         {
             _cooldown = 0;
             Attack();
-            _life--;
         }
         _cooldown++;
 
@@ -104,31 +118,44 @@ public class Tower : BaseObject, IMusicHandleObject, IMusicPlayHandle
 
     private void Attack()
     {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, _range);
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, _range, (int)_whatIsEnemy);
+
+        if(enemies.Length == 0)
+        {
+            return;
+        }
+
         _target = enemies[Random.Range(0, enemies.Length)].GetComponent<Enemy>();
+        _life--;
 
         //타겟과 시작 위치를 매개변수로 공격.
 
         switch(_type)
         {
             case TowerType.Normal:
-                TowerAttack towerAttack = Managers.Instance.Pool.PopObject(PoolType.NormalTowerAttack, transform.position).GetComponent<TowerAttack>();
-                towerAttack.SettingTarget(_target.transform, (int)TowerType.None + PlusDamage);
+                TowerAttack normalTowerAttack = Managers.Instance.Pool.PopObject(PoolType.NormalTowerAttack, transform.position).GetComponent<TowerAttack>();
+                normalTowerAttack.SettingTarget(_target.transform, (int)TowerType.Normal + PlusDamage);
                 break;
 
             case TowerType.Line:
+                TowerAttack lineTowerAttack = Managers.Instance.Pool.PopObject(PoolType.LineTowerAttack, transform.position).GetComponent<TowerAttack>();
+                lineTowerAttack.SettingTarget(_target.transform, (int)TowerType.Line + PlusDamage);
                 break;
 
             case TowerType.Star:
+                TowerAttack starTowerAttack = Managers.Instance.Pool.PopObject(PoolType.StarTowerAttack, transform.position).GetComponent<TowerAttack>();
+                starTowerAttack.SettingTarget(_target.transform, (int)TowerType.Star + PlusDamage);
                 break;
 
             case TowerType.Bomb:
+                TowerAttack bombTowerAttack = Managers.Instance.Pool.PopObject(PoolType.BombTowerAttack, transform.position).GetComponent<TowerAttack>();
+                bombTowerAttack.SettingTarget(_target.transform, (int)TowerType.Bomb + PlusDamage);
                 break;
         }
     }
 
     public void SettingColor(Music music)
     {
-        _spriteRenderer.DOColor(music.WallColor, 1f);
+        _spriteRenderer.DOColor(music.PlayerColor, 1f);
     }
 }

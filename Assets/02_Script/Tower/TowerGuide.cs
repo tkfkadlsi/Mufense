@@ -29,7 +29,7 @@ public class TowerGuide : BaseObject
         _objectType = ObjectType.TowerGuide;
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
-        _canBuild = false;
+        _canBuild = true;
 
         return true;
     }

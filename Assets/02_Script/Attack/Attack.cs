@@ -7,7 +7,7 @@ public abstract class Attack : BaseObject, IMusicPlayHandle
 
     public void SettingColor(Music music)
     {
-        _spriteRenderer.DOColor(music.PlayerAttackColor, 1f);
+        _spriteRenderer.DOColor(music.PlayerColor, 1f);
     }
 
     protected override bool Init()
@@ -31,7 +31,7 @@ public abstract class Attack : BaseObject, IMusicPlayHandle
         base.Setting();
 
         _collider.isTrigger = true;
-        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerAttackColor;
+        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
     }
 
     protected override void Release()

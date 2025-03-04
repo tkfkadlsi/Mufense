@@ -66,7 +66,7 @@ public class EnemySpawner : BaseInit, IMusicHandleObject
     private void SpawnEnemy()
     {
         transform.position = new Vector3(Random.Range(-30f, 30f), Random.Range(-30f, 30f));
-        if(Mathf.Abs(transform.position.x) < 3f && Mathf.Abs(transform.position.y) < 3f)
+        if(Mathf.Abs(transform.position.x) < 5f && Mathf.Abs(transform.position.y) < 5f)
         {
             transform.position *= 5f;
         }

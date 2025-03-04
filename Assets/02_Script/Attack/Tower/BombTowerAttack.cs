@@ -13,7 +13,8 @@ public class BombTowerAttack : TowerAttack
 
     private IEnumerator BombCoroutine()
     { 
-        yield return transform.DOJump(_target.position, 1.5f, 1, Managers.Instance.Game.UnitTime * 4f);
+        transform.DOJump(_target.position, 1.5f, 1, Managers.Instance.Game.UnitTime * 4f);
+        yield return new WaitForSeconds(1.5f);
         Managers.Instance.Pool.PopObject(PoolType.BombTowerAttackImpact, transform.position).GetComponent<BombTowerAttackImpact>().Setting(_musicPower);
         _poolable.PushThisObject();
     }

@@ -23,7 +23,7 @@ public class EnemyDeathEffect : BaseObject
 
         _objectType = ObjectType.Effect;
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
-        transform.localScale = Vector3.zero;
+        transform.localScale = Vector3.one * 0.1f;
 
         StartCoroutine(EffectCoroutine());
     }
@@ -31,15 +31,18 @@ public class EnemyDeathEffect : BaseObject
     private IEnumerator EffectCoroutine()
     {
         float t = 0f;
-        float lerpTime = 0.75f;
+        float lerpTime = 1.5f;
+
+        Color startColor = Managers.Instance.Game.PlayingMusic.EnemyColor;
+        Color endColor = Color.clear;
 
         while (t <= lerpTime)
         {
             yield return null;
             t += Time.deltaTime;
 
-            transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 1.5f, t / lerpTime);
-            _spriteRenderer.color = Color.Lerp(_spriteRenderer.color, Color.clear, t / lerpTime);
+            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one * 1.5f, t / lerpTime);
+            _spriteRenderer.color = Color.Lerp(startColor, endColor, t / lerpTime);
         }
 
         _poolable.PushThisObject();

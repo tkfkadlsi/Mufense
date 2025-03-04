@@ -28,8 +28,18 @@ public class BombTowerAttackImpact : BaseInit
 
     private IEnumerator BombCoroutine()
     {
-        yield return transform.DOScale(7.5f, 0.5f).SetEase(Ease.OutExpo);
-        yield return transform.DOScale(0f, 0.5f).SetEase(Ease.InExpo);
+        transform.DOScale(7.5f, 0.5f).SetEase(Ease.OutExpo);
+        yield return new WaitForSeconds(0.5f);
+        transform.DOScale(0f, 0.5f).SetEase(Ease.InExpo);
+        yield return new WaitForSeconds(0.5f);
         _poolable.PushThisObject();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Enemy"))
+        {
+            collision.GetComponent<Enemy>().HP -= _musicPower;
+        }
     }
 }

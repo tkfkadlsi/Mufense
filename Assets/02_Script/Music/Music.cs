@@ -12,9 +12,6 @@ public class Music
     [SerializedDictionary("Timing", "BPM")] public SerializedDictionary<float, float> BpmChangeDict;
     public Color PlayerColor;
     public Color EnemyColor;
-    public Color PlayerAttackColor;
-    public Color CoreColor;
-    public Color WallColor;
     public Color BackGroundColor;
     public List<float> CircleArcAttackTimings = new List<float>();
 }

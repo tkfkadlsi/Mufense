@@ -14,7 +14,7 @@ public class StarTowerAttack : TowerAttack
 
         _tracking = true;
         transform.localScale = Vector3.one;
-        _spriteRenderer.color = Color.white;
+        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
 
         _collider.enabled = true;
     }
@@ -54,8 +54,11 @@ public class StarTowerAttack : TowerAttack
 
     private IEnumerator ImpactCoroutine()
     {
-        transform.DOScale(5f, 0.25f).SetEase(Ease.OutCirc);
-        yield return _spriteRenderer.DOColor(Color.clear, 0.5f).SetEase(Ease.OutCirc);
+        transform.DOScale(5f, 0.5f).SetEase(Ease.OutCirc);
+        _spriteRenderer.DOColor(Color.clear, 1f).SetEase(Ease.InCirc);
+
+        yield return new WaitForSeconds(1f);
+
         _poolable.PushThisObject();
     }
 }

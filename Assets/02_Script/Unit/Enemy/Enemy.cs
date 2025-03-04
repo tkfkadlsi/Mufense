@@ -21,6 +21,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
 
     private Transform _target;
     private PoolableObject _poolable;
+    //private HPSlider _hpSlider;
 
     private IEnumerator HitedCoroutine;
 
@@ -36,7 +37,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
             _hp = value;
             if(_hp <= 0f)
             {
-                Die();
+                Die(true);
             }
             else
             {
@@ -46,6 +47,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
                 }
                 HitedCoroutine = Hited();
                 StartCoroutine(HitedCoroutine);
+                //_hpSlider.Slider.value = _hp;
             }
         }
     }
@@ -63,6 +65,15 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
 
         return true;
+    }
+
+    private void OnDisable()
+    {
+        //if(_hpSlider != null)
+        //{
+        //    _hpSlider.PushThisObject();
+        //    _hpSlider = null;
+        //}
     }
 
     protected override void Release()
@@ -89,6 +100,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
 
         Vector3 direction = (_target.position - transform.position).normalized;
         transform.position += direction * _speed * Time.deltaTime;
+        //_hpSlider.transform.position = transform.position + Vector3.up;
     }
 
     protected override void Setting()
@@ -108,23 +120,30 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
         _speed = speed;
         _originSpeed = speed;
         _state = EnemyState.Active;
+        //_hpSlider = Managers.Instance.Pool.PopObject(PoolType.HPSlider, transform.position + Vector3.up).GetComponent<HPSlider>();
+        //_hpSlider.Slider.maxValue = hp;
+        //_hpSlider.Slider.value = hp;
     }
 
-    public void Die()
+    public void Die(bool drop)
     {
         _state = EnemyState.Death;
 ;
 
-        while(_musicPower >= 5)
+        if(drop == true)
         {
-            SpawnOrb(5);
-        }
+            while (_musicPower >= 5)
+            {
+                SpawnOrb(5);
+            }
 
 
-        while(_musicPower > 0)
-        {
-            SpawnOrb(1);
+            while (_musicPower > 0)
+            {
+                SpawnOrb(1);
+            }
         }
+
 
         _poolable.PushThisObject();
     }
@@ -134,6 +153,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
         MusicPowerOrb musicPowerOrb;
         _musicPower -= musicPower;
         musicPowerOrb = Managers.Instance.Pool.PopObject(PoolType.MusicPowerOrb, transform.position).GetComponent<MusicPowerOrb>();
+        musicPowerOrb.transform.position += new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
         Managers.Instance.Pool.PopObject(PoolType.EnemyDeathEffect, transform.position);
         musicPowerOrb.SetMusicPower(musicPower);
     }
@@ -155,5 +175,15 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
     public void SettingColor(Music music)
     {
         _spriteRenderer.DOColor(music.EnemyColor, 1f);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.CompareTag("Core"))
+        {
+            collision.collider.GetComponent<Core>().HP -= _musicPower;
+            Managers.Instance.Pool.PopObject(PoolType.EnemyDeathEffect, transform.position);
+            Die(false);
+        }
     }
 }
