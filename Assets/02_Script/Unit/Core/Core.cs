@@ -3,37 +3,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Core : Unit, IHealth, IMusicPlayHandle
+public class Core : Unit, IMusicPlayHandle, IHealth
 {
-    private Slider _hpSlider;
-    private IEnumerator HitedCoroutine;
-    private float hp = 0f;
-    public float HP 
-    {
-        get
-        {
-            return hp;
-        }
-
-        set
-        {
-            hp = value;
-
-            if(hp <= 0f)
-            {
-                Die();
-            }
-            else
-            {
-                if (HitedCoroutine is not null)
-                {
-                    StopCoroutine(HitedCoroutine);
-                }
-                HitedCoroutine = Hited();
-                StartCoroutine(HitedCoroutine);
-            }
-        }
-    }
+    public float HP { get; set; }
+    public HPSlider HPSlider { get; set; }
 
     protected override bool Init()
     {
@@ -44,14 +17,16 @@ public class Core : Unit, IHealth, IMusicPlayHandle
 
         _objectType = ObjectType.Core;
 
-        _hpSlider = transform.parent.gameObject.FindChild<Slider>("HPSlider", true);
-        _hpSlider.maxValue = 100f;
-        _hpSlider.value = 100f;
-        HP = 100;
+        return true;
+    }
+
+    protected override void Setting()
+    {
+        base.Setting();
+
+        HPSlider = Managers.Instance.Pool.PopObject(PoolType.HPSlider, transform.position + Vector3.up * 2f).GetComponent<HPSlider>();
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
-
-        return true;
     }
 
     protected override void Release()
@@ -69,11 +44,6 @@ public class Core : Unit, IHealth, IMusicPlayHandle
         transform.Rotate(0, 0, (120f / Managers.Instance.Game.UnitTime) * Time.deltaTime);
     }
 
-    protected override void Setting()
-    {
-        base.Setting();
-    }
-
     public void CircleArcAttack()
     {
         Managers.Instance.Pool.PopObject(PoolType.CircleArc, transform.position);
@@ -84,26 +54,13 @@ public class Core : Unit, IHealth, IMusicPlayHandle
         _spriteRenderer.DOColor(music.PlayerColor, 1f);
     }
 
-    public void Die(bool drop = false)
+    public void Hit(float damage, int debuff = 0)
     {
-        //게임 오버
+        throw new System.NotImplementedException();
     }
 
-    public IEnumerator Hited()
+    public void Die()
     {
-        _hpSlider.value = HP;
-        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
-
-
-        float t = 0f;
-        float lerpTime = 0.5f;
-
-        while(t < lerpTime)
-        {
-            yield return null;
-            t += Time.deltaTime;
-
-            _spriteRenderer.color = Color.Lerp(_spriteRenderer.color, Managers.Instance.Game.PlayingMusic.PlayerColor, t / lerpTime);
-        }
+        throw new System.NotImplementedException();
     }
 }

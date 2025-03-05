@@ -6,15 +6,14 @@ using UnityEngine;
 public class TowerGuide : BaseObject
 {
     [SerializedDictionary("Type", "Sprite")] public SerializedDictionary<TowerType, Sprite> _spriteDictionary;
-    [SerializedDictionary("Type", "Range")] public SerializedDictionary<TowerType, float> _rangeDictionary;
-    [SerializedDictionary("Type", "Cooltime")] public SerializedDictionary<TowerType, int> _cooltimeDictionary;
 
     private TowerSpawner _towerSpawner;
     private Rigidbody2D _rigidbody;
-    private Collider2D _collider;
+    private CircleCollider2D _collider;
 
     private List<Collider2D> _colliders = new List<Collider2D>();
 
+    private IEnumerator BuildCor;
     private bool _canBuild;
 
     protected override bool Init()
@@ -28,7 +27,7 @@ public class TowerGuide : BaseObject
 
         _objectType = ObjectType.TowerGuide;
         _rigidbody = GetComponent<Rigidbody2D>();
-        _collider = GetComponent<Collider2D>();
+        _collider = GetComponent<CircleCollider2D>();
         _canBuild = true;
 
         return true;
@@ -40,21 +39,34 @@ public class TowerGuide : BaseObject
 
         _rigidbody.gravityScale = 0f;
         _collider.isTrigger = true;
+        _collider.radius = 1.5f;
     }
 
-    public void BuildTower(TowerType type)
+    private void Update()
     {
-        StartCoroutine(BuildCoroutine(type));
+        if(Input.GetMouseButtonDown(1) && BuildCor is not null)
+        {
+            StopCoroutine(BuildCor);
+            _towerSpawner.SetSpawnState(TowerSpawnState.None, TowerType.None, 0);
+            Managers.Instance.UI.GameRootUI.MainCanvas.SetBuildButtonActive(true);
+        }
     }
 
-    private IEnumerator BuildCoroutine(TowerType type)
+    public void BuildTower(TowerType type, int cost)
+    {
+        BuildCor = BuildCoroutine(type, cost);
+        StartCoroutine(BuildCor);
+    }
+
+    private IEnumerator BuildCoroutine(TowerType type, int cost)
     {
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0) && _canBuild);
         Vector3 buildPos = transform.position;
 
         Tower newTower = Managers.Instance.Pool.PopObject(PoolType.Tower, buildPos).GetComponent<Tower>();
-        newTower.TowerSetting(type, _spriteDictionary[type], _cooltimeDictionary[type], _rangeDictionary[type]);
-        _towerSpawner.SetSpawnState(TowerSpawnState.None, TowerType.None);
+        newTower.TowerSetting(type, _spriteDictionary[type]);
+        Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().RemoveMusicPower(cost);
+        _towerSpawner.SetSpawnState(TowerSpawnState.None, TowerType.None, 0);
         Managers.Instance.UI.GameRootUI.MainCanvas.SetBuildButtonActive(true);
     }
 

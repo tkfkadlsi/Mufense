@@ -5,18 +5,9 @@ using UnityEngine;
 public enum PoolType
 {
     Enemy,
-    PlayerAttack,
-    MusicPowerOrb,
     CircleArc,
-    Arc,
-    Line,
     Tower,
     TowerIcon,
-    NormalTowerAttack,
-    LineTowerAttack,
-    StarTowerAttack,
-    BombTowerAttack,
-    BombTowerAttackImpact,
     EnemyDeathEffect,
     HPSlider
 }

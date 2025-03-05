@@ -9,6 +9,7 @@ public class Music
     public string SongName;
     public string ArtistName;
     public AudioClip Clip;
+    public TextAsset Chaebo;
     [SerializedDictionary("Timing", "BPM")] public SerializedDictionary<float, float> BpmChangeDict;
     public Color PlayerColor;
     public Color EnemyColor;

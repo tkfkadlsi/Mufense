@@ -24,14 +24,14 @@ public class TowerSpawner : BaseInit
         return true;
     }
 
-    public void SetSpawnState(TowerSpawnState state, TowerType towerType)
+    public void SetSpawnState(TowerSpawnState state, TowerType towerType, int cost)
     {
         _state = state;
 
         if(_state == TowerSpawnState.Create)
         {
             _guide.gameObject.SetActive(true);
-            _guide.BuildTower(towerType);
+            _guide.BuildTower(towerType, cost);
         }
         else
         {

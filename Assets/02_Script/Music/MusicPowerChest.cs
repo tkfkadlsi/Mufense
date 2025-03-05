@@ -27,9 +27,14 @@ public class MusicPowerChest : BaseInit
 
         SetMaxMusicPower(1000);
 
-        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += HandlePlayMusic;
-
         return true;
+    }
+
+    protected override void Setting()
+    {
+        base.Setting();
+        
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += HandlePlayMusic;
     }
 
     protected override void Release()
@@ -62,6 +67,11 @@ public class MusicPowerChest : BaseInit
     {
         _musicPowerSlider.value += value;
         SetCounter();
+    }
+
+    public bool CanRemoveMusicPower(int value)
+    {
+        return value >= _musicPowerSlider.value;
     }
 
     public bool RemoveMusicPower(int value)

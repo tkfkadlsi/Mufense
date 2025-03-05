@@ -2,9 +2,9 @@ using UnityEngine;
 
 public abstract class TowerAttack : Attack
 {
-    protected Transform _target;
+    protected Enemy _target;
     protected PoolableObject _poolable;
-    protected float _musicPower;
+    protected float _damage;
 
 
     protected override bool Init()
@@ -19,9 +19,9 @@ public abstract class TowerAttack : Attack
         return true;
     }
 
-    public virtual void SettingTarget(Transform target, float musicPower)
+    public virtual void SettingTarget(Enemy target, float musicPower)
     {
         _target = target;
-        _musicPower = musicPower;
+        _damage = musicPower;
     }
 }

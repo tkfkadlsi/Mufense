@@ -20,11 +20,16 @@ public class Player : Unit, IMusicHandleObject, IMusicPlayHandle
 
         _objectType = ObjectType.Player;
 
+        return true;
+    }
+
+    protected override void Setting()
+    {
+        base.Setting();
+
         Managers.Instance.Game.InputReader.DashEvent += Dash;
         Managers.Instance.Game.BeatEvent += HandleMusicBeat;
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
-
-        return true;
     }
 
     protected override void Release()
@@ -46,6 +51,15 @@ public class Player : Unit, IMusicHandleObject, IMusicPlayHandle
 
     private void Movement(Vector2 direction)
     {
+        if (direction == Vector2.zero)
+        {
+            transform.localScale = Vector2.one;
+        }
+        else
+        {
+            transform.localScale = new Vector3(0.9f, 1.1f, 1f);
+            transform.up = direction;
+        }
         _rigidbody.linearVelocity = direction * _moveSpeed;
     }
 
@@ -80,8 +94,6 @@ public class Player : Unit, IMusicHandleObject, IMusicPlayHandle
     {
         if(_dashCoolBeat > 0)
             _dashCoolBeat--;
-
-        Managers.Instance.Pool.PopObject(PoolType.PlayerAttack, transform.position);
     }
 
     public void SettingColor(Music music)

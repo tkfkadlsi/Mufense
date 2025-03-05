@@ -31,12 +31,7 @@ public abstract class BaseObject : BaseInit
         return true;
     }
 
-    protected void OnEnable()
-    {
-        Setting();
-    }
-
-    protected virtual void Setting()
+    protected override void Setting()
     {
         _spriteRenderer.sortingOrder = (int)_objectType;
     }

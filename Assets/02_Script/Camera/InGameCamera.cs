@@ -21,11 +21,17 @@ public class InGameCamera : BaseInit, IMusicPlayHandle
 
         _targetTrm = _playerTrm;
 
+
+        return true;
+    }
+
+    protected override void Setting()
+    {
+        base.Setting();
+
         Managers.Instance.Game.InputReader.FocusPlayerEvent += FocusPlayer;
         Managers.Instance.Game.InputReader.FocusCoreEvent += FocusCore;
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
-
-        return true;
     }
 
     private void Update()

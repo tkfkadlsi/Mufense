@@ -21,7 +21,6 @@ public abstract class Attack : BaseObject, IMusicPlayHandle
         _objectType = ObjectType.Attacks;
         _collider = gameObject.GetOrAddComponent<Collider2D>();
 
-        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
 
         return true;
     }
@@ -30,6 +29,7 @@ public abstract class Attack : BaseObject, IMusicPlayHandle
     {
         base.Setting();
 
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
         _collider.isTrigger = true;
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
     }

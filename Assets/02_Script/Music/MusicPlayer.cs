@@ -8,12 +8,15 @@ public class MusicPlayer : BaseInit
 {
     public List<Music> MusicList = new List<Music>();
     public event Action<Music> PlayMusic;
+    public event Action<TowerType> NoteEvent;
 
     private AudioSource _audioSource;
     private Dictionary<string, List<float>> _beatTimingsInSong = new Dictionary<string, List<float>>();
+    private Dictionary<string, List<Note>> _noteTimingsInSong = new Dictionary<string, List<Note>>();
     private Dictionary<string, List<float>> _bpmTimingsInSong = new Dictionary<string, List<float>>();
     private Dictionary<string, List<float>> _circleArcAttackTimingsInSong = new Dictionary<string, List<float>>();
     private int beatCounter = 0;
+    private int noteCounter = 0;
     private int bpmCounter = 0;
     private int attackCounter = 0;
     private Music PlayingMusic;
@@ -32,7 +35,7 @@ public class MusicPlayer : BaseInit
             _beatTimingsInSong.Add(music.SongName, new List<float>());
             _bpmTimingsInSong.Add(music.SongName, new List<float>());
             _circleArcAttackTimingsInSong.Add(music.SongName, new List<float>());
-
+            _noteTimingsInSong.Add(music.SongName, new List<Note>());
             MakeBeatTiming(music);
         }
 
@@ -51,6 +54,18 @@ public class MusicPlayer : BaseInit
         foreach (float t in music.CircleArcAttackTimings)
         {
             _circleArcAttackTimingsInSong[music.SongName].Add(t);
+        }
+
+        string[] notes = music.Chaebo.ToString().Split('\n');
+        foreach (var note in notes)
+        {
+            string[] noteinfos = note.Split(',');
+
+            Note newNote = new Note();
+            newNote.type = (TowerType)int.Parse(noteinfos[0]);
+            newNote.timing = int.Parse(noteinfos[2]) / 1000f;
+
+            _noteTimingsInSong[music.SongName].Add(newNote);
         }
 
         float timing = 0f;
@@ -84,10 +99,11 @@ public class MusicPlayer : BaseInit
     private IEnumerator MusicPlaying()
     {
         Music music = MusicList[Random.Range(0, MusicList.Count)];
-        MusicList.Remove(music);
+        //MusicList.Remove(music);
         Managers.Instance.Game.PlayingMusic = music;
         PlayingMusic = music;
         beatCounter = 0;
+        noteCounter = 0;
         bpmCounter = 0;
         attackCounter = 0;
 
@@ -113,6 +129,14 @@ public class MusicPlayer : BaseInit
                 {
                     Managers.Instance.Game.BeatEvent?.Invoke();
                     beatCounter++;
+                }
+            }
+
+            if(noteCounter < _noteTimingsInSong[PlayingMusic.SongName].Count)
+            {
+                if (_noteTimingsInSong[PlayingMusic.SongName][noteCounter].timing < _audioSource.time)
+                {
+                    NoteEvent?.Invoke(_noteTimingsInSong[PlayingMusic.SongName][noteCounter].type);
                 }
             }
 
