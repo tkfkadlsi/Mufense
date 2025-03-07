@@ -6,10 +6,16 @@ public enum PoolType
 {
     Enemy,
     CircleArc,
-    Tower,
+    PianoTower,
+    DrumTower,
+    StringTower,
     TowerIcon,
     EnemyDeathEffect,
-    HPSlider
+    HPSlider,
+    CoreAttack,
+    PianoAttack,
+    DrumAttack,
+    StringAttack
 }
 
 public class PoolManager : MonoBehaviour

@@ -8,6 +8,10 @@ public class Core : Unit, IMusicPlayHandle, IHealth
     public float HP { get; set; }
     public HPSlider HPSlider { get; set; }
 
+    [SerializeField] private LayerMask _whatIsEnemy;
+
+    private float _damage;
+
     protected override bool Init()
     {
         if(base.Init() == false)
@@ -24,9 +28,15 @@ public class Core : Unit, IMusicPlayHandle, IHealth
     {
         base.Setting();
 
-        HPSlider = Managers.Instance.Pool.PopObject(PoolType.HPSlider, transform.position + Vector3.up * 2f).GetComponent<HPSlider>();
+        _damage = 1f;
+        HP = 100f;
+        HPSlider = Managers.Instance.Pool.PopObject(PoolType.HPSlider, transform.position + Vector3.up * 1.5f).GetComponent<HPSlider>();
+        HPSlider.Slider.maxValue = HP;
+        HPSlider.Slider.value = HP;
+        HPSlider.transform.localScale = new Vector3(0.02f, 0.01f, 0.01f);
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().NoteEvent += HandleNoteEvent;
     }
 
     protected override void Release()
@@ -34,6 +44,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth
         if(Managers.Instance != null)
         {
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().NoteEvent -= HandleNoteEvent;
         }
 
         base.Release();
@@ -54,13 +65,34 @@ public class Core : Unit, IMusicPlayHandle, IHealth
         _spriteRenderer.DOColor(music.PlayerColor, 1f);
     }
 
+    public void HandleNoteEvent(TowerType type)
+    {
+        if (type == TowerType.Core)
+        {
+            Vector3 randPos = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+
+            CoreAttack coreAttack = Managers.Instance.Pool.PopObject(PoolType.CoreAttack, transform.position).GetComponent<CoreAttack>();
+            coreAttack.Attack(randPos, _damage);
+        }
+    }
+
+    public void SetDamage(float damage)
+    {
+        _damage = damage;
+    }
+
     public void Hit(float damage, int debuff = 0)
     {
-        throw new System.NotImplementedException();
+        HP -= damage;
+
+        if(HP <= 0f)
+        {
+            Die();
+        }
     }
 
     public void Die()
     {
-        throw new System.NotImplementedException();
+        //게임오버
     }
 }

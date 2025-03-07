@@ -6,12 +6,13 @@ public enum TowerType
     Piano,
     Drum,
     String,
+    Core
 }
 
-public class Tower : BaseObject
+public abstract class Tower : BaseObject
 {
-    private TowerType _type;
-    private TowerIcon _icon;
+    [SerializeField] private Sprite _iconSprite;
+    protected TowerIcon _towerIcon;
     private Enemy _target;
 
     protected override bool Init()
@@ -30,38 +31,18 @@ public class Tower : BaseObject
     {
         base.Setting();
 
-        Managers.Instance.Pool.PopObject(PoolType.TowerIcon, transform.position);
+        _towerIcon = Managers.Instance.Pool.PopObject(PoolType.TowerIcon, transform.position).GetComponent<TowerIcon>();
+        _towerIcon.TowerIconSetting(_iconSprite);
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().NoteEvent += HandleNoteEvent;
     }
 
     protected override void Release()
     {
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().NoteEvent -= HandleNoteEvent;
-        _icon.PushThisObject();
+        _towerIcon.PushThisObject();
+        _towerIcon = null;
         base.Release();
     }
 
-    public void TowerSetting(TowerType type, Sprite sprite)
-    {
-        _type = type;
-        _icon.TowerIconSetting(sprite);
-    }
-
-    private void HandleNoteEvent(TowerType type)
-    {
-        if (type != _type) return;
-
-        switch(type)
-        {
-            case TowerType.Piano:
-
-                break;
-            case TowerType.Drum:
-
-                break;
-            case TowerType.String:
-
-                break;
-        }
-    }
+    protected abstract void HandleNoteEvent(TowerType type);
 }

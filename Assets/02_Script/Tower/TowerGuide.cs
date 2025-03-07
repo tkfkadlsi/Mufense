@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class TowerGuide : BaseObject
 {
-    [SerializedDictionary("Type", "Sprite")] public SerializedDictionary<TowerType, Sprite> _spriteDictionary;
 
     private TowerSpawner _towerSpawner;
     private Rigidbody2D _rigidbody;
@@ -63,10 +62,23 @@ public class TowerGuide : BaseObject
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0) && _canBuild);
         Vector3 buildPos = transform.position;
 
-        Tower newTower = Managers.Instance.Pool.PopObject(PoolType.Tower, buildPos).GetComponent<Tower>();
-        newTower.TowerSetting(type, _spriteDictionary[type]);
         Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().RemoveMusicPower(cost);
         _towerSpawner.SetSpawnState(TowerSpawnState.None, TowerType.None, 0);
+
+        Tower newTower;
+
+        switch(type)
+        {
+            case TowerType.Piano:
+                newTower = Managers.Instance.Pool.PopObject(PoolType.PianoTower, buildPos).GetComponent<Tower>();
+                Managers.Instance.UI.GameRootUI.BuildingsCanvas.PianoCost *= 2;
+                break;
+            case TowerType.Drum:
+                break;
+            case TowerType.String:
+                break;
+        }
+
         Managers.Instance.UI.GameRootUI.MainCanvas.SetBuildButtonActive(true);
     }
 

@@ -62,7 +62,7 @@ public class MusicPlayer : BaseInit
             string[] noteinfos = note.Split(',');
 
             Note newNote = new Note();
-            newNote.type = (TowerType)int.Parse(noteinfos[0]);
+            newNote.type = ParseChaeboToTowerType(noteinfos[0]);
             newNote.timing = int.Parse(noteinfos[2]) / 1000f;
 
             _noteTimingsInSong[music.SongName].Add(newNote);
@@ -81,6 +81,26 @@ public class MusicPlayer : BaseInit
                 _beatTimingsInSong[music.SongName].Add(timing);
                 timing += unitTime;
             }
+        }
+    }
+
+    private TowerType ParseChaeboToTowerType(string chaebotxt)
+    {
+        switch(chaebotxt)
+        {
+            case "36":
+                return TowerType.Piano;
+            case "109":
+                return TowerType.Drum;
+            case "182":
+                return TowerType.String;
+            case "256":
+            case "329":
+            case "402":
+            case "475":
+                return TowerType.Core;
+            default:
+                return TowerType.None;
         }
     }
 
@@ -134,9 +154,15 @@ public class MusicPlayer : BaseInit
 
             if(noteCounter < _noteTimingsInSong[PlayingMusic.SongName].Count)
             {
-                if (_noteTimingsInSong[PlayingMusic.SongName][noteCounter].timing < _audioSource.time)
+                while (_noteTimingsInSong[PlayingMusic.SongName][noteCounter].timing < _audioSource.time)
                 {
                     NoteEvent?.Invoke(_noteTimingsInSong[PlayingMusic.SongName][noteCounter].type);
+                    noteCounter++;
+
+                    if(noteCounter >= _noteTimingsInSong[PlayingMusic.SongName].Count)
+                    {
+                        break;
+                    }
                 }
             }
 

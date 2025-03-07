@@ -33,7 +33,6 @@ public class EnemyDeathEffect : BaseObject
         float t = 0f;
         float lerpTime = 1.5f;
 
-        Color startColor = Managers.Instance.Game.PlayingMusic.EnemyColor;
         Color endColor = Color.clear;
 
         while (t <= lerpTime)
@@ -42,7 +41,7 @@ public class EnemyDeathEffect : BaseObject
             t += Time.deltaTime;
 
             transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one * 1.5f, t / lerpTime);
-            _spriteRenderer.color = Color.Lerp(startColor, endColor, t / lerpTime);
+            _spriteRenderer.color = Color.Lerp(_spriteRenderer.color, endColor, t / lerpTime);
         }
 
         _poolable.PushThisObject();

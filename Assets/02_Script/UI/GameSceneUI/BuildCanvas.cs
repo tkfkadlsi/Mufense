@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class BuildCanvas : BaseUI
 {
+    public int PianoCost;
+    public int DrumCost;
+    public int StringCost;
+
     enum EButtons
     {
         NormalTower,
@@ -19,8 +23,6 @@ public class BuildCanvas : BaseUI
     private Button _normalTower;
     private Button _exitButton;
 
-    private Image _buildingsPanel;
-
     protected override bool Init()
     {
         if (base.Init() == false)
@@ -34,18 +36,24 @@ public class BuildCanvas : BaseUI
         _normalTower = Get<Button>((int)EButtons.NormalTower);
         _exitButton = Get<Button>((int)EButtons.ExitButton);
 
-        _buildingsPanel = Get<Image>((int)EImages.BuildingsPanel);
-
         _normalTower.onClick.AddListener(HandleNormalTower);
         _exitButton.onClick.AddListener(HandleExitButton);
+
+        PianoCost = 100;
+        DrumCost = 100;
+        StringCost = 100;
 
         return true;
     }
 
     private void HandleNormalTower()
     {
-        DisableBuildingButton();
-        HandleExitButton();
+        if(Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().CanRemoveMusicPower(PianoCost))
+        {
+            Managers.Instance.Game.FindBaseInitScript<TowerSpawner>().SetSpawnState(TowerSpawnState.Create, TowerType.Piano, PianoCost);
+            DisableBuildingButton();
+            HandleExitButton();
+        }
     }
 
     private void HandleExitButton()

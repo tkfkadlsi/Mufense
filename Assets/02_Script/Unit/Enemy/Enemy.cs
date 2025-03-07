@@ -141,6 +141,7 @@ public class Enemy : Unit, IHealth
 
     public void Die()
     {
+        Managers.Instance.Pool.PopObject(PoolType.EnemyDeathEffect, transform.position);
         _poolable.PushThisObject();
     }
 
@@ -148,7 +149,8 @@ public class Enemy : Unit, IHealth
     {
         if(collision.collider.CompareTag("Core"))
         {
-
+            collision.collider.GetComponent<Core>().Hit(HP);
+            Die();
         }
     }
 }

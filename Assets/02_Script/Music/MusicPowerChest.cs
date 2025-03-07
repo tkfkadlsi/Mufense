@@ -22,8 +22,8 @@ public class MusicPowerChest : BaseInit
         _musicPowerCounter = gameObject.FindChild<TextMeshProUGUI>("");
         _musicPowerSlider = GetComponent<Slider>();
 
-        _maxMusicPower = 500;
-        _musicPowerSlider.value = 500;
+        _maxMusicPower = 300;
+        _musicPowerSlider.value = 300;
 
         SetMaxMusicPower(1000);
 
