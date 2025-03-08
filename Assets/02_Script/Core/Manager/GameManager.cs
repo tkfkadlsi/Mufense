@@ -15,10 +15,8 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Music
-    public int SongCount;
     public Music PlayingMusic;
 
-    public Action BeatEvent;
     public float CurrentBPM;
     public float UnitTime => 60f / CurrentBPM;
 

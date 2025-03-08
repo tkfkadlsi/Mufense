@@ -1,11 +1,11 @@
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawner : BaseInit, IMusicHandleObject
 {
-    private int _spawnCount;
-    private int _spawnCooltime;
+    private readonly int _spawnCooltime = 4;
 
     private int _cooldown;
 
@@ -16,16 +16,23 @@ public class EnemySpawner : BaseInit, IMusicHandleObject
             return false;
         }
 
-        
+        _cooldown = _spawnCooltime;
 
         return true;
     }
 
-    public void SettingSpawnInfo(int spawnCount, int spawnCooltime)
+    protected override void Setting()
     {
-        _spawnCount = spawnCount;
-        _spawnCooltime = spawnCooltime;
-        _cooldown = spawnCooltime;
+        base.Setting();
+
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent += HandleMusicBeat;
+    }
+
+    protected override void Release()
+    {
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent -= HandleMusicBeat;
+
+        base.Release();
     }
 
     public void HandleMusicBeat()
@@ -33,12 +40,17 @@ public class EnemySpawner : BaseInit, IMusicHandleObject
         if(_cooldown > _spawnCooltime)
         {
             _cooldown -= _spawnCooltime;
-            SpawnEnemy();
+
+            for(int i = 0; i < Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemySpawnAmountLevel; i++)
+            {
+                SpawnEnemy();
+            }
         }
     }
 
     private void SpawnEnemy()
     {
-
+        Vector3 direction = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+        Managers.Instance.Pool.PopObject(PoolType.Enemy, direction.normalized * 25f);
     }
 }

@@ -7,14 +7,16 @@ using Random = UnityEngine.Random;
 public class MusicPlayer : BaseInit
 {
     public List<Music> MusicList = new List<Music>();
+
     public event Action<Music> PlayMusic;
+    public event Action BeatEvent;
     public event Action<TowerType> NoteEvent;
 
-    private AudioSource _audioSource;
     private Dictionary<string, List<float>> _beatTimingsInSong = new Dictionary<string, List<float>>();
     private Dictionary<string, List<Note>> _noteTimingsInSong = new Dictionary<string, List<Note>>();
     private Dictionary<string, List<float>> _bpmTimingsInSong = new Dictionary<string, List<float>>();
     private Dictionary<string, List<float>> _circleArcAttackTimingsInSong = new Dictionary<string, List<float>>();
+    private AudioSource _audioSource;
     private int beatCounter = 0;
     private int noteCounter = 0;
     private int bpmCounter = 0;
@@ -112,7 +114,6 @@ public class MusicPlayer : BaseInit
     public void GameStart()
     {
         Managers.Instance.Game.PlayTime = 0;
-        Managers.Instance.Game.SongCount = 0;
         StartCoroutine(MusicPlaying());
     }
 
@@ -130,8 +131,6 @@ public class MusicPlayer : BaseInit
         _audioSource.clip = PlayingMusic.Clip;
         _audioSource.Play();
 
-        Managers.Instance.Game.SongCount++;
-
         PlayMusic?.Invoke(PlayingMusic);
 
         yield return new WaitUntil(() => _audioSource.isPlaying == false);
@@ -147,7 +146,7 @@ public class MusicPlayer : BaseInit
             {
                 if (_beatTimingsInSong[PlayingMusic.SongName][beatCounter] < _audioSource.time)
                 {
-                    Managers.Instance.Game.BeatEvent?.Invoke();
+                    BeatEvent?.Invoke();
                     beatCounter++;
                 }
             }

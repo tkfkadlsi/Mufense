@@ -27,18 +27,19 @@ public class PianoTower : Tower
 
         TowerLevel = 1;
         Damage = 1;
+        Range = 13;
     }
 
     private void Update()
     {
-        if(_target == null)
+        if(_target == null || _target.gameObject.activeInHierarchy == false)
         {
             SearchTarget();
         }
 
         Vector3 direction = _target.transform.position - transform.position;
 
-        transform.up = Vector3.Lerp(transform.up, direction, Time.deltaTime);
+        transform.up = Vector3.Lerp(transform.up, direction, Time.deltaTime * 5f);
     }
 
     private void SearchTarget()
@@ -56,7 +57,7 @@ public class PianoTower : Tower
         for(int i = 0; i < atkCount; i++)
         {
             PianoAttack attack = Managers.Instance.Pool.PopObject(PoolType.PianoAttack, transform.position).GetComponent<PianoAttack>();
-            attack.transform.position += transform.right * Random.Range(-2f, 2f);
+            attack.transform.position += transform.right * Random.Range(-transform.localScale.x / 2f, transform.localScale.x / 2f);
             attack.SettingTarget(transform.up, Damage);
         }
     }

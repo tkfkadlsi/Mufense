@@ -28,7 +28,7 @@ public class Player : Unit, IMusicHandleObject, IMusicPlayHandle
         base.Setting();
 
         Managers.Instance.Game.InputReader.DashEvent += Dash;
-        Managers.Instance.Game.BeatEvent += HandleMusicBeat;
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent += HandleMusicBeat;
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
     }
 
@@ -37,7 +37,7 @@ public class Player : Unit, IMusicHandleObject, IMusicPlayHandle
         if(Managers.Instance != null)
         {
             Managers.Instance.Game.InputReader.DashEvent -= Dash;
-            Managers.Instance.Game.BeatEvent -= HandleMusicBeat;
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent -= HandleMusicBeat;
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
         }
 

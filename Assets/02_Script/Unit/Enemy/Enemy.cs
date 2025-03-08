@@ -35,7 +35,7 @@ public class Enemy : Unit, IHealth
         base.Setting();
         _speed = _originSpeed;
         HPSlider = Managers.Instance.Pool.PopObject(PoolType.HPSlider, transform.position).GetComponent<HPSlider>();
-        HP = 3 + 2 * Managers.Instance.Game.SongCount;
+        HP = 5 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemyHPLevel * 3;
         HPSlider.Slider.maxValue = HP;
         HPSlider.Slider.value = HP;
     }

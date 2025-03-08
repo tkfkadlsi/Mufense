@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 48fede682b2f8b84fbb5c4c5a88b6cd8
+guid: 3c6fcaa1a17130843b21eda23c1053a7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4985442391258364009
-    second: BombTowerIcon_0
+      213: 1107761585475749846
+    second: PianoIcon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BombTowerIcon_0
+      name: PianoIcon_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 367
-        height: 368
+        width: 239
+        height: 239
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7970fd42f8620dab0800000000000000
-      internalID: -4985442391258364009
+      spriteID: 6d70b16fa4f8f5f00800000000000000
+      internalID: 1107761585475749846
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      BombTowerIcon_0: -4985442391258364009
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
