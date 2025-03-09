@@ -159,7 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DrumIcon_0: 652214635618464761
+      DrumIcon_1: -7524867240051533704
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

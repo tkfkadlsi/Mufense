@@ -113,4 +113,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a0b8dbf1b55c92409c2fa7e1fce57c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolType: 7
+  poolType: 5

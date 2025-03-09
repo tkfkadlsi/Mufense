@@ -10,6 +10,7 @@ public class Pool
 
     public void PushObject(PoolableObject po)
     {
+        if (po == null) return;
         po.gameObject.SetActive(false);
         po.transform.SetParent(null);
 

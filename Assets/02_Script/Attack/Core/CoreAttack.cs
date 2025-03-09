@@ -27,8 +27,8 @@ public class CoreAttack : Attack
 
         Vector3 direction = target - transform.position;
         transform.up = direction.normalized;
-        transform.position += transform.up * 7.5f;
-        transform.localScale = new Vector3(0.2f, 15f, 1f);
+        transform.position += transform.up * 25f;
+        transform.localScale = new Vector3(0.2f, 50f, 1f);
 
         StartCoroutine(PushCoroutine());
     }
@@ -43,8 +43,6 @@ public class CoreAttack : Attack
     private IEnumerator PushCoroutine()
     {
         _collider.enabled = true;
-        yield return null;
-        _collider.enabled = false;
 
         float t = 0f;
         float lerpTime = Managers.Instance.Game.UnitTime;
@@ -55,11 +53,14 @@ public class CoreAttack : Attack
 
         while(t < lerpTime)
         {
+            lerpTime = Managers.Instance.Game.UnitTime;
+
             t += Time.deltaTime;
             yield return null;
 
             _spriteRenderer.color = Color.Lerp(startColor, endColor, t / lerpTime);
         }
+        _collider.enabled = false;
 
         _poolable.PushThisObject();
     }

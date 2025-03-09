@@ -71,7 +71,7 @@ public class MusicPowerChest : BaseInit
 
     public bool CanRemoveMusicPower(int value)
     {
-        return value >= _musicPowerSlider.value;
+        return value <= _musicPowerSlider.value;
     }
 
     public bool RemoveMusicPower(int value)

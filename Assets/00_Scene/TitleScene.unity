@@ -349,11 +349,7 @@ MonoBehaviour:
     - Key: 1
       Value: {fileID: 619320928101940299, guid: bab4d7ca00d320e42a6e0c4698c102a8, type: 3}
     - Key: 2
-      Value: {fileID: 0}
-    - Key: 3
-      Value: {fileID: 0}
-    - Key: 4
-      Value: {fileID: 0}
+      Value: {fileID: -1303646089746060008, guid: 53fcfec8e5d010b4891a36e31621e700, type: 3}
     - Key: 5
       Value: {fileID: 3110957971626711055, guid: d9264e1947deacd45bf870b68e915bfa, type: 3}
     - Key: 6
@@ -362,6 +358,8 @@ MonoBehaviour:
       Value: {fileID: 3735469792663380195, guid: cc05468859d3ac64eaadd1a648ead129, type: 3}
     - Key: 8
       Value: {fileID: 7712569229213204410, guid: 2c0db3ef065e1d54b96c200d1cbfb58b, type: 3}
+    - Key: 9
+      Value: {fileID: 1896790235740862342, guid: bd6dc754fc8e2ab4091b89f053c26d72, type: 3}
 --- !u!114 &419489190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,7 +375,6 @@ MonoBehaviour:
   AudioMixer: {fileID: 24100000, guid: 08e09d8f4676b9e468e02224736929bc, type: 2}
   InputReader: {fileID: 11400000, guid: b0e5121f49caeb948bab0674ff537407, type: 2}
   PlayTime: 0
-  SongCount: 0
   PlayingMusic:
     SongName: 
     ArtistName: 

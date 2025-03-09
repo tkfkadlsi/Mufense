@@ -5,15 +5,15 @@ using System;
 
 
 
-public class Enemy : Unit, IHealth
+public class Enemy : Unit, IHealth, IMusicPlayHandle
 {
     public float HP { get; set; }
     public HPSlider HPSlider { get; set; }
 
     private PoolableObject _poolable;
 
-    private readonly float _originSpeed = 5f;
-    private float _speed = 5f;
+    private readonly float _originSpeed = 2f;
+    private float _speed = 2f;
 
     private Core _core;
 
@@ -38,10 +38,18 @@ public class Enemy : Unit, IHealth
         HP = 5 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemyHPLevel * 3;
         HPSlider.Slider.maxValue = HP;
         HPSlider.Slider.value = HP;
+        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
+
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
     }
 
     protected override void Release()
     {
+        if(Managers.Instance != null)
+        {
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
+        }
+
         HPSlider.PushThisObject();
         HPSlider = null;
         base.Release();
@@ -66,13 +74,13 @@ public class Enemy : Unit, IHealth
     public void Hit(float damage, int debuff = 0)
     {
         HP -= damage;
-        HPSlider.Slider.value = HP;
 
         if (HP <= 0f)
         {
             Die();
             return;
         }
+        HPSlider.Slider.value = HP;
 
         if (HitedCoroutine is not null)
         {
@@ -152,5 +160,10 @@ public class Enemy : Unit, IHealth
             collision.collider.GetComponent<Core>().Hit(HP);
             Die();
         }
+    }
+
+    public void SettingColor(Music music)
+    {
+        _spriteRenderer.DOColor(music.EnemyColor, _speed);
     }
 }

@@ -5,11 +5,13 @@ using UnityEngine;
 public class PianoAttack : TowerAttack
 {
     private float _speed;
+    private Vector3 _direction;
 
    public override void SettingTarget(Vector3 target, float musicPower)
     {
         base.SettingTarget(target, musicPower);
         _speed = Managers.Instance.Game.CurrentBPM / 7.5f;
+        _direction = target;
         StartCoroutine(PushCoroutine());
     }
 
@@ -21,7 +23,7 @@ public class PianoAttack : TowerAttack
 
     private void Update()
     {
-        transform.position += transform.up * _speed * Time.deltaTime;
+        transform.position += _direction * _speed * Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

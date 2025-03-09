@@ -2,24 +2,7 @@ using UnityEngine;
 
 public class PianoTower : Tower
 {
-    public int TowerLevel { get; set; }
-    public float Damage {  get; set; }
-    public float Range { get; set; }
-
     [SerializeField] private LayerMask _whatIsEnemy;
-    private Enemy _target;
-
-    protected override bool Init()
-    {
-        if(base.Init() == false)
-        {
-            return false;
-        }
-
-
-
-        return true;
-    }
 
     protected override void Setting()
     {
@@ -37,6 +20,8 @@ public class PianoTower : Tower
             SearchTarget();
         }
 
+        if (_target == null || _target.gameObject.activeInHierarchy == false) return;
+
         Vector3 direction = _target.transform.position - transform.position;
 
         transform.up = Vector3.Lerp(transform.up, direction, Time.deltaTime * 5f);
@@ -45,7 +30,10 @@ public class PianoTower : Tower
     private void SearchTarget()
     {
         Collider2D[] enemies = Physics2D.OverlapCircleAll (transform.position, Range, _whatIsEnemy);
-        _target = enemies[Random.Range(0, enemies.Length)].GetComponent<Enemy>();
+        if( enemies.Length > 0 )
+        {
+            _target = enemies[Random.Range(0, enemies.Length)].GetComponent<Enemy>();
+        }
     }
 
     protected override void HandleNoteEvent(TowerType type)

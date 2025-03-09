@@ -30,18 +30,22 @@ public class EnemySpawner : BaseInit, IMusicHandleObject
 
     protected override void Release()
     {
-        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent -= HandleMusicBeat;
+        if(Managers.Instance != null)
+        {
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent -= HandleMusicBeat;
+        }
 
         base.Release();
     }
 
     public void HandleMusicBeat()
     {
+        _cooldown++;
         if(_cooldown > _spawnCooltime)
         {
             _cooldown -= _spawnCooltime;
 
-            for(int i = 0; i < Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemySpawnAmountLevel; i++)
+            for(int i = 0; i < 4 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemySpawnAmountLevel * 2; i++)
             {
                 SpawnEnemy();
             }

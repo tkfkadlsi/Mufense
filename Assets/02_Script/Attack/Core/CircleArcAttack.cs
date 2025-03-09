@@ -48,7 +48,7 @@ public class CircleArcAttack : Attack
         if(collision.CompareTag("Enemy"))
         {
             Enemy enemy = collision.GetComponent<Enemy>();
-            //ÇÑ¹æ¿¡ Á×¿©
+            enemy.Hit(float.MaxValue);
         }
     }
 }

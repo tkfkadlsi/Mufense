@@ -13,6 +13,7 @@ public class TowerIcon : BaseObject
 
         _poolable = GetComponent<PoolableObject>();
         _objectType = ObjectType.TowerIcon;
+        transform.localScale = Vector3.one * 0.4f;
 
         return true;
     }

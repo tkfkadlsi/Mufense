@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BuildCanvas : BaseUI
+public class BuildCanvas : BaseUI, IMusicPlayHandle
 {
     public int PianoCost;
     public int DrumCost;
@@ -11,7 +11,7 @@ public class BuildCanvas : BaseUI
 
     enum EButtons
     {
-        NormalTower,
+        PianoTower,
         ExitButton
     }
 
@@ -20,7 +20,7 @@ public class BuildCanvas : BaseUI
         BuildingsPanel
     }
 
-    private Button _normalTower;
+    private Button _pianoTower;
     private Button _exitButton;
 
     protected override bool Init()
@@ -33,10 +33,10 @@ public class BuildCanvas : BaseUI
         Bind<Button>(typeof(EButtons));
         Bind<Image>(typeof(EImages));
 
-        _normalTower = Get<Button>((int)EButtons.NormalTower);
+        _pianoTower = Get<Button>((int)EButtons.PianoTower);
         _exitButton = Get<Button>((int)EButtons.ExitButton);
 
-        _normalTower.onClick.AddListener(HandleNormalTower);
+        _pianoTower.onClick.AddListener(HandlePianoTower);
         _exitButton.onClick.AddListener(HandleExitButton);
 
         PianoCost = 100;
@@ -46,7 +46,24 @@ public class BuildCanvas : BaseUI
         return true;
     }
 
-    private void HandleNormalTower()
+    protected override void Setting()
+    {
+        base.Setting();
+
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
+    }
+
+    protected override void Release()
+    {
+        if(Managers.Instance != null)
+        {
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
+        }
+
+        base.Release();
+    }
+
+    private void HandlePianoTower()
     {
         if(Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().CanRemoveMusicPower(PianoCost))
         {
@@ -64,5 +81,11 @@ public class BuildCanvas : BaseUI
     private void DisableBuildingButton()
     {
         Managers.Instance.UI.GameRootUI.MainCanvas.SetBuildButtonActive(false);
+    }
+
+    public void SettingColor(Music music)
+    {
+        _pianoTower.image.DOColor(music.PlayerColor, 1f);
+        
     }
 }
