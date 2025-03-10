@@ -1,15 +1,18 @@
+using DG.Tweening;
 using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainCanvas : BaseUI
+public class MainCanvas : BaseUI, IMusicPlayHandle
 {
     private enum EButtons
     {
-        TowerBuildButton
+        TowerBuildButton,
+        BGMChangeButton
     }
 
     private Button _towerBuildButton;
+    private Button _bgmChangeButton;
 
     protected override bool Init()
     {
@@ -21,9 +24,17 @@ public class MainCanvas : BaseUI
         Bind<Button>(typeof(EButtons));
 
         _towerBuildButton = Get<Button>((int)EButtons.TowerBuildButton);
+        _bgmChangeButton = Get<Button>((int)EButtons.BGMChangeButton);
         _towerBuildButton.onClick.AddListener(HandleTowerBuildButton);
 
         return true;
+    }
+
+    protected override void Setting()
+    {
+        base.Setting();
+
+        _towerBuildButton.image.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
     }
 
     private void HandleTowerBuildButton()
@@ -34,5 +45,10 @@ public class MainCanvas : BaseUI
     public void SetBuildButtonActive(bool active)
     {
         _towerBuildButton.gameObject.SetActive(active);
+    }
+
+    public void SettingColor(Music music)
+    {
+        _towerBuildButton.image.DOColor(Managers.Instance.Game.PlayingMusic.PlayerColor, 1f);
     }
 }

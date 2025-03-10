@@ -12,8 +12,8 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
 
     private PoolableObject _poolable;
 
-    private readonly float _originSpeed = 2f;
-    private float _speed = 2f;
+    private readonly float _originSpeed = 1.25f;
+    private float _speed;
 
     private Core _core;
 
@@ -35,7 +35,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
         base.Setting();
         _speed = _originSpeed;
         HPSlider = Managers.Instance.Pool.PopObject(PoolType.HPSlider, transform.position).GetComponent<HPSlider>();
-        HP = 5 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemyHPLevel * 3;
+        HP = 4 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemyHPLevel * 3;
         HPSlider.Slider.maxValue = HP;
         HPSlider.Slider.value = HP;
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
@@ -150,6 +150,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
     public void Die()
     {
         Managers.Instance.Pool.PopObject(PoolType.EnemyDeathEffect, transform.position);
+        Managers.Instance.Pool.PopObject(PoolType.MusicPowerOrb, transform.position);
         _poolable.PushThisObject();
     }
 

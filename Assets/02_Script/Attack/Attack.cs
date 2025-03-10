@@ -8,6 +8,11 @@ public abstract class Attack : BaseObject, IMusicPlayHandle
     public void SettingColor(Music music)
     {
         _spriteRenderer.DOColor(music.PlayerColor, 1f);
+        if(TryGetComponent<TrailRenderer>(out TrailRenderer t))
+        {
+            t.startColor = music.PlayerColor;
+            t.endColor = new Color(music.PlayerColor.r, music.PlayerColor.g, music.PlayerColor.b, 0f);
+        }
     }
 
     protected override bool Init()

@@ -10,7 +10,7 @@ public class PianoTower : Tower
 
         TowerLevel = 1;
         Damage = 1;
-        Range = 13;
+        Range = 11;
     }
 
     private void Update()

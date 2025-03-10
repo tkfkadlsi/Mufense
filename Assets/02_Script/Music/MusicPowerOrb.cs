@@ -18,8 +18,6 @@ public class MusicPowerOrb : BaseObject
     [SerializeField] private Color _blueColor;
     [SerializeField] private Color _redColor;
 
-    private int _musicPower;
-
     private OrbState _state;
 
     protected override bool Init()
@@ -46,16 +44,10 @@ public class MusicPowerOrb : BaseObject
         _state = OrbState.Create;
         _collider.isTrigger = true;
         _collider.radius = 1.5f;
-    }
-
-    public void SetMusicPower(int musicPower)
-    {
-        _musicPower = musicPower;
-
-
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
         _trailRenderer.startColor = Managers.Instance.Game.PlayingMusic.EnemyColor;
         _trailRenderer.endColor = Color.clear;
+        StartCoroutine(EnableCoroutine());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -69,9 +61,16 @@ public class MusicPowerOrb : BaseObject
         {
             _state = OrbState.Disable;
             _trailRenderer.enabled = false;
-            Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().AddMusicPower(_musicPower);
+            Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().AddMusicPower(1);
             _poolable.PushThisObject();
         }
+    }
+
+    private IEnumerator EnableCoroutine()
+    {
+        yield return new WaitForSeconds(Managers.Instance.Game.UnitTime);
+        _state = OrbState.Enable;
+        _trailRenderer.enabled = true;
     }
 
     private void Update()

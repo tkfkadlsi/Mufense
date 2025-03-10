@@ -15,7 +15,8 @@ public enum PoolType
     CoreAttack,
     PianoAttack,
     DrumAttack,
-    StringAttack
+    StringAttack,
+    MusicPowerOrb
 }
 
 public class PoolManager : MonoBehaviour

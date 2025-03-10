@@ -5,6 +5,7 @@ using UnityEngine;
 public class DrumAttack : TowerAttack
 {
     private float _range;
+    private Color _endColor => new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 0);
 
     protected override void Setting()
     {
@@ -23,9 +24,18 @@ public class DrumAttack : TowerAttack
 
     private IEnumerator DrumCoroutine()
     {
-        _spriteRenderer.DOColor(Color.clear, Managers.Instance.Game.UnitTime).SetEase(Ease.Linear);
+        _spriteRenderer.DOColor(_endColor, Managers.Instance.Game.UnitTime).SetEase(Ease.Linear);
         transform.DOScale(_range, Managers.Instance.Game.UnitTime).SetEase(Ease.Linear);
         yield return new WaitForSeconds(Managers.Instance.Game.UnitTime);
         _poolable.PushThisObject();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Enemy"))
+        {
+            Enemy enemy = collision.GetComponent<Enemy>();
+            enemy.Hit(_damage);
+        }
     }
 }

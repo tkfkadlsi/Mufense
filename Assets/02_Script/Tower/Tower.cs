@@ -37,7 +37,8 @@ public abstract class Tower : BaseObject, IMusicPlayHandle
         base.Setting();
 
         _towerIcon = Managers.Instance.Pool.PopObject(PoolType.TowerIcon, transform.position).GetComponent<TowerIcon>();
-        _towerIcon.TowerIconSetting(_iconSprite);
+        _towerIcon.TowerIconSetting(_iconSprite, this);
+        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().NoteEvent += HandleNoteEvent;
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
     }

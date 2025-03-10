@@ -74,8 +74,12 @@ public class TowerGuide : BaseObject
                 Managers.Instance.UI.GameRootUI.BuildingsCanvas.PianoCost *= 2;
                 break;
             case TowerType.Drum:
+                newTower = Managers.Instance.Pool.PopObject(PoolType.DrumTower, buildPos).GetComponent<Tower>();
+                Managers.Instance.UI.GameRootUI.BuildingsCanvas.DrumCost *= 2;
                 break;
             case TowerType.String:
+                newTower = Managers.Instance.Pool.PopObject(PoolType.StringTower, buildPos).GetComponent<Tower>();
+                Managers.Instance.UI.GameRootUI.BuildingsCanvas.StringCost *= 2;
                 break;
         }
 

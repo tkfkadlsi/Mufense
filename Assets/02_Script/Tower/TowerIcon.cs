@@ -3,6 +3,7 @@ using UnityEngine;
 public class TowerIcon : BaseObject
 {
     private PoolableObject _poolable;
+    private Tower _owner;
 
     protected override bool Init()
     {
@@ -18,9 +19,15 @@ public class TowerIcon : BaseObject
         return true;
     }
 
-    public void TowerIconSetting(Sprite sprite)
+    private void Update()
+    {
+        transform.up = _owner.transform.up;
+    }
+
+    public void TowerIconSetting(Sprite sprite, Tower owner)
     {
         _spriteRenderer.sprite = sprite;
+        _owner = owner;
     }
 
     public void PushThisObject()

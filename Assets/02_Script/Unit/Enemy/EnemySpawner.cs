@@ -45,7 +45,7 @@ public class EnemySpawner : BaseInit, IMusicHandleObject
         {
             _cooldown -= _spawnCooltime;
 
-            for(int i = 0; i < 4 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemySpawnAmountLevel * 2; i++)
+            for(int i = 0; i < 4 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemySpawnAmountLevel * 1; i++)
             {
                 SpawnEnemy();
             }
