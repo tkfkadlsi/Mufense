@@ -10,17 +10,12 @@ public class PianoTower : Tower
 
         TowerLevel = 1;
         Damage = 1;
-        Range = 11;
+        Range = 7;
     }
 
     private void Update()
     {
-        if(_target == null || _target.gameObject.activeInHierarchy == false)
-        {
-            SearchTarget();
-        }
-
-        if (_target == null || _target.gameObject.activeInHierarchy == false) return;
+        if (_target == null || _target.gameObject.activeSelf == false) return;
 
         Vector3 direction = _target.transform.position - transform.position;
 
@@ -39,6 +34,8 @@ public class PianoTower : Tower
     protected override void HandleNoteEvent(TowerType type)
     {
         if (type != TowerType.Piano) return;
+
+        SearchTarget();
 
         int atkCount = Random.Range(TowerLevel, TowerLevel + 3);
 

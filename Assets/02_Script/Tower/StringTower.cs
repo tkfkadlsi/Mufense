@@ -10,18 +10,13 @@ public class StringTower : Tower
         base.Setting();
 
         TowerLevel = 1;
-        Range = 14;
+        Range = 9;
         Damage = 1;
     }
 
     private void Update()
     {
-        if (_target == null || _target.gameObject.activeInHierarchy == false)
-        {
-            SearchTarget();
-        }
-
-        if (_target == null || _target.gameObject.activeInHierarchy == false) return;
+        if (_target == null || _target.gameObject.activeSelf == false) return;
 
         Vector3 direction = _target.transform.position - transform.position;
 
@@ -41,9 +36,9 @@ public class StringTower : Tower
     {
         if (type != TowerType.String) return;
 
+        SearchTarget();
+
         StringAttack attack = Managers.Instance.Pool.PopObject(PoolType.StringAttack, transform.position).GetComponent<StringAttack>();
         attack.SettingTarget(transform.up, Damage);
-
-        SearchTarget();
     }
 }

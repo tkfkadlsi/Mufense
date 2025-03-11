@@ -45,15 +45,15 @@ public class CoreAttack : Attack
         _collider.enabled = true;
 
         float t = 0f;
-        float lerpTime = Managers.Instance.Game.UnitTime;
+        float lerpTime = 0f;
 
         Color startColor = _spriteRenderer.color;
         Color endColor = startColor;
         endColor.a = 0f;
-
+        yield return null;
+        lerpTime = Managers.Instance.Game.UnitTime;
         while(t < lerpTime)
         {
-            lerpTime = Managers.Instance.Game.UnitTime;
 
             t += Time.deltaTime;
             yield return null;

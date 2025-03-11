@@ -8,7 +8,7 @@ public class DrumTower : Tower
 
         TowerLevel = 1;
         Damage = 1;
-        Range = 6;
+        Range = 5;
     }
 
     protected override void HandleNoteEvent(TowerType type)

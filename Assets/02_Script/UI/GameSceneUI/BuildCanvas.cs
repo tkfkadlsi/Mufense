@@ -19,13 +19,21 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
 
     enum EImages
     {
-        BuildingsPanel
+        PianoTower,
+        DrumTower,
+        StringTower,
+        ExitButton
     }
 
     private Button _pianoTower;
     private Button _drumTower;
     private Button _stringTower;
     private Button _exitButton;
+
+    private Image _pianoImage;
+    private Image _drumImage;
+    private Image _stringImage;
+    private Image _exitImage;
 
     protected override bool Init()
     {
@@ -42,14 +50,19 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
         _stringTower = Get<Button>((int)EButtons.StringTower);
         _exitButton = Get<Button>((int)EButtons.ExitButton);
 
+        _pianoImage = Get<Image>((int)EImages.PianoTower);
+        _drumImage = Get<Image>((int)EImages.DrumTower);
+        _stringImage = Get<Image>((int)EImages.StringTower);
+        _exitImage = Get<Image>((int)EImages.ExitButton);
+
         _pianoTower.onClick.AddListener(HandlePianoTower);
         _drumTower.onClick.AddListener(HandleDrumTower);
         _stringTower.onClick.AddListener(HandleStringTower);
         _exitButton.onClick.AddListener(HandleExitButton);
 
-        PianoCost = 100;
-        DrumCost = 100;
-        StringCost = 100;
+        PianoCost = 150;
+        DrumCost = 150;
+        StringCost = 150;
 
         return true;
     }
@@ -58,10 +71,10 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
     {
         base.Setting();
 
-        _pianoTower.image.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
-        _drumTower.image.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
-        _stringTower.image.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
-        _exitButton.image.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
+        _pianoImage.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
+        _drumImage.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
+        _stringImage.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
+        _exitImage.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
     }
@@ -118,9 +131,9 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
 
     public void SettingColor(Music music)
     {
-        _pianoTower.image.DOColor(music.PlayerColor, 1f);
-        _drumTower.image.DOColor(music.PlayerColor, 1f);
-        _stringTower.image.DOColor(music.PlayerColor, 1f);
-        _exitButton.image.DOColor(music.PlayerColor, 1f);
+        _pianoImage.DOColor(music.PlayerColor, 1f);
+        _drumImage.DOColor(music.PlayerColor, 1f);
+        _stringImage.DOColor(music.PlayerColor, 1f);
+        _exitImage.DOColor(music.PlayerColor, 1f);
     }
 }

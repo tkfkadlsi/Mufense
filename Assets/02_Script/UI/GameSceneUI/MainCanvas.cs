@@ -25,7 +25,9 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
 
         _towerBuildButton = Get<Button>((int)EButtons.TowerBuildButton);
         _bgmChangeButton = Get<Button>((int)EButtons.BGMChangeButton);
+
         _towerBuildButton.onClick.AddListener(HandleTowerBuildButton);
+        _bgmChangeButton.onClick.AddListener(HandleBGMChangeButton);
 
         return true;
     }
@@ -40,6 +42,13 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
     private void HandleTowerBuildButton()
     {
         Managers.Instance.UI.GameRootUI.SetActiveCanvas("BuildCanvas", true);
+    }
+
+    private void HandleBGMChangeButton()
+    {
+        MusicPlayer musicPlayer = Managers.Instance.Game.FindBaseInitScript<MusicPlayer>();
+        Music randMusic = musicPlayer.PlayableMusicList[Random.Range(0, musicPlayer.PlayableMusicList.Count)];
+        musicPlayer.ChangeMusic(randMusic);
     }
 
     public void SetBuildButtonActive(bool active)

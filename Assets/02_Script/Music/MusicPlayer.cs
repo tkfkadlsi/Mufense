@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class MusicPlayer : BaseInit
 {
     public List<Music> MusicList = new List<Music>();
+    public List<Music> PlayableMusicList = new List<Music>();
 
     public event Action<Music> PlayMusic;
     public event Action BeatEvent;
@@ -21,7 +22,7 @@ public class MusicPlayer : BaseInit
     private int noteCounter = 0;
     private int bpmCounter = 0;
     private int attackCounter = 0;
-    private Music PlayingMusic;
+    public Music PlayingMusic { get; private set; }
 
     protected override bool Init()
     {
@@ -39,6 +40,13 @@ public class MusicPlayer : BaseInit
             _circleArcAttackTimingsInSong.Add(music.SongName, new List<float>());
             _noteTimingsInSong.Add(music.SongName, new List<Note>());
             MakeBeatTiming(music);
+        }
+
+        for(int i = 0; i < 2; i++)
+        {
+            Music playableMusic = MusicList[Random.Range(0, MusicList.Count)];
+            PlayableMusicList.Add(playableMusic);
+            MusicList.Remove(playableMusic);
         }
 
         return true;
@@ -119,9 +127,8 @@ public class MusicPlayer : BaseInit
 
     private IEnumerator MusicPlaying()
     {
-        Music music = MusicList[Random.Range(0, MusicList.Count)];
+        Music music = PlayableMusicList[Random.Range(0, PlayableMusicList.Count)];
         //MusicList.Remove(music);
-        Managers.Instance.Game.PlayingMusic = music;
         PlayingMusic = music;
         beatCounter = 0;
         noteCounter = 0;
@@ -135,6 +142,57 @@ public class MusicPlayer : BaseInit
 
         yield return new WaitUntil(() => _audioSource.isPlaying == false);
         StartCoroutine(MusicPlaying());
+    }
+
+    public async Awaitable ChangeMusic(Music music)
+    {
+        float time = _audioSource.time;
+
+        await Awaitable.BackgroundThreadAsync();
+
+        int beatCounter = 0;
+        int noteCounter = 0;
+        int bpmCounter = 0;
+        int attackCounter = 0;
+
+        while(time > _beatTimingsInSong[music.SongName][beatCounter])
+        {
+            beatCounter++;
+            if (beatCounter >= _beatTimingsInSong[music.SongName].Count) break;
+        }
+
+        while(time > _noteTimingsInSong[music.SongName][noteCounter].timing)
+        {
+            noteCounter++;
+            if (noteCounter >= _noteTimingsInSong[music.SongName].Count) break;
+        }
+
+        while(time > _bpmTimingsInSong[music.SongName][bpmCounter])
+        {
+            bpmCounter++;
+            if (bpmCounter >= _bpmTimingsInSong[music.SongName].Count) break;
+        }
+
+        while(time > _circleArcAttackTimingsInSong[music.SongName][attackCounter])
+        {
+            attackCounter++;
+            if (attackCounter >= _circleArcAttackTimingsInSong[music.SongName].Count) break;
+        }
+
+        await Awaitable.MainThreadAsync();
+
+        this.beatCounter = beatCounter;
+        this.noteCounter = noteCounter;
+        this.bpmCounter = bpmCounter;
+        this.attackCounter = attackCounter;
+
+        PlayingMusic = music;
+
+        _audioSource.clip = music.Clip;
+        _audioSource.time = time;
+        _audioSource.Play();
+
+        PlayMusic?.Invoke(PlayingMusic);
     }
 
     private void Update()

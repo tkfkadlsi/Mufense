@@ -6,7 +6,7 @@ public class StringAttack : TowerAttack
     private float _speed;
     private Vector3 _direction;
 
-    //private TrailRenderer _trailRenderer;
+    private TrailRenderer[] _trailRenderers;
 
     protected override bool Init()
     {
@@ -15,7 +15,7 @@ public class StringAttack : TowerAttack
             return false;
         }
 
-        //_trailRenderer = GetComponent<TrailRenderer>();
+        _trailRenderers = GetComponentsInChildren<TrailRenderer>();
 
         return true;
     }
@@ -23,9 +23,16 @@ public class StringAttack : TowerAttack
     protected override void Setting()
     {
         base.Setting();
-        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
-        //_trailRenderer.startColor = Managers.Instance.Game.PlayingMusic.PlayerColor;
-        //_trailRenderer.endColor = new Color(_trailRenderer.startColor.r, _trailRenderer.startColor.g, _trailRenderer.endColor.b, 0f);
+        Color color = Managers.Instance.Game.PlayingMusic.PlayerColor;
+
+        for(int i = 0; i <  _trailRenderers.Length; i++)
+        {
+            color.a = 0.8f;
+            _trailRenderers[i].startColor = color;
+            color.a = 0f;
+            _trailRenderers[i].endColor = color;
+            _trailRenderers[i].Clear();
+        }
     }
 
     public override void SettingTarget(Vector3 target, float musicPower)
@@ -45,10 +52,7 @@ public class StringAttack : TowerAttack
 
     private IEnumerator PushCoroutine()
     {
-        yield return new WaitForSeconds(0.2f);
-        //_trailRenderer.enabled = true;
-        yield return new WaitForSeconds((Managers.Instance.Game.UnitTime * 4) - 0.2f);
-        //_trailRenderer.enabled = false;
+        yield return new WaitForSeconds((Managers.Instance.Game.UnitTime * 2));
         _poolable.PushThisObject();
     }
     private void OnTriggerEnter2D(Collider2D collision)

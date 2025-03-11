@@ -47,6 +47,7 @@ public class MusicPowerOrb : BaseObject
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
         _trailRenderer.startColor = Managers.Instance.Game.PlayingMusic.EnemyColor;
         _trailRenderer.endColor = Color.clear;
+        _trailRenderer.Clear();
         StartCoroutine(EnableCoroutine());
     }
 
@@ -55,12 +56,10 @@ public class MusicPowerOrb : BaseObject
         if(collision.CompareTag("Player") && _state == OrbState.Create || collision.CompareTag("CircleArc") && _state == OrbState.Create)
         {
             _state = OrbState.Enable;
-            _trailRenderer.enabled = true;
         }
         if(collision.CompareTag("Core") && _state == OrbState.Enable)
         {
             _state = OrbState.Disable;
-            _trailRenderer.enabled = false;
             Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().AddMusicPower(1);
             _poolable.PushThisObject();
         }
@@ -70,7 +69,6 @@ public class MusicPowerOrb : BaseObject
     {
         yield return new WaitForSeconds(Managers.Instance.Game.UnitTime);
         _state = OrbState.Enable;
-        _trailRenderer.enabled = true;
     }
 
     private void Update()
