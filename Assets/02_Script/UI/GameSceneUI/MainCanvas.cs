@@ -5,14 +5,16 @@ using UnityEngine.UI;
 
 public class MainCanvas : BaseUI, IMusicPlayHandle
 {
+    private float _songChangeCooltime;
+
     private enum EButtons
     {
         TowerBuildButton,
-        BGMChangeButton
+        SongChangeButton
     }
 
     private Button _towerBuildButton;
-    private Button _bgmChangeButton;
+    private Button _songChangeButton;
 
     protected override bool Init()
     {
@@ -24,19 +26,14 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
         Bind<Button>(typeof(EButtons));
 
         _towerBuildButton = Get<Button>((int)EButtons.TowerBuildButton);
-        _bgmChangeButton = Get<Button>((int)EButtons.BGMChangeButton);
+        _songChangeButton = Get<Button>((int)EButtons.SongChangeButton);
 
         _towerBuildButton.onClick.AddListener(HandleTowerBuildButton);
-        _bgmChangeButton.onClick.AddListener(HandleBGMChangeButton);
+        _songChangeButton.onClick.AddListener(HandleSongChangeButton);
+
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
 
         return true;
-    }
-
-    protected override void Setting()
-    {
-        base.Setting();
-
-        _towerBuildButton.image.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
     }
 
     private void HandleTowerBuildButton()
@@ -44,11 +41,10 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
         Managers.Instance.UI.GameRootUI.SetActiveCanvas("BuildCanvas", true);
     }
 
-    private void HandleBGMChangeButton()
+    private void HandleSongChangeButton()
     {
-        MusicPlayer musicPlayer = Managers.Instance.Game.FindBaseInitScript<MusicPlayer>();
-        Music randMusic = musicPlayer.PlayableMusicList[Random.Range(0, musicPlayer.PlayableMusicList.Count)];
-        musicPlayer.ChangeMusic(randMusic);
+        if (_songChangeCooltime < 10f) return;
+        Managers.Instance.UI.GameRootUI.SetActiveCanvas("SongCanvas", true);
     }
 
     public void SetBuildButtonActive(bool active)
@@ -58,6 +54,24 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
 
     public void SettingColor(Music music)
     {
-        _towerBuildButton.image.DOColor(Managers.Instance.Game.PlayingMusic.PlayerColor, 1f);
+        _songChangeCooltime = 0f;
+        _towerBuildButton.image.DOColor(music.PlayerColor, 1f);
+        _songChangeButton.image.color = new Color(music.PlayerColor.r, music.PlayerColor.g, music.PlayerColor.b, 0f);
+    }
+
+    private void Update()
+    {
+        _songChangeCooltime += Time.deltaTime;
+
+        if (_songChangeCooltime > 10f)
+        {
+            _songChangeCooltime = 10f;
+        }
+
+        _songChangeButton.image.color = new Color(
+            _songChangeButton.image.color.r,
+            _songChangeButton.image.color.g,
+            _songChangeButton.image.color.b,
+            _songChangeCooltime / 10f);
     }
 }

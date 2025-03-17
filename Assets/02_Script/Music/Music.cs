@@ -15,4 +15,8 @@ public class Music
     public Color EnemyColor;
     public Color BackGroundColor;
     public List<float> CircleArcAttackTimings = new List<float>();
+    public int PianoAmount;
+    public int DrumAmount;
+    public int StringAmount;
+    public int CoreAmount;
 }

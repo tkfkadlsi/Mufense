@@ -370,6 +370,8 @@ MonoBehaviour:
       Value: {fileID: 5830955504163299548, guid: b6be990f14348ef449769c18f868e286, type: 3}
     - Key: 12
       Value: {fileID: 4050863107569587097, guid: c227489ce2d73e94097bb593a5cc642c, type: 3}
+    - Key: 13
+      Value: {fileID: 8988104574458406064, guid: 6d131d7ef73754b48b8da3dd66ac2b63, type: 3}
 --- !u!114 &419489190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,17 +387,6 @@ MonoBehaviour:
   AudioMixer: {fileID: 24100000, guid: 08e09d8f4676b9e468e02224736929bc, type: 2}
   InputReader: {fileID: 11400000, guid: b0e5121f49caeb948bab0674ff537407, type: 2}
   PlayTime: 0
-  PlayingMusic:
-    SongName: 
-    ArtistName: 
-    Clip: {fileID: 0}
-    Chaebo: {fileID: 0}
-    BpmChangeDict:
-      _serializedList: []
-    PlayerColor: {r: 0, g: 0, b: 0, a: 0}
-    EnemyColor: {r: 0, g: 0, b: 0, a: 0}
-    BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
-    CircleArcAttackTimings: []
   CurrentBPM: 0
   Language: 0
   MasterVolume: 0

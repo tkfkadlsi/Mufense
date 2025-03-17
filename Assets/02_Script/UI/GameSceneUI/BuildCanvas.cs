@@ -67,9 +67,9 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
         return true;
     }
 
-    protected override void Setting()
+    protected override void ActiveOn()
     {
-        base.Setting();
+        base.ActiveOn();
 
         _pianoImage.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
         _drumImage.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
@@ -77,16 +77,18 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
         _exitImage.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
+
+        StartCoroutine(PanelOpen());
     }
 
-    protected override void Release()
+    protected override void ActiveOff()
     {
         if(Managers.Instance != null)
         {
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
         }
 
-        base.Release();
+        base.ActiveOff();
     }
 
     private void HandlePianoTower()
@@ -135,5 +137,27 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
         _drumImage.DOColor(music.PlayerColor, 1f);
         _stringImage.DOColor(music.PlayerColor, 1f);
         _exitImage.DOColor(music.PlayerColor, 1f);
+    }
+
+    private IEnumerator PanelOpen()
+    {
+        _pianoTower.transform.localScale = Vector3.zero;
+        _drumTower.transform.localScale = Vector3.zero;
+        _stringTower.transform.localScale = Vector3.zero;
+        _exitButton.transform.localScale = Vector3.zero;
+
+        float t = 0f;
+        float lerpTime = 0.5f;
+
+        while (t < lerpTime)
+        {
+            t += Time.deltaTime;
+            yield return null;
+
+            _pianoTower.transform.localScale = Vector3.Lerp(_pianoTower.transform.localScale, Vector3.one, t / lerpTime);
+            _drumTower.transform.localScale = Vector3.Lerp(_drumTower.transform.localScale, Vector3.one, t / lerpTime);
+            _stringTower.transform.localScale = Vector3.Lerp(_stringTower.transform.localScale, Vector3.one, t / lerpTime);
+            _exitButton.transform.localScale = Vector3.Lerp(_exitButton.transform.localScale, Vector3.one, t / lerpTime);
+        }
     }
 }

@@ -22,7 +22,9 @@ public class MusicPlayer : BaseInit
     private int noteCounter = 0;
     private int bpmCounter = 0;
     private int attackCounter = 0;
+
     public Music PlayingMusic { get; private set; }
+    public float MusicTime => _audioSource.time;
 
     protected override bool Init()
     {
