@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 196581778047953421}
   - component: {fileID: 2972347350590879971}
   - component: {fileID: -661732188099127809}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DrumTower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -94,7 +94,7 @@ public class SongCanvas : BaseUI
 
             SongButton songButton = Managers.Instance.Pool.PopObject(PoolType.SongButton, Vector3.zero, _panel.transform).GetComponent<SongButton>();
             songButton.transform.localScale = Vector3.zero;
-            songButton.transform.DOScale(1f, 0.5f);
+            songButton.transform.DOScale(1f, 0.25f);
             songButton.SettingButton(music);
             _songButtonList.Add(songButton);
         }

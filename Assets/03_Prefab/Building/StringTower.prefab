@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1413344665237139533}
   - component: {fileID: 4353845530595015054}
   - component: {fileID: -6843597401801885893}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StringTower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -8,6 +8,7 @@ public class SongButton : BaseUI, IPointerEnterHandler, IPointerExitHandler, IPo
     private Music _music;
     private PoolableObject _poolable;
     private Image _image;
+    private Image _icon;
 
     protected override bool Init()
     {
@@ -18,6 +19,7 @@ public class SongButton : BaseUI, IPointerEnterHandler, IPointerExitHandler, IPo
 
         _poolable = GetComponent<PoolableObject>();
         _image = GetComponent<Image>();
+        _icon = GetComponentInChildren<Image>();
 
         return true;
     }
@@ -26,6 +28,7 @@ public class SongButton : BaseUI, IPointerEnterHandler, IPointerExitHandler, IPo
     {
         _music = music;
         _image.color = music.BackGroundColor;
+        _icon.color = music.PlayerColor;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

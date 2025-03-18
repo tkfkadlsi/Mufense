@@ -6,6 +6,7 @@ public enum ObjectType
     MusicPowerOrb = 1,
     Effect = 2,
     Attacks = 3,
+    Treasure = 10,
     Enemy = 100,
     Player = 101,
     Tower = 200,

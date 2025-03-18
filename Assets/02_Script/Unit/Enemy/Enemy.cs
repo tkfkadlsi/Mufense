@@ -26,6 +26,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
 
         _core = Managers.Instance.Game.FindBaseInitScript<Core>();
         _poolable = GetComponent<PoolableObject>();
+        _objectType = ObjectType.Enemy;
 
         return true;
     }
