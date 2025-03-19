@@ -15,9 +15,6 @@ public class MusicPowerOrb : BaseObject
     private CircleCollider2D _collider;
     private PoolableObject _poolable;
 
-    [SerializeField] private Color _blueColor;
-    [SerializeField] private Color _redColor;
-
     private OrbState _state;
 
     protected override bool Init()
@@ -67,7 +64,8 @@ public class MusicPowerOrb : BaseObject
 
     private IEnumerator EnableCoroutine()
     {
-        yield return new WaitForSeconds(Managers.Instance.Game.UnitTime);
+        float time = Random.Range(0.15f, 0.5f);
+        yield return new WaitForSeconds(time);
         _state = OrbState.Enable;
     }
 

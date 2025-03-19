@@ -87,7 +87,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
         {
             StopCoroutine(HitedCoroutine);
         }
-        HitedCoroutine = Hited();
+        HitedCoroutine = Hited(0.5f);
         StartCoroutine(HitedCoroutine);
 
         if ((debuff & (int)Debuffs.Stun) == (int)Debuffs.Stun)
@@ -96,7 +96,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
             {
                 StopCoroutine(StunCoroutine);
             }
-            StunCoroutine = Stun();
+            StunCoroutine = Stun(1f);
             StartCoroutine(StunCoroutine);
         }
         if ((debuff & (int)Debuffs.Poison) == (int)Debuffs.Poison)
@@ -110,10 +110,9 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
         }
     }
 
-    private IEnumerator Hited()
+    public IEnumerator Hited(float lerpTime)
     {
         float t = 0f;
-        float lerpTime = 0.5f;
 
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
 
@@ -126,11 +125,11 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
         }
     }
 
-    private IEnumerator Stun()
+    public IEnumerator Stun(float time)
     {
         _speed = 0f;
-        HPSlider.ChangeColor(Color.yellow, 0.5f);
-        yield return new WaitForSeconds(0.5f);
+        HPSlider.ChangeColor(Color.yellow, time);
+        yield return new WaitForSeconds(time);
         _speed = _originSpeed;
     }
 

@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class Treasure : BaseObject
 {
     private PoolableObject _poolable;
+    private bool _canInterection;
 
     protected override bool Init()
     {
@@ -17,9 +18,24 @@ public abstract class Treasure : BaseObject
         return true;
     }
 
-    public void Reward()
+    protected override void Setting()
     {
+        base.Setting();
+        _canInterection = true;
+    }
 
+    protected override void Release()
+    {
+        _canInterection = false;
+        base.Release();
+    }
+
+    protected abstract void Reward();
+
+    public void Interection()
+    {
+        if (_canInterection == false) return;
+        _canInterection = false;
     }
 
     public void PushThisObject()

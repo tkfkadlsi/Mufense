@@ -20,6 +20,8 @@ public abstract class Tower : BaseObject, IMusicPlayHandle
     protected TowerIcon _towerIcon;
     protected Enemy _target;
 
+    private bool _canInterection;
+
     protected override bool Init()
     {
         if(base.Init() == false)
@@ -39,6 +41,7 @@ public abstract class Tower : BaseObject, IMusicPlayHandle
         _towerIcon = Managers.Instance.Pool.PopObject(PoolType.TowerIcon, transform.position).GetComponent<TowerIcon>();
         _towerIcon.TowerIconSetting(_iconSprite, this);
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
+        _canInterection = true;
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().NoteEvent += HandleNoteEvent;
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
     }
@@ -52,6 +55,7 @@ public abstract class Tower : BaseObject, IMusicPlayHandle
         }
         _towerIcon.PushThisObject();
         _towerIcon = null;
+        _canInterection = false;
         base.Release();
     }
 
@@ -60,5 +64,11 @@ public abstract class Tower : BaseObject, IMusicPlayHandle
     public void SettingColor(Music music)
     {
         _spriteRenderer.DOColor(music.PlayerColor, 1f);
+    }
+
+    public void Interection()
+    {
+        if (_canInterection == false) return;
+        _canInterection = false;
     }
 }

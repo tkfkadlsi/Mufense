@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
         return _scriptDict[typeof(T)] as T;
     }
 
+    public void SetTimeScale(float timeScale) => Time.timeScale = timeScale;
+
     #endregion
 
     #region Events
