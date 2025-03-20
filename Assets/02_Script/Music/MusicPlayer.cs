@@ -23,7 +23,7 @@ public class MusicPlayer : BaseInit
     private int bpmCounter = 0;
     private int attackCounter = 0;
 
-    public Music PlayingMusic { get; private set; }
+    public Music PlayingMusic { get; private set; } = null;
     public float MusicTime => _audioSource.time;
 
     protected override bool Init()
@@ -44,7 +44,7 @@ public class MusicPlayer : BaseInit
             MakeBeatTiming(music);
         }
 
-        for(int i = 0; i < 2; i++)
+        for(int i = 0; i < 1; i++)
         {
             Music playableMusic = MusicList[Random.Range(0, MusicList.Count)];
             PlayableMusicList.Add(playableMusic);
@@ -195,6 +195,11 @@ public class MusicPlayer : BaseInit
         _audioSource.Play();
 
         PlayMusic?.Invoke(PlayingMusic);
+    }
+
+    public void SetPitch(float pitch)
+    {
+        _audioSource.pitch = pitch;
     }
 
     private void Update()

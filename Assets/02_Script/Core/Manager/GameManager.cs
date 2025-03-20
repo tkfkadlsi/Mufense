@@ -41,7 +41,11 @@ public class GameManager : MonoBehaviour
         return _scriptDict[typeof(T)] as T;
     }
 
-    public void SetTimeScale(float timeScale) => Time.timeScale = timeScale;
+    public void SetTimeScale(float timeScale)
+    {
+        Time.timeScale = timeScale;
+        FindBaseInitScript<MusicPlayer>().SetPitch(timeScale);
+    }
 
     #endregion
 

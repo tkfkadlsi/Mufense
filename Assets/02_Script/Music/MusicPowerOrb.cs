@@ -64,7 +64,7 @@ public class MusicPowerOrb : BaseObject
 
     private IEnumerator EnableCoroutine()
     {
-        float time = Random.Range(0.15f, 0.5f);
+        float time = Random.Range(0.3f, 0.5f);
         yield return new WaitForSeconds(time);
         _state = OrbState.Enable;
     }

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 
 public class PlayerInterection : BaseInit
 {
-    private List<Collider2D> _colliders = new List<Collider2D>();
-    private Collider2D _collider;
+    private Collider2D[] _colliders = new Collider2D[5];
+    private ContactFilter2D _filter = new ContactFilter2D();
+
     private Canvas _canvas;
+    private Player _player;
 
     protected override bool Init()
     {
@@ -14,8 +16,9 @@ public class PlayerInterection : BaseInit
             return false;
         }
 
-        _collider = GetComponent<Collider2D>();
         _canvas = GetComponentInChildren<Canvas>();
+        _player = FindAnyObjectByType<Player>();
+        _filter.NoFilter();
 
         return true;
     }
@@ -29,39 +32,45 @@ public class PlayerInterection : BaseInit
 
     protected override void Release()
     {
-        Managers.Instance.Game.InputReader.InterectionEvent -= Interection;
+        if(Managers.Instance != null)
+        {
+            Managers.Instance.Game.InputReader.InterectionEvent -= Interection;
+        }
 
         base.Release();
     }
 
     private void Update()
     {
-        Physics2D.OverlapCollider(_collider, _colliders);
+        transform.position = _player.transform.position;
+        int count = Physics2D.OverlapCircle(transform.position, 1.1f, _filter, _colliders);
 
-        if(_colliders.Count > 0)
+        for(int i = 0; i < count; i++)
         {
-            _canvas.enabled = true;
+            if (_colliders[i].CompareTag("Tower") || _colliders[i].CompareTag("Treasure"))
+            {
+                _canvas.enabled = true;
+                return;
+            }
         }
-        else
-        {
-            _canvas.enabled = false;
-        }
+        _canvas.enabled = false;
     }
 
     private void Interection()
     {
+        int count = Physics2D.OverlapCircle(transform.position, 1.1f, _filter, _colliders);
+        _colliders = Physics2D.OverlapCircleAll(transform.position, 1.1f);
 
-
-        foreach(Collider2D collider in _colliders)
+        for(int i = 0; i < count; i++)
         {
-            if(collider.CompareTag("Tower"))
+            if (_colliders[i].CompareTag("Tower"))
             {
-                Tower tower = collider.GetComponent<Tower>();
+                Tower tower = _colliders[i].GetComponent<Tower>();
                 tower.Interection();
             }
-            else if(collider.CompareTag("Treasure"))
+            else if (_colliders[i].CompareTag("Treasure"))
             {
-                Treasure treasure = collider.GetComponent<Treasure>();
+                Treasure treasure = _colliders[i].GetComponent<Treasure>();
                 treasure.Interection();
             }
         }

@@ -4,6 +4,21 @@ public class PianoTower : Tower
 {
     [SerializeField] private LayerMask _whatIsEnemy;
 
+    private Collider2D[] _enemies = new Collider2D[10];
+    private ContactFilter2D _filter = new ContactFilter2D();
+
+    protected override bool Init()
+    {
+        if(base.Init() == false)
+        {
+            return false;
+        }
+
+        _filter.layerMask = _whatIsEnemy;
+
+        return true;
+    }
+
     protected override void Setting()
     {
         base.Setting();
@@ -24,10 +39,10 @@ public class PianoTower : Tower
 
     private void SearchTarget()
     {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll (transform.position, Range, _whatIsEnemy);
-        if( enemies.Length > 0 )
+        int count = Physics2D.OverlapCircle(transform.position, Range, _filter, _enemies);
+        if( count > 0 )
         {
-            _target = enemies[Random.Range(0, enemies.Length)].GetComponent<Enemy>();
+            _target = _enemies[Random.Range(0, count)].GetComponent<Enemy>();
         }
     }
 

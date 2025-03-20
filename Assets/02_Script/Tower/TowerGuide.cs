@@ -15,6 +15,9 @@ public class TowerGuide : BaseObject
     private IEnumerator BuildCor;
     private bool _canBuild;
 
+    private bool _isOverlap;
+    private bool _isRangeOut;
+
     protected override bool Init()
     {
         if(base.Init() == false)
@@ -28,6 +31,8 @@ public class TowerGuide : BaseObject
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<CircleCollider2D>();
         _canBuild = true;
+        _isOverlap = false;
+        _isRangeOut = false;
 
         return true;
     }
@@ -43,6 +48,26 @@ public class TowerGuide : BaseObject
 
     private void Update()
     {
+        if(transform.position.magnitude > 15f)
+        {
+            _isRangeOut = true;
+        }
+        else
+        {
+            _isRangeOut = false;
+        }
+
+        if(_isRangeOut || _isOverlap)
+        {
+            _spriteRenderer.color = Color.red;
+            _canBuild = false;
+        }
+        else
+        {
+            _spriteRenderer.color = Color.green;
+            _canBuild = true;
+        }
+
         if(Input.GetMouseButtonDown(1) && BuildCor is not null)
         {
             StopCoroutine(BuildCor);
@@ -94,13 +119,11 @@ public class TowerGuide : BaseObject
 
             if (_colliders.Count == 0)
             {
-                _spriteRenderer.color = Color.green;
-                _canBuild = true;
+                _isOverlap = false;
             }
             else
             {
-                _spriteRenderer.color = Color.red;
-                _canBuild = false;
+                _isOverlap = true;
             }
         }
     }
@@ -113,13 +136,11 @@ public class TowerGuide : BaseObject
 
             if (_colliders.Count == 0)
             {
-                _spriteRenderer.color = Color.green;
-                _canBuild = true;
+                _isOverlap = false;
             }
             else
             {
-                _spriteRenderer.color = Color.red;
-                _canBuild = false;
+                _isOverlap = true;
             }
         }
     }

@@ -6,12 +6,12 @@ public enum ObjectType
     MusicPowerOrb = 1,
     Effect = 2,
     Attacks = 3,
-    Treasure = 10,
-    Enemy = 100,
-    Player = 101,
-    Tower = 200,
-    TowerIcon = 201,
-    TowerGuide = 202,
+    Tower = 100,
+    TowerIcon = 101,
+    TowerGuide = 102,
+    Enemy = 200,
+    Player = 201,
+    Treasure = 210,
     Core = 300,
 }
 
@@ -34,6 +34,7 @@ public abstract class BaseObject : BaseInit
 
     protected override void Setting()
     {
+        base.Setting();
         _spriteRenderer.sortingOrder = (int)_objectType;
     }
 }

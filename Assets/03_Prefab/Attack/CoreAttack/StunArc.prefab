@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 6776462056123149886}
   - component: {fileID: 7938982943470490326}
   - component: {fileID: 2869156946343809552}
-  - component: {fileID: 502176130300429228}
+  - component: {fileID: 7045566538842853336}
   - component: {fileID: 619320928101940299}
   - component: {fileID: -3225428736814504000}
   m_Layer: 0
-  m_Name: CircleArc
+  m_Name: StunArc
   m_TagString: CircleArc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,7 +127,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 3.333
---- !u!114 &502176130300429228
+--- !u!114 &7045566538842853336
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 120152879988505874}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b425b5467e16a1341aba357e8f7ace17, type: 3}
+  m_Script: {fileID: 11500000, guid: 68e21ca2a4a92064d9d2951857d6da5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &619320928101940299
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a0b8dbf1b55c92409c2fa7e1fce57c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolType: 1
+  poolType: 16
 --- !u!50 &-3225428736814504000
 Rigidbody2D:
   serializedVersion: 5

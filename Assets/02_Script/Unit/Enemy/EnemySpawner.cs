@@ -55,6 +55,6 @@ public class EnemySpawner : BaseInit, IMusicHandleObject
     private void SpawnEnemy()
     {
         Vector3 direction = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-        Managers.Instance.Pool.PopObject(PoolType.Enemy, direction.normalized * 25f);
+        Managers.Instance.Pool.PopObject(PoolType.Enemy, direction.normalized * 30f);
     }
 }
