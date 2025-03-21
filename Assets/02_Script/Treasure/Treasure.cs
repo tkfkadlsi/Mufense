@@ -29,6 +29,7 @@ public abstract class Treasure : BaseObject, IMusicPlayHandle
         _canInterection = true;
         _spriteRenderer.sprite = _closedSprite;
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
+        Managers.Instance.Pool.PopObject(PoolType.TreasureSpawnEffect, transform.position);
         SetPosition();
     }
 

@@ -27,6 +27,7 @@ public class PlayerInterection : BaseInit
     {
         base.Setting();
         _canvas.enabled = false;
+        _canvas.sortingOrder = 999;
         Managers.Instance.Game.InputReader.InterectionEvent += Interection;
     }
 

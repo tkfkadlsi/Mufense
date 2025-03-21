@@ -20,7 +20,8 @@ public enum PoolType
     SongButton,
     MusicPowerTreasure,
     SpecialTreasure,
-    StunArc
+    StunArc,
+    TreasureSpawnEffect
 }
 
 public class PoolManager : MonoBehaviour

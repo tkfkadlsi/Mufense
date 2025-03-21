@@ -48,7 +48,7 @@ public class GameTimer : BaseInit
         {
             _treasureSpawnCooldown -= _treasureSpawnCooltime;
 
-            if(Random.Range(-0.5f, 0.5f) >= 0)
+            if (Random.Range(-0.5f, 0.5f) >= 0)
             {
                 Managers.Instance.Pool.PopObject(PoolType.MusicPowerTreasure, Vector3.zero);
             }

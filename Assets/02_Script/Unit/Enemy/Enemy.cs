@@ -96,7 +96,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
             {
                 StopCoroutine(StunCoroutine);
             }
-            StunCoroutine = Stun(1f);
+            StunCoroutine = Stun(3f);
             StartCoroutine(StunCoroutine);
         }
         if ((debuff & (int)Debuffs.Poison) == (int)Debuffs.Poison)
@@ -125,7 +125,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
         }
     }
 
-    public IEnumerator Stun(float time)
+    private IEnumerator Stun(float time)
     {
         _speed = 0f;
         HPSlider.ChangeColor(Color.yellow, time);
@@ -147,6 +147,11 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
         }
     }
 
+    public void Knockback(Vector2 vector)
+    {
+        _rigidbody.AddForce(vector, ForceMode2D.Force);
+    }
+
     public void Die()
     {
         Managers.Instance.Pool.PopObject(PoolType.EnemyDeathEffect, transform.position);
@@ -165,6 +170,6 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
 
     public void SettingColor(Music music)
     {
-        _spriteRenderer.DOColor(music.EnemyColor, _speed);
+        _spriteRenderer.DOColor(music.EnemyColor, 1f);
     }
 }

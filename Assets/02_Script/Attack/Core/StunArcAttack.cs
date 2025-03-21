@@ -47,7 +47,7 @@ public class StunArcAttack : Attack
         if (collision.CompareTag("Enemy"))
         {
             Enemy enemy = collision.GetComponent<Enemy>();
-            enemy.Stun(3f);
+            enemy.Hit(0, 1);
         }
     }
 }

@@ -8,8 +8,6 @@ public class Core : Unit, IMusicPlayHandle, IHealth
     public float HP { get; set; }
     public HPSlider HPSlider { get; set; }
 
-    [SerializeField] private LayerMask _whatIsEnemy;
-
     private float _damage;
 
     protected override bool Init()
@@ -58,6 +56,11 @@ public class Core : Unit, IMusicPlayHandle, IHealth
     public void CircleArcAttack()
     {
         Managers.Instance.Pool.PopObject(PoolType.CircleArc, transform.position);
+    }
+
+    public void StunArcAttack()
+    {
+        Managers.Instance.Pool.PopObject(PoolType.StunArc, transform.position);
     }
 
     public void SettingColor(Music music)

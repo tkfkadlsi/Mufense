@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 public enum RewardType
 {
     NewSong = 0,
-    StunWave = 1,
+    StunArc = 1,
 
 }
 
@@ -104,16 +104,41 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
 
     private IEnumerator OpenPanel()
     {
-        RewardType rewardType = RewardType.NewSong;
+
+        for(int i = 0; i < 10; i++)
+        {
+            _iconBackGround.rectTransform.localScale = Vector3.one * 1.05f;
+            _iconBackGround.rectTransform.DOScale(Vector3.one, 0.05f);
+
+            _rewardType = GetRandomReward();
+            SettingReward(_rewardType);
+            yield return new WaitForSecondsRealtime(0.1f);
+        }
+
         for (int i = 1; i <= 10; i++)
         {
-            rewardType = (RewardType)Random.Range(0, 2);
-            SettingReward(rewardType);
+            _iconBackGround.rectTransform.localScale = Vector3.one * 1.05f;
+            _iconBackGround.rectTransform.DOScale(Vector3.one, i * 0.05f);
+
+            _rewardType = GetRandomReward();
+            SettingReward(_rewardType);
             yield return new WaitForSecondsRealtime(i * 0.1f);
         }
-        rewardType = (RewardType)Random.Range(0, 2);
-        SettingReward(rewardType);
+        _rewardType = GetRandomReward();
+        SettingReward(_rewardType);
         _exitButton.gameObject.SetActive(true);
+    }
+
+    private RewardType GetRandomReward()
+    {
+        if (Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().MusicList.Count == 0)
+        {
+            return (RewardType)Random.Range(1, 2);
+        }
+        else
+        {
+            return (RewardType)Random.Range(0, 2);
+        }
     }
 
     private void SettingReward(RewardType rewardType)
@@ -138,10 +163,10 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
 
                 _icon.sprite = _rewardDictionary[RewardType.NewSong].Icon;
                 break;
-            case RewardType.StunWave:
-                _titleText.text = _rewardDictionary[RewardType.StunWave].GetName();
-                _descriptionText.text = _rewardDictionary[RewardType.StunWave].GetDescription();
-                _icon.sprite = _rewardDictionary[RewardType.StunWave].Icon;
+            case RewardType.StunArc:
+                _titleText.text = _rewardDictionary[RewardType.StunArc].GetName();
+                _descriptionText.text = _rewardDictionary[RewardType.StunArc].GetDescription();
+                _icon.sprite = _rewardDictionary[RewardType.StunArc].Icon;
                 break;
         }
     }
@@ -156,13 +181,15 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
                 Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayableMusicList.Add(_rewardMusic);
 
                 break;
-            case RewardType.StunWave:
+            case RewardType.StunArc:
 
-                Managers.Instance.Pool.PopObject(PoolType.StunArc, Vector3.zero);
+                Managers.Instance.Game.FindBaseInitScript<Core>().StunArcAttack();
 
                 break;
         }
 
+        FinishReward?.Invoke();
+        
         _panel.rectTransform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
         {
             Managers.Instance.UI.GameRootUI.SetActiveCanvas("RewardCanvas", false);
