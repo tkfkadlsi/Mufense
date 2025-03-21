@@ -2,13 +2,6 @@ using UnityEngine;
 
 public class SpecialTreasure : Treasure
 {
-    protected override void Setting()
-    {
-        base.Setting();
-
-        Managers.Instance.UI.GameRootUI.RewardCanvas.FinishReward += _poolable.PushThisObject;
-    }
-
     protected override void Release()
     {
         if(Managers.Instance != null)
@@ -22,5 +15,6 @@ public class SpecialTreasure : Treasure
     protected override void Reward()
     {
         Managers.Instance.UI.GameRootUI.SetActiveCanvas("RewardCanvas", true);
+        Managers.Instance.UI.GameRootUI.RewardCanvas.FinishReward += _poolable.PushThisObject;
     }
 }

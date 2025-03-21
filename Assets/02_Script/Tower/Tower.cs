@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 
 public enum TowerType
@@ -19,6 +20,7 @@ public abstract class Tower : BaseObject, IMusicPlayHandle
     [SerializeField] private Sprite _iconSprite;
     protected TowerIcon _towerIcon;
     protected Enemy _target;
+    protected bool _isStun;
 
     private bool _canInterection;
 
@@ -42,6 +44,7 @@ public abstract class Tower : BaseObject, IMusicPlayHandle
         _towerIcon.TowerIconSetting(_iconSprite, this);
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
         _canInterection = true;
+        _isStun = false;
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().NoteEvent += HandleNoteEvent;
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
     }
@@ -70,5 +73,16 @@ public abstract class Tower : BaseObject, IMusicPlayHandle
     {
         if (_canInterection == false) return;
         _canInterection = false;
+    }
+
+    public IEnumerator Stun(float time)
+    {
+        _isStun = true;
+
+        StunEffect stunEffect = Managers.Instance.Pool.PopObject(PoolType.StunEffect, transform.position).GetComponent<StunEffect>();
+        stunEffect.SettingTime(Vector3.one * 2, time);
+
+        yield return new WaitForSeconds(time);
+        _isStun = false;
     }
 }

@@ -1,12 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
-public class PlayerInterection : BaseInit
+public class PlayerInterection : BaseInit, IMusicPlayHandle
 {
-    private Collider2D[] _colliders = new Collider2D[5];
+    private int _collisionCount;
+    private Collider2D[] _colliders = new Collider2D[20];
     private ContactFilter2D _filter = new ContactFilter2D();
 
     private Canvas _canvas;
+    private TextMeshProUGUI _text;
     private Player _player;
 
     protected override bool Init()
@@ -17,7 +20,9 @@ public class PlayerInterection : BaseInit
         }
 
         _canvas = GetComponentInChildren<Canvas>();
+        _text = gameObject.FindChild<TextMeshProUGUI>("PressText");
         _player = FindAnyObjectByType<Player>();
+        _collisionCount = 0;
         _filter.NoFilter();
 
         return true;
@@ -44,17 +49,6 @@ public class PlayerInterection : BaseInit
     private void Update()
     {
         transform.position = _player.transform.position;
-        int count = Physics2D.OverlapCircle(transform.position, 1.1f, _filter, _colliders);
-
-        for(int i = 0; i < count; i++)
-        {
-            if (_colliders[i].CompareTag("Tower") || _colliders[i].CompareTag("Treasure"))
-            {
-                _canvas.enabled = true;
-                return;
-            }
-        }
-        _canvas.enabled = false;
     }
 
     private void Interection()
@@ -68,12 +62,53 @@ public class PlayerInterection : BaseInit
             {
                 Tower tower = _colliders[i].GetComponent<Tower>();
                 tower.Interection();
+                return;
             }
             else if (_colliders[i].CompareTag("Treasure"))
             {
                 Treasure treasure = _colliders[i].GetComponent<Treasure>();
                 treasure.Interection();
+                return;
             }
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Tower") || collision.CompareTag("Treasure"))
+        {
+            _collisionCount++;
+        }
+
+        if(_collisionCount == 0)
+        {
+            _canvas.enabled = false;
+        }
+        else
+        {
+            _canvas.enabled = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Tower") || collision.CompareTag("Treasure"))
+        {
+            _collisionCount--;
+        }
+
+        if (_collisionCount == 0)
+        {
+            _canvas.enabled = false;
+        }
+        else
+        {
+            _canvas.enabled = true;
+        }
+    }
+
+    public void SettingColor(Music music)
+    {
+        _text.color = music.TextColor;
     }
 }

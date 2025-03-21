@@ -84,7 +84,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth
         _damage = damage;
     }
 
-    public void Hit(float damage, int debuff = 0)
+    public void Hit(float damage, int debuff = 0, Tower attacker = null)
     {
         HP -= damage;
 
@@ -93,6 +93,15 @@ public class Core : Unit, IMusicPlayHandle, IHealth
             Die();
         }
         HPSlider.Slider.value = HP;
+    }
+
+    public void Heal(float heal)
+    {
+        HP += heal;
+        if(HP > 100f)
+        {
+            HP = 100f;
+        }
     }
 
     public void Die()

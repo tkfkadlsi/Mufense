@@ -13,6 +13,7 @@ public class EnemyDeathEffect : BaseObject
         }
 
         _poolable = GetComponent<PoolableObject>();
+        _objectType = ObjectType.Effect;
 
         return true;
     }
@@ -21,7 +22,6 @@ public class EnemyDeathEffect : BaseObject
     {
         base.Setting();
 
-        _objectType = ObjectType.Effect;
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
         transform.localScale = Vector3.one * 0.1f;
 

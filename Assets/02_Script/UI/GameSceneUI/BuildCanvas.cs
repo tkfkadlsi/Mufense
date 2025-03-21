@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,13 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
         StringTower,
         ExitButton
     }
+    
+    enum ETexts
+    {
+        PianoCostText,
+        DrumCostText,
+        StringCostText,
+    }
 
     private Button _pianoTower;
     private Button _drumTower;
@@ -35,6 +43,10 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
     private Image _stringImage;
     private Image _exitImage;
 
+    private TextMeshProUGUI _pianoCostText;
+    private TextMeshProUGUI _drumCostText;
+    private TextMeshProUGUI _stringCostText;
+
     protected override bool Init()
     {
         if (base.Init() == false)
@@ -44,6 +56,7 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
 
         Bind<Button>(typeof(EButtons));
         Bind<Image>(typeof(EImages));
+        Bind<TextMeshProUGUI>(typeof(ETexts));
 
         _pianoTower = Get<Button>((int)EButtons.PianoTower);
         _drumTower = Get<Button>((int)EButtons.DrumTower);
@@ -54,6 +67,10 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
         _drumImage = Get<Image>((int)EImages.DrumTower);
         _stringImage = Get<Image>((int)EImages.StringTower);
         _exitImage = Get<Image>((int)EImages.ExitButton);
+
+        _pianoCostText = Get<TextMeshProUGUI>((int)ETexts.PianoCostText);
+        _drumCostText = Get<TextMeshProUGUI>((int)ETexts.DrumCostText);
+        _stringCostText = Get<TextMeshProUGUI>((int)ETexts.StringCostText);
 
         _pianoTower.onClick.AddListener(HandlePianoTower);
         _drumTower.onClick.AddListener(HandleDrumTower);
@@ -75,6 +92,10 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
         _drumImage.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
         _stringImage.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
         _exitImage.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
+
+        _pianoCostText.text = PianoCost.ToString();
+        _drumCostText.text = DrumCost.ToString();
+        _stringCostText.text = StringCost.ToString();
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
 

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MusicPowerChest : BaseInit
 {
+    public int MaxMusicPower => (int)_musicPowerSlider.maxValue;
+
     [SerializeField] private Image _backGround;
     [SerializeField] private Image _fill;
 

@@ -13,6 +13,7 @@ public enum ObjectType
     Player = 201,
     Treasure = 210,
     Core = 300,
+    FrontEffect = 999
 }
 
 public abstract class BaseObject : BaseInit

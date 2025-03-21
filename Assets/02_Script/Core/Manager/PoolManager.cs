@@ -21,7 +21,11 @@ public enum PoolType
     MusicPowerTreasure,
     SpecialTreasure,
     StunArc,
-    TreasureSpawnEffect
+    TreasureSpawnEffect,
+    BlinkEnemy,
+    CancledEnemy,
+    StunEffect,
+    BlinkEffect
 }
 
 public class PoolManager : MonoBehaviour

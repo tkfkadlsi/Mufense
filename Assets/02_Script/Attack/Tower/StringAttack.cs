@@ -35,9 +35,9 @@ public class StringAttack : TowerAttack
         }
     }
 
-    public override void SettingTarget(Vector3 target, float musicPower)
+    public override void SettingTarget(Vector3 target, float musicPower, Tower attacker)
     {
-        base.SettingTarget(target, musicPower);
+        base.SettingTarget(target, musicPower, attacker);
         _damage = musicPower;
         _speed = Managers.Instance.Game.CurrentBPM / 10f;
         _direction = target;

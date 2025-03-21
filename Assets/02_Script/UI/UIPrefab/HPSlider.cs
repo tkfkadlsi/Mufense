@@ -57,6 +57,8 @@ public class HPSlider : BaseUI
 
     public void PushThisObject()
     {
+        _backgroundImage.color = _originBackgroundColor;
+        _fillImage.color = _originFillColor;
         _poolable.PushThisObject();
     }
 

@@ -7,9 +7,9 @@ public class PianoAttack : TowerAttack
     private float _speed;
     private Vector3 _direction;
 
-   public override void SettingTarget(Vector3 target, float musicPower)
+   public override void SettingTarget(Vector3 target, float musicPower, Tower attacker)
     {
-        base.SettingTarget(target, musicPower);
+        base.SettingTarget(target, musicPower, attacker);
         _speed = Managers.Instance.Game.CurrentBPM / 7.5f;
         _direction = target;
         StartCoroutine(PushCoroutine());

@@ -4,15 +4,21 @@ public class GameTimer : BaseInit
 {
     public int EnemyHPLevel { get; private set; }
     public int EnemySpawnAmountLevel { get; private set; }
+    public int EnemySpawnLevel { get; private set; }
 
 
     private readonly float _hpLevelCooltime = 150.0f;
     private readonly float _amountLevelCooltime =  230.0f;
+    private float _spawnLevelCooltime = 10.0f;
+
     private readonly float _treasureSpawnCooltime = 40.0f;
 
 
     private float _hpLevelCooldown;
     private float _amountLevelCooldown;
+    private float _spawnLevelCooldown;
+
+
     private float _treasureSpawnCooldown;
 
     protected override bool Init()
@@ -24,6 +30,7 @@ public class GameTimer : BaseInit
 
         EnemyHPLevel = 0;
         EnemySpawnAmountLevel = 0;
+        EnemySpawnLevel = 1;
 
         return true;
     }
@@ -33,6 +40,7 @@ public class GameTimer : BaseInit
         _hpLevelCooldown += Time.deltaTime;
         _amountLevelCooldown += Time.deltaTime;
         _treasureSpawnCooldown += Time.deltaTime;
+        _spawnLevelCooldown += Time.deltaTime;
 
         if(_hpLevelCooldown >= _hpLevelCooltime)
         {
@@ -48,7 +56,7 @@ public class GameTimer : BaseInit
         {
             _treasureSpawnCooldown -= _treasureSpawnCooltime;
 
-            if (Random.Range(-0.5f, 0.5f) >= 0)
+            if (Random.Range(-1f, 0.5f) >= 0)
             {
                 Managers.Instance.Pool.PopObject(PoolType.MusicPowerTreasure, Vector3.zero);
             }
@@ -56,7 +64,12 @@ public class GameTimer : BaseInit
             {
                 Managers.Instance.Pool.PopObject(PoolType.SpecialTreasure, Vector3.zero);
             }
-
+        }
+        if(EnemySpawnLevel < 3 && _spawnLevelCooldown >= _spawnLevelCooltime)
+        {
+            _spawnLevelCooldown -= _spawnLevelCooltime;
+            EnemySpawnLevel++;
+            _spawnLevelCooltime *= 2;
         }
     }
 }

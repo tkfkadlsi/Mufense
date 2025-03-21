@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9fc3ee5e0244e864189fca42183aa00f
+timeCreated: 1462015082
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17964
+  packageName: The Notes
+  packageVersion: 2.0
+  assetPath: Assets/theNotes/Model/AnimatorController/half_rest.controller
+  uploadId: 196786

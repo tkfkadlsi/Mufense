@@ -13,11 +13,11 @@ public class MusicPowerTreasure : Treasure
     {
         for(int i = 0; i < 25; i++)
         {
-            Vector3 jumpPos = new Vector3(Random.Range(-2f, 2f), Random.Range(-0.5f, 0f));
+            Vector3 jumpPos = new Vector3(Random.Range(-2f, 2f), Random.Range(-1f, 0f));
             jumpPos += transform.position;
 
             Transform trm = Managers.Instance.Pool.PopObject(PoolType.MusicPowerOrb, transform.position).transform;
-            trm.DOJump(jumpPos, 1.5f, 2, 0.25f);
+            trm.DOJump(jumpPos, 1.5f, 1, 0.5f);
 
             yield return new WaitForFixedUpdate();
         }

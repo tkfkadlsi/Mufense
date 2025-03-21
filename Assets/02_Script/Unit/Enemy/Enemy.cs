@@ -12,10 +12,10 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
 
     private PoolableObject _poolable;
 
-    private readonly float _originSpeed = 1.25f;
+    protected float _originSpeed = 1.25f;
     private float _speed;
 
-    private Core _core;
+    protected Core _core;
 
     protected override bool Init()
     {
@@ -34,12 +34,13 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
     protected override void Setting()
     {
         base.Setting();
-        _speed = _originSpeed;
         HPSlider = Managers.Instance.Pool.PopObject(PoolType.HPSlider, transform.position).GetComponent<HPSlider>();
-        HP = 5 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemyHPLevel * 3;
+        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
+
+        _speed = _originSpeed;
+        HP = 6 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemyHPLevel * 2;
         HPSlider.Slider.maxValue = HP;
         HPSlider.Slider.value = HP;
-        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
     }
@@ -72,7 +73,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
     private IEnumerator StunCoroutine;
     private IEnumerator PoisonCoroutine;
 
-    public void Hit(float damage, int debuff = 0)
+    public virtual void Hit(float damage, int debuff = 0, Tower attacker = null)
     {
         HP -= damage;
 
@@ -128,7 +129,10 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
     private IEnumerator Stun(float time)
     {
         _speed = 0f;
-        HPSlider.ChangeColor(Color.yellow, time);
+
+        StunEffect stunEffect = Managers.Instance.Pool.PopObject(PoolType.StunEffect, transform.position).GetComponent<StunEffect>();
+        stunEffect.SettingTime(Vector3.one, time);
+
         yield return new WaitForSeconds(time);
         _speed = _originSpeed;
     }
@@ -149,7 +153,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
 
     public void Knockback(Vector2 vector)
     {
-        _rigidbody.AddForce(vector, ForceMode2D.Force);
+        _rigidbody.AddForce(vector, ForceMode2D.Impulse);
     }
 
     public void Die()

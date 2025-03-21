@@ -36,12 +36,15 @@ public class TreasureSpawnEffect : BaseObject, IMusicPlayHandle
         float t = 0f;
         float lerpTime = Managers.Instance.Game.UnitTime * 4f;
 
+        Color startColor = Managers.Instance.Game.PlayingMusic.PlayerColor;
+
         while( t < lerpTime )
         {
             t += Time.deltaTime;
             yield return null;
 
-            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one * 25f, t / lerpTime);
+            transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 30f, t / lerpTime);
+            _spriteRenderer.color = Color.Lerp(startColor, Color.clear, t / lerpTime);
         }
 
         _poolable.PushThisObject();

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using TMPro;
 using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,8 +14,17 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
         SongChangeButton
     }
 
+    private enum ETexts
+    {
+        TowerBuildDescription,
+        SongChangeDescription
+    }
+
     private Button _towerBuildButton;
     private Button _songChangeButton;
+
+    private TextMeshProUGUI _towerBuildDesc;
+    private TextMeshProUGUI _songChangeDesc;
 
     protected override bool Init()
     {
@@ -24,9 +34,13 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
         }
 
         Bind<Button>(typeof(EButtons));
+        Bind<TextMeshProUGUI>(typeof(ETexts));
 
         _towerBuildButton = Get<Button>((int)EButtons.TowerBuildButton);
         _songChangeButton = Get<Button>((int)EButtons.SongChangeButton);
+
+        _towerBuildDesc = Get<TextMeshProUGUI>((int)ETexts.TowerBuildDescription);
+        _songChangeDesc = Get<TextMeshProUGUI>((int)ETexts.SongChangeDescription);
 
         _towerBuildButton.onClick.AddListener(HandleTowerBuildButton);
         _songChangeButton.onClick.AddListener(HandleSongChangeButton);
@@ -57,6 +71,8 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
         _songChangeCooltime = 0f;
         _towerBuildButton.image.DOColor(music.PlayerColor, 1f);
         _songChangeButton.image.color = new Color(music.PlayerColor.r, music.PlayerColor.g, music.PlayerColor.b, 0f);
+        _towerBuildDesc.DOColor(music.TextColor, 1f);
+        _songChangeDesc.DOColor(music.TextColor, 1f);
     }
 
     private void Update()

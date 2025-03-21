@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     #region Music
     public Music PlayingMusic => FindBaseInitScript<MusicPlayer>().PlayingMusic;
 
-    public float CurrentBPM;
+    public float CurrentBPM = 120f;
     public float UnitTime => 60f / CurrentBPM;
 
     public void SetBPM(float bpm)

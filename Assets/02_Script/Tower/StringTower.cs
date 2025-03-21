@@ -31,6 +31,7 @@ public class StringTower : Tower
 
     private void Update()
     {
+        if (_isStun) return;
         if (_target == null || _target.gameObject.activeSelf == false) return;
 
         Vector3 direction = _target.transform.position - transform.position;
@@ -49,11 +50,12 @@ public class StringTower : Tower
 
     protected override void HandleNoteEvent(TowerType type)
     {
+        if (_isStun) return;
         if (type != TowerType.String) return;
 
         SearchTarget();
 
         StringAttack attack = Managers.Instance.Pool.PopObject(PoolType.StringAttack, transform.position).GetComponent<StringAttack>();
-        attack.SettingTarget(transform.up, Damage);
+        attack.SettingTarget(transform.up, Damage, this);
     }
 }

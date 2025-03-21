@@ -33,13 +33,14 @@ public class OptionCanvas : BaseUI
         SelectGamePlay,
         AutoStartSongButton,
         LowDetailModButton,
+        ChangeLanguageButton,
         ExitButton
     }
 
     private enum ETexts
     {
         AutoStartSongCheckText,
-        LowDetailModCheckText,
+        LowDetailModCheckText
     }
 
     private GameObject _soundSetting;
@@ -60,6 +61,7 @@ public class OptionCanvas : BaseUI
 
     private Button _autoStartSongButton;
     private Button _lowDetailModButton;
+    private Button _changeLanguageButton;
 
     private Button _exitButton;
 
@@ -97,6 +99,7 @@ public class OptionCanvas : BaseUI
 
         _autoStartSongButton = Get<Button>((int)EButtons.AutoStartSongButton);
         _lowDetailModButton = Get<Button>((int)EButtons.LowDetailModButton);
+        _changeLanguageButton = Get<Button>((int)EButtons.ChangeLanguageButton);
 
         _exitButton = Get<Button>((int)EButtons.ExitButton);
 
@@ -113,6 +116,7 @@ public class OptionCanvas : BaseUI
 
         _autoStartSongButton.onClick.AddListener(HandleAutoStartSong);
         _lowDetailModButton.onClick.AddListener(HandleLowDetailMod);
+        _changeLanguageButton.onClick.AddListener(HandleChangeLanguage);
 
         _exitButton.onClick.AddListener(HandleExit);
 
@@ -253,6 +257,22 @@ public class OptionCanvas : BaseUI
         {
             _lowDetailModCheckText.text = "";
         }
+    }
+
+    private void HandleChangeLanguage()
+    {
+        switch(Managers.Instance.Game.Language)
+        {
+            case Language.English:
+                Managers.Instance.Game.Language = Language.Korean;
+                break;
+
+            case Language.Korean:
+                Managers.Instance.Game.Language = Language.English;
+                break;
+        }
+
+        Managers.Instance.Game.ChangeLanguageEvent(Managers.Instance.Game.Language);
     }
 
     #endregion

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7db09f482ec0e424d97402f66e1c2057
+timeCreated: 1462015084
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17964
+  packageName: The Notes
+  packageVersion: 2.0
+  assetPath: Assets/theNotes/Model/AnimatorController/Bass_clef_viewer.controller
+  uploadId: 196786

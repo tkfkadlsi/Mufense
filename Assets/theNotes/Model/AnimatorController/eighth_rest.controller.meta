@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 295e9e6cab5f4764c8d7eb57afd32ac7
+timeCreated: 1462014150
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17964
+  packageName: The Notes
+  packageVersion: 2.0
+  assetPath: Assets/theNotes/Model/AnimatorController/eighth_rest.controller
+  uploadId: 196786

@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 9b5c7cf1106a6be4db0d1d193470e4a4
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17964
+  packageName: The Notes
+  packageVersion: 2.0
+  assetPath: Assets/theNotes/Model/AnimatorController/theNote_viewer.controller
+  uploadId: 196786

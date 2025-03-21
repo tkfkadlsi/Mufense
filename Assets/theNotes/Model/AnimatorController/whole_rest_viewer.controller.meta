@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e2f014c7e495a4840852b016deb16ead
+timeCreated: 1462015083
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17964
+  packageName: The Notes
+  packageVersion: 2.0
+  assetPath: Assets/theNotes/Model/AnimatorController/whole_rest_viewer.controller
+  uploadId: 196786

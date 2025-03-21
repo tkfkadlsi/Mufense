@@ -30,6 +30,7 @@ public class PianoTower : Tower
 
     private void Update()
     {
+        if (_isStun) return;
         if (_target == null || _target.gameObject.activeSelf == false) return;
 
         Vector3 direction = _target.transform.position - transform.position;
@@ -48,6 +49,7 @@ public class PianoTower : Tower
 
     protected override void HandleNoteEvent(TowerType type)
     {
+        if(_isStun) return;
         if (type != TowerType.Piano) return;
 
         SearchTarget();
@@ -58,7 +60,7 @@ public class PianoTower : Tower
         {
             PianoAttack attack = Managers.Instance.Pool.PopObject(PoolType.PianoAttack, transform.position).GetComponent<PianoAttack>();
             attack.transform.position += transform.right * Random.Range(-transform.localScale.x / 2f, transform.localScale.x / 2f);
-            attack.SettingTarget(transform.up, Damage);
+            attack.SettingTarget(transform.up, Damage, this);
         }
     }
 }

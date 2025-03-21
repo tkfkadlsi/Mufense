@@ -11,7 +11,8 @@ public enum RewardType
 {
     NewSong = 0,
     StunArc = 1,
-
+    MaxMusicPower = 2,
+    CoreHealing = 3
 }
 
 public class RewardCanvas : BaseUI, IMusicPlayHandle
@@ -86,9 +87,9 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
         _panel.rectTransform.DOScale(Vector3.one, 0.5f);
         _panel.color = Managers.Instance.Game.PlayingMusic.BackGroundColor;
         _iconBackGround.color = Managers.Instance.Game.PlayingMusic.BackGroundColor;
-        _icon.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
-        _titleText.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
-        _descriptionText.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
+        _icon.color = Managers.Instance.Game.PlayingMusic.TextColor;
+        _titleText.color = Managers.Instance.Game.PlayingMusic.TextColor;
+        _descriptionText.color = Managers.Instance.Game.PlayingMusic.TextColor;
         _exitButton.gameObject.SetActive(false);
         StartCoroutine(OpenPanel());
     }
@@ -97,9 +98,9 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
     {
         _panel.DOColor(music.BackGroundColor, 1f);
         _iconBackGround.DOColor(music.BackGroundColor, 1f);
-        _icon.DOColor(music.PlayerColor, 1f);
-        _titleText.DOColor(music.PlayerColor, 1f);
-        _descriptionText.DOColor(music.PlayerColor, 1f);
+        _icon.DOColor(music.TextColor, 1f);
+        _titleText.DOColor(music.TextColor, 1f);
+        _descriptionText.DOColor(music. TextColor, 1f);
     }
 
     private IEnumerator OpenPanel()
@@ -133,11 +134,11 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
     {
         if (Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().MusicList.Count == 0)
         {
-            return (RewardType)Random.Range(1, 2);
+            return (RewardType)Random.Range(1, 4);
         }
         else
         {
-            return (RewardType)Random.Range(0, 2);
+            return (RewardType)Random.Range(0, 4);
         }
     }
 
@@ -168,6 +169,16 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
                 _descriptionText.text = _rewardDictionary[RewardType.StunArc].GetDescription();
                 _icon.sprite = _rewardDictionary[RewardType.StunArc].Icon;
                 break;
+            case RewardType.MaxMusicPower:
+                _titleText.text = _rewardDictionary[RewardType.MaxMusicPower].GetName();
+                _descriptionText.text = _rewardDictionary[RewardType.MaxMusicPower].GetDescription();
+                _icon.sprite = _rewardDictionary[RewardType.MaxMusicPower].Icon;
+                break;
+            case RewardType.CoreHealing:
+                _titleText.text = _rewardDictionary[RewardType.CoreHealing].GetName();
+                _descriptionText.text = _rewardDictionary[RewardType.CoreHealing].GetDescription();
+                _icon.sprite = _rewardDictionary[RewardType.CoreHealing].Icon;
+                break;
         }
     }
 
@@ -181,9 +192,23 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
                 Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayableMusicList.Add(_rewardMusic);
 
                 break;
+
             case RewardType.StunArc:
 
                 Managers.Instance.Game.FindBaseInitScript<Core>().StunArcAttack();
+
+                break;
+
+            case RewardType.MaxMusicPower:
+
+                Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().SetMaxMusicPower(
+                    Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().MaxMusicPower + 1000);
+
+                break;
+
+            case RewardType.CoreHealing:
+
+                Managers.Instance.Game.FindBaseInitScript<Core>().Heal(25f);
 
                 break;
         }

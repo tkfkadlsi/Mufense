@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 58e288957b815014aa17f7b7b73ca3ca
+timeCreated: 1462075940
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17964
+  packageName: The Notes
+  packageVersion: 2.0
+  assetPath: Assets/theNotes/Model/Prefab/Rest/whole_rest.prefab
+  uploadId: 196786

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 146d91a3b452c19488ba9d011d52a63a
+timeCreated: 1462075935
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17964
+  packageName: The Notes
+  packageVersion: 2.0
+  assetPath: Assets/theNotes/Model/Prefab/Rest/eighth_rest.prefab
+  uploadId: 196786

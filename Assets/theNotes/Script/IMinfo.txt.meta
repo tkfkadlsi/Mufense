@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 46b78457f345c9d418a21cef2b7b0fe7
+timeCreated: 1461392146
+licenseType: Store
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17964
+  packageName: The Notes
+  packageVersion: 2.0
+  assetPath: Assets/theNotes/Script/IMinfo.txt
+  uploadId: 196786
