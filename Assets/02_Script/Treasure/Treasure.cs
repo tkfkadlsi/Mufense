@@ -41,11 +41,17 @@ public abstract class Treasure : BaseObject, IMusicPlayHandle
         _spriteRenderer.sprite = _closedSprite;
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
         SetPosition();
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
         Managers.Instance.Pool.PopObject(PoolType.TreasureSpawnEffect, transform.position);
     }
 
     protected override void Release()
     {
+        if(Managers.Instance != null)
+        {
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
+        }
+
         _canInterection = false;
         base.Release();
     }

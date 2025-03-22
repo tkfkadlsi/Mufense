@@ -106,7 +106,7 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
     private IEnumerator OpenPanel()
     {
 
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < 15; i++)
         {
             _iconBackGround.rectTransform.localScale = Vector3.one * 1.05f;
             _iconBackGround.rectTransform.DOScale(Vector3.one, 0.05f);
@@ -116,14 +116,14 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
             yield return new WaitForSecondsRealtime(0.1f);
         }
 
-        for (int i = 1; i <= 10; i++)
+        for (int i = 1; i <= 5; i++)
         {
             _iconBackGround.rectTransform.localScale = Vector3.one * 1.05f;
-            _iconBackGround.rectTransform.DOScale(Vector3.one, i * 0.05f);
+            _iconBackGround.rectTransform.DOScale(Vector3.one, i * 0.1f);
 
             _rewardType = GetRandomReward();
             SettingReward(_rewardType);
-            yield return new WaitForSecondsRealtime(i * 0.1f);
+            yield return new WaitForSecondsRealtime(i * 0.15f);
         }
         _rewardType = GetRandomReward();
         SettingReward(_rewardType);

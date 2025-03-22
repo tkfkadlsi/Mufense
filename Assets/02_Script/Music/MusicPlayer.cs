@@ -44,9 +44,9 @@ public class MusicPlayer : BaseInit
             MakeBeatTiming(music);
         }
 
-        for(int i = 0; i < 1; i++)
+        for(int i = 0; i < 3; i++)
         {
-            Music playableMusic = MusicList[Random.Range(0, MusicList.Count)];
+            Music playableMusic = MusicList[0];
             PlayableMusicList.Add(playableMusic);
             MusicList.Remove(playableMusic);
         }

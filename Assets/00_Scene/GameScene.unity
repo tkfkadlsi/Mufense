@@ -2587,6 +2587,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OptionCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6076192330555276021, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6421189128751680805, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -4127,25 +4131,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MusicList:
-  - SongName: Secret Library
+  - SongName: Victory
     ArtistName: Mute
-    Clip: {fileID: 8300000, guid: 0ad076d763a09124ebf5634caa125bb1, type: 3}
-    Chaebo: {fileID: 4900000, guid: 15926390545fe2148b26b3359bebc6b5, type: 3}
+    Clip: {fileID: 8300000, guid: 0e67477fe08df034ab3bfc0a00b9c479, type: 3}
+    Chaebo: {fileID: 4900000, guid: 46af3a6f6fed1d34fb474363509e5603, type: 3}
     BpmChangeDict:
       _serializedList:
-      - Key: 1.5
-        Value: 120
-    PlayerColor: {r: 1, g: 0.87294585, b: 0.21226418, a: 1}
-    EnemyColor: {r: 0.99215686, g: 0.5176471, b: 0.56159633, a: 1}
-    BackGroundColor: {r: 0.88309896, g: 0.9766351, b: 0.990566, a: 1}
+      - Key: 0
+        Value: 200
+    PlayerColor: {r: 0.25, g: 0.47869945, b: 1, a: 1}
+    EnemyColor: {r: 1, g: 0.32200038, b: 0.2783019, a: 1}
+    BackGroundColor: {r: 1, g: 0.92941177, b: 0.9698722, a: 1}
     TextColor: {r: 0, g: 0, b: 0, a: 1}
     CircleArcAttackTimings:
-    - 75
-    - 98
-    PianoAmount: 0
-    DrumAmount: 0
-    StringAmount: 0
-    CoreAmount: 0
+    - 134.666
+    PianoAmount: 4
+    DrumAmount: 3
+    StringAmount: 1
+    CoreAmount: 3
+  - SongName: Cookie's Request
+    ArtistName: Mute
+    Clip: {fileID: 8300000, guid: 382f02f711110ea44884a8d322ed9e6a, type: 3}
+    Chaebo: {fileID: 4900000, guid: a7100219157536e418da04dc90bea43e, type: 3}
+    BpmChangeDict:
+      _serializedList:
+      - Key: 1.6
+        Value: 150
+    PlayerColor: {r: 0.3301887, g: 0.26626372, b: 0.23829655, a: 1}
+    EnemyColor: {r: 0, g: 0.46610165, b: 1, a: 1}
+    BackGroundColor: {r: 0.8632076, g: 1, b: 0.8721573, a: 1}
+    TextColor: {r: 0, g: 0, b: 0, a: 1}
+    CircleArcAttackTimings:
+    - 116.8
+    PianoAmount: 2
+    DrumAmount: 3
+    StringAmount: 2
+    CoreAmount: 2
   - SongName: Witch's Hunt
     ArtistName: Mute
     Clip: {fileID: 8300000, guid: 57e4a47eaf007494890d91138fbfeb8f, type: 3}
@@ -4160,10 +4181,28 @@ MonoBehaviour:
     TextColor: {r: 1, g: 1, b: 1, a: 1}
     CircleArcAttackTimings:
     - 106.909
-    PianoAmount: 0
-    DrumAmount: 0
-    StringAmount: 0
-    CoreAmount: 0
+    PianoAmount: 2
+    DrumAmount: 2
+    StringAmount: 2
+    CoreAmount: 2
+  - SongName: Secret Library
+    ArtistName: Mute
+    Clip: {fileID: 8300000, guid: 0ad076d763a09124ebf5634caa125bb1, type: 3}
+    Chaebo: {fileID: 4900000, guid: 15926390545fe2148b26b3359bebc6b5, type: 3}
+    BpmChangeDict:
+      _serializedList:
+      - Key: 1.5
+        Value: 120
+    PlayerColor: {r: 1, g: 0.87294585, b: 0.21226418, a: 1}
+    EnemyColor: {r: 0.99215686, g: 0.5176471, b: 0.56159633, a: 1}
+    BackGroundColor: {r: 0.88309896, g: 0.9766351, b: 0.990566, a: 1}
+    TextColor: {r: 0, g: 0, b: 0, a: 1}
+    CircleArcAttackTimings:
+    - 98
+    PianoAmount: 3
+    DrumAmount: 2
+    StringAmount: 1
+    CoreAmount: 2
   PlayableMusicList: []
 --- !u!1 &1024480453
 GameObject:

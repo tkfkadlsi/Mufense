@@ -102,6 +102,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth
         {
             HP = 100f;
         }
+        HPSlider.Slider.value = HP;
     }
 
     public void Die()

@@ -25,11 +25,10 @@ public class CancledEnemy : Enemy
 
     public override void Hit(float damage, int debuff = 0, Tower attacker = null)
     {
-        base.Hit(damage, debuff, attacker);
-
         if(attacker != null)
         {
-            attacker.StartCoroutine(attacker.Stun(Managers.Instance.Game.UnitTime * 4));
+            attacker.Stun(Managers.Instance.Game.UnitTime * 4);
         }
+        base.Hit(damage, debuff, attacker);
     }
 }

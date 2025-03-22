@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class MusicPowerChest : BaseInit
 {
-    public int MaxMusicPower => (int)_musicPowerSlider.maxValue;
+    public int MaxMusicPower { get; private set; }
+    private int _musicPower;
 
     [SerializeField] private Image _backGround;
     [SerializeField] private Image _fill;
 
     private Slider _musicPowerSlider;
     private TextMeshProUGUI _musicPowerCounter;
-
-    private int _maxMusicPower;
 
     protected override bool Init()
     {
@@ -24,8 +23,7 @@ public class MusicPowerChest : BaseInit
         _musicPowerCounter = gameObject.FindChild<TextMeshProUGUI>("");
         _musicPowerSlider = GetComponent<Slider>();
 
-        _maxMusicPower = 300;
-        _musicPowerSlider.value = 300;
+        _musicPower = 500;
 
         SetMaxMusicPower(1000);
 
@@ -61,26 +59,33 @@ public class MusicPowerChest : BaseInit
 
     public void SetMaxMusicPower(int value)
     {
-        _maxMusicPower = value;
+        MaxMusicPower = value;
         SetCounter();
     }
 
     public void AddMusicPower(int value)
     {
-        _musicPowerSlider.value += value;
+        Debug.Log($"[사람이냐] : 추가 뮤직 파워 : {value}");
+        _musicPower += value;
+
+        if( _musicPower > MaxMusicPower )
+        {
+            _musicPower = MaxMusicPower;
+        }
+
         SetCounter();
     }
 
     public bool CanRemoveMusicPower(int value)
     {
-        return value <= _musicPowerSlider.value;
+        return value <= _musicPower;
     }
 
     public bool RemoveMusicPower(int value)
     {
-        if (_musicPowerSlider.value >= value)
+        if (_musicPower >= value)
         {
-            _musicPowerSlider.value -= value;
+            _musicPower -= value;
             SetCounter();
             return true;
         }
@@ -92,6 +97,8 @@ public class MusicPowerChest : BaseInit
 
     private void SetCounter()
     {
-        _musicPowerCounter.text = $"({_musicPowerSlider.value} / {_maxMusicPower})";
+        _musicPowerSlider.value = _musicPower;
+        _musicPowerSlider.maxValue = MaxMusicPower;
+        _musicPowerCounter.text = $"({_musicPower} / {MaxMusicPower})";
     }
 }

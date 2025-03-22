@@ -24,7 +24,7 @@ public class StunEffect : BaseObject
     {
         transform.localScale = scale;
 
-        transform.DOScale(Vector3.zero, time).OnComplete(() =>
+        transform.DOScale(Vector3.zero, time).SetEase(Ease.InExpo).OnComplete(() =>
         {
             _poolable.PushThisObject();
         });

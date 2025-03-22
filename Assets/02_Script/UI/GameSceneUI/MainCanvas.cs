@@ -57,7 +57,7 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
 
     private void HandleSongChangeButton()
     {
-        if (_songChangeCooltime < 10f) return;
+        if (_songChangeCooltime < 30f) return;
         Managers.Instance.UI.GameRootUI.SetActiveCanvas("SongCanvas", true);
     }
 
@@ -79,9 +79,9 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
     {
         _songChangeCooltime += Time.deltaTime;
 
-        if (_songChangeCooltime > 10f)
+        if (_songChangeCooltime > 30f)
         {
-            _songChangeCooltime = 10f;
+            _songChangeCooltime = 30f;
         }
 
         _songChangeButton.image.color = new Color(

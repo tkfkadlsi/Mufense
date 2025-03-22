@@ -30,5 +30,6 @@ public abstract class TowerAttack : Attack
     public virtual void SettingTarget(Vector3 target, float musicPower, Tower attacker)
     {
         _damage = musicPower;
+        _attacker = attacker;
     }
 }

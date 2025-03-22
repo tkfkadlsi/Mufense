@@ -75,7 +75,12 @@ public abstract class Tower : BaseObject, IMusicPlayHandle
         _canInterection = false;
     }
 
-    public IEnumerator Stun(float time)
+    public void Stun(float time)
+    {
+        StartCoroutine(StunCoroutine(time));
+    }
+
+    public IEnumerator StunCoroutine(float time)
     {
         _isStun = true;
 

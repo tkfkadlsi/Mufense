@@ -64,18 +64,18 @@ public class EnemySpawner : BaseInit, IMusicHandleObject
                 rand = 1;
                 break;
             case 2:
-                rand = Random.Range(1, 46); //1何磐 45
+                rand = Random.Range(1, 10); //1何磐 9
                 break;
             case 3:
-                rand = Random.Range(1, 51); //1何磐 50
+                rand = Random.Range(1, 11); //1何磐 10
                 break;
         }
 
-        if(rand >= 50)
+        if(rand >= 10)
         {
             Managers.Instance.Pool.PopObject(PoolType.CancledEnemy, direction.normalized * 30f);
         }
-        else if(rand >= 45)
+        else if(rand >= 8)
         {
             Managers.Instance.Pool.PopObject(PoolType.BlinkEnemy, direction.normalized * 30f);
         }

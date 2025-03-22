@@ -31,7 +31,7 @@ public class BlinkEffect : BaseObject
     private IEnumerator EffectCoroutine()
     {
         float t = 0f;
-        float lerpTime = 1.5f;
+        float lerpTime = 2f;
 
         Color endColor = Color.clear;
 

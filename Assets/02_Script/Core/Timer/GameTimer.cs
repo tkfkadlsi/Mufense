@@ -7,7 +7,7 @@ public class GameTimer : BaseInit
     public int EnemySpawnLevel { get; private set; }
 
 
-    private readonly float _hpLevelCooltime = 150.0f;
+    private readonly float _hpLevelCooltime = 120.0f;
     private readonly float _amountLevelCooltime =  230.0f;
     private float _spawnLevelCooltime = 10.0f;
 

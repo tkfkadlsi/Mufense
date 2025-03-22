@@ -60,7 +60,7 @@ public class StringAttack : TowerAttack
         if (collision.CompareTag("Enemy"))
         {
             Enemy enemy = collision.GetComponent<Enemy>();
-            enemy.Hit(_damage);
+            enemy.Hit(_damage, attacker: _attacker);
         }
     }
 

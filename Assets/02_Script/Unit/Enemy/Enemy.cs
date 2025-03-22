@@ -36,9 +36,10 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
         base.Setting();
         HPSlider = Managers.Instance.Pool.PopObject(PoolType.HPSlider, transform.position).GetComponent<HPSlider>();
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
+        transform.rotation = Quaternion.identity;
 
         _speed = _originSpeed;
-        HP = 6 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemyHPLevel * 2;
+        HP = 7 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemyHPLevel * 2;
         HPSlider.Slider.maxValue = HP;
         HPSlider.Slider.value = HP;
 
@@ -61,7 +62,6 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
     {
         Vector3 direction = (_core.transform.position - transform.position).normalized;
         transform.position += direction * _speed * Time.deltaTime;
-        transform.up = direction;
 
         if(HPSlider != null)
         {

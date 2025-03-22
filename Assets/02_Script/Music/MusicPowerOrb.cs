@@ -50,10 +50,6 @@ public class MusicPowerOrb : BaseObject
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player") && _state == OrbState.Create || collision.CompareTag("CircleArc") && _state == OrbState.Create)
-        {
-            _state = OrbState.Enable;
-        }
         if(collision.CompareTag("Core") && _state == OrbState.Enable)
         {
             _state = OrbState.Disable;
