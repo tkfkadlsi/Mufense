@@ -57,7 +57,7 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
 
     private void HandleSongChangeButton()
     {
-        if (_songChangeCooltime < 30f) return;
+        if (_songChangeCooltime < 15f) return;
         Managers.Instance.UI.GameRootUI.SetActiveCanvas("SongCanvas", true);
     }
 
@@ -79,15 +79,15 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
     {
         _songChangeCooltime += Time.deltaTime;
 
-        if (_songChangeCooltime > 30f)
+        if (_songChangeCooltime > 15f)
         {
-            _songChangeCooltime = 30f;
+            _songChangeCooltime = 15f;
         }
 
         _songChangeButton.image.color = new Color(
             _songChangeButton.image.color.r,
             _songChangeButton.image.color.g,
             _songChangeButton.image.color.b,
-            _songChangeCooltime / 10f);
+            _songChangeCooltime / 15f);
     }
 }

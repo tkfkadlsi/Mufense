@@ -8,6 +8,7 @@ public class MusicPlayer : BaseInit
 {
     public List<Music> MusicList = new List<Music>();
     public List<Music> PlayableMusicList = new List<Music>();
+    public List<Music> WaitMusicList = new List<Music>();
 
     public event Action<Music> PlayMusic;
     public event Action BeatEvent;
@@ -130,7 +131,6 @@ public class MusicPlayer : BaseInit
     private IEnumerator MusicPlaying()
     {
         Music music = PlayableMusicList[Random.Range(0, PlayableMusicList.Count)];
-        //MusicList.Remove(music);
         PlayingMusic = music;
         beatCounter = 0;
         noteCounter = 0;
@@ -143,6 +143,9 @@ public class MusicPlayer : BaseInit
         PlayMusic?.Invoke(PlayingMusic);
 
         yield return new WaitUntil(() => _audioSource.isPlaying == false);
+
+        StartCoroutine(WaitMusic(PlayingMusic, PlayableMusicList.Count * 15f));
+
         StartCoroutine(MusicPlaying());
     }
 
@@ -183,6 +186,8 @@ public class MusicPlayer : BaseInit
 
         await Awaitable.MainThreadAsync();
 
+        StartCoroutine(WaitMusic(PlayingMusic, PlayableMusicList.Count * 15f));
+
         this.beatCounter = beatCounter;
         this.noteCounter = noteCounter;
         this.bpmCounter = bpmCounter;
@@ -202,11 +207,23 @@ public class MusicPlayer : BaseInit
         _audioSource.pitch = pitch;
     }
 
+    private IEnumerator WaitMusic(Music music, float time)
+    {
+        PlayableMusicList.Remove(music);
+        WaitMusicList.Add(music);
+
+        yield return new WaitForSeconds(time);
+
+        WaitMusicList.Remove(music);
+        PlayableMusicList.Add(music);
+    }
+
     private void Update()
     {
         if(_audioSource.isPlaying)
         {
             Managers.Instance.Game.PlayTime += Time.deltaTime;
+            //ธÞที 
             if(beatCounter < _beatTimingsInSong[PlayingMusic.SongName].Count)
             {
                 if (_beatTimingsInSong[PlayingMusic.SongName][beatCounter] < _audioSource.time)

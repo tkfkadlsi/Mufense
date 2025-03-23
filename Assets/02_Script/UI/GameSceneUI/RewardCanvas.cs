@@ -202,7 +202,7 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
             case RewardType.MaxMusicPower:
 
                 Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().SetMaxMusicPower(
-                    Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().MaxMusicPower + 1000);
+                    Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().MaxMusicPower + 500);
 
                 break;
 

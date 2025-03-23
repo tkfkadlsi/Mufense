@@ -20,7 +20,7 @@ public class PlayerInterection : BaseInit, IMusicPlayHandle
         }
 
         _canvas = GetComponentInChildren<Canvas>();
-        _text = gameObject.FindChild<TextMeshProUGUI>("PressText");
+        _text = gameObject.FindChild<TextMeshProUGUI>("", true);
         _player = FindAnyObjectByType<Player>();
         _collisionCount = 0;
         _filter.NoFilter();
@@ -34,6 +34,7 @@ public class PlayerInterection : BaseInit, IMusicPlayHandle
         _canvas.enabled = false;
         _canvas.sortingOrder = 999;
         Managers.Instance.Game.InputReader.InterectionEvent += Interection;
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
     }
 
     protected override void Release()
@@ -41,6 +42,7 @@ public class PlayerInterection : BaseInit, IMusicPlayHandle
         if(Managers.Instance != null)
         {
             Managers.Instance.Game.InputReader.InterectionEvent -= Interection;
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
         }
 
         base.Release();
@@ -87,6 +89,7 @@ public class PlayerInterection : BaseInit, IMusicPlayHandle
         else
         {
             _canvas.enabled = true;
+            _text.color = Managers.Instance.Game.PlayingMusic.TextColor;
         }
     }
 
@@ -109,6 +112,7 @@ public class PlayerInterection : BaseInit, IMusicPlayHandle
 
     public void SettingColor(Music music)
     {
+        if (_text == null) return;
         _text.color = music.TextColor;
     }
 }

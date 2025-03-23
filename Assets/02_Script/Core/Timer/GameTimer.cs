@@ -47,7 +47,7 @@ public class GameTimer : BaseInit
             _hpLevelCooldown -= _hpLevelCooltime;
             EnemyHPLevel++;
         }
-        if(_amountLevelCooldown >= _amountLevelCooltime)
+        if(EnemySpawnAmountLevel < 5 && _amountLevelCooldown >= _amountLevelCooltime)
         {
             _amountLevelCooldown -= _amountLevelCooltime;
             EnemySpawnAmountLevel++;
@@ -71,5 +71,27 @@ public class GameTimer : BaseInit
             EnemySpawnLevel++;
             _spawnLevelCooltime *= 2;
         }
+    }
+
+    public float GetHPLevelCooldown()
+    {
+        return _hpLevelCooltime - _hpLevelCooldown;
+    }
+
+    public float GetSpawnAmountCooldown()
+    {
+        if (EnemySpawnAmountLevel >= 5) return float.MaxValue;
+        return _amountLevelCooltime - _amountLevelCooldown;
+    }
+
+    public float GetSpawnLevelCooldown()
+    {
+        if(EnemySpawnLevel >= 3) return float.MaxValue;
+        return _spawnLevelCooltime - _spawnLevelCooldown;
+    }
+
+    public float GetTreasureCooldown()
+    {
+        return _treasureSpawnCooltime - _treasureSpawnCooldown;
     }
 }
