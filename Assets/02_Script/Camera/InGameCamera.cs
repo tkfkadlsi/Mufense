@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class InGameCamera : BaseInit, IMusicPlayHandle
 {
-    private Transform _targetTrm;
-
-    private Transform _playerTrm;
-    private Transform _coreTrm;
+    private CinemachineBasicMultiChannelPerlin _perlin;
 
     protected override bool Init()
     {
@@ -16,49 +13,17 @@ public class InGameCamera : BaseInit, IMusicPlayHandle
             return false;
         }
 
-        _playerTrm = FindAnyObjectByType<Player>().transform;
-        _coreTrm = FindAnyObjectByType<Core>().transform;
-
-        _targetTrm = _playerTrm;
-
+        _perlin = FindAnyObjectByType<CinemachineBasicMultiChannelPerlin>();
+        _perlin.AmplitudeGain = 0;
+        _perlin.FrequencyGain = 0;
 
         return true;
     }
 
-    protected override void Setting()
+    public void SetCameraShake(float shakeStrenght)
     {
-        base.Setting();
-
-        Managers.Instance.Game.InputReader.FocusPlayerEvent += FocusPlayer;
-        Managers.Instance.Game.InputReader.FocusCoreEvent += FocusCore;
-        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
-    }
-
-    private void Update()
-    {
-        transform.position = _targetTrm.position;
-    }
-
-    protected override void Release()
-    {
-        if(Managers.Instance != null)
-        {
-            Managers.Instance.Game.InputReader.FocusPlayerEvent -= FocusPlayer;
-            Managers.Instance.Game.InputReader.FocusCoreEvent -= FocusCore;
-            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
-        }
-
-        base.Release();
-    }
-
-    private void FocusPlayer()
-    {
-        _targetTrm = _playerTrm;
-    }
-
-    private void FocusCore()
-    {
-        _targetTrm = _coreTrm;
+        _perlin.AmplitudeGain = shakeStrenght;
+        _perlin.FrequencyGain = shakeStrenght;
     }
 
     public void SettingColor(Music music)

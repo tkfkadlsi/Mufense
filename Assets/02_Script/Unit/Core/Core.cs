@@ -1,10 +1,13 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Core : Unit, IMusicPlayHandle, IHealth
 {
+    public event Action<float> HPChangeEvent;
     public float HP { get; set; }
     public HPSlider HPSlider { get; set; }
 
@@ -93,6 +96,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth
             Die();
         }
         HPSlider.Slider.value = HP;
+        HPChangeEvent?.Invoke(HP);
     }
 
     public void Heal(float heal)
@@ -103,6 +107,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth
             HP = 100f;
         }
         HPSlider.Slider.value = HP;
+        HPChangeEvent?.Invoke(HP);
     }
 
     public void Die()

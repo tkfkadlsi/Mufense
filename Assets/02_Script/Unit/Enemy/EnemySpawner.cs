@@ -3,11 +3,12 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemySpawner : BaseInit, IMusicHandleObject
+public class EnemySpawner : BaseInit, IMusicHandleObject, IMusicPlayHandle
 {
     private readonly int _spawnCooltime = 4;
 
     private int _cooldown;
+    private float _spawnDistance = 30f;
 
     protected override bool Init()
     {
@@ -24,7 +25,7 @@ public class EnemySpawner : BaseInit, IMusicHandleObject
     protected override void Setting()
     {
         base.Setting();
-
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent += HandleMusicBeat;
     }
 
@@ -32,6 +33,7 @@ public class EnemySpawner : BaseInit, IMusicHandleObject
     {
         if (Managers.Instance != null)
         {
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent -= HandleMusicBeat;
         }
 
@@ -73,15 +75,32 @@ public class EnemySpawner : BaseInit, IMusicHandleObject
 
         if(rand >= 10)
         {
-            Managers.Instance.Pool.PopObject(PoolType.CancledEnemy, direction.normalized * 30f);
+            Managers.Instance.Pool.PopObject(PoolType.CancledEnemy, direction.normalized * _spawnDistance);
         }
         else if(rand >= 8)
         {
-            Managers.Instance.Pool.PopObject(PoolType.BlinkEnemy, direction.normalized * 30f);
+            Managers.Instance.Pool.PopObject(PoolType.BlinkEnemy, direction.normalized * _spawnDistance);
         }
         else
         {
-            Managers.Instance.Pool.PopObject(PoolType.Enemy, direction.normalized * 30f);
+            Managers.Instance.Pool.PopObject(PoolType.Enemy, direction.normalized * _spawnDistance);
+        }
+    }
+
+    public void SettingColor(Music music)
+    {
+        _spawnDistance = 15f;
+    }
+
+    private void Update()
+    {
+        if(_spawnDistance < 30f)
+        {
+            _spawnDistance += Time.deltaTime;
+        }
+        if(_spawnDistance > 30f)
+        {
+            _spawnDistance = 30f;
         }
     }
 }

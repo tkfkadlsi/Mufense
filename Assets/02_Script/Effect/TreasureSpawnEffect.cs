@@ -6,7 +6,6 @@ using System.Collections.Generic;
 public class TreasureSpawnEffect : BaseObject, IMusicPlayHandle
 {
     private PoolableObject _poolable;
-    private List<Collider2D> _enemies = new List<Collider2D>();
 
     protected override bool Init()
     {
@@ -27,7 +26,6 @@ public class TreasureSpawnEffect : BaseObject, IMusicPlayHandle
 
         transform.localScale = Vector3.zero;
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
-        _enemies.Clear();
         StartCoroutine(EffectCoroutine());
     }
 
@@ -53,20 +51,5 @@ public class TreasureSpawnEffect : BaseObject, IMusicPlayHandle
     public void SettingColor(Music music)
     {
         _spriteRenderer.DOColor(music.PlayerColor, 1f);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (_enemies.Contains(collision)) return;
-        if(collision.CompareTag("Enemy"))
-        {
-            Enemy enemy = collision.GetComponent<Enemy>();
-            _enemies.Add(collision);
-
-            Vector2 dir = enemy.transform.position - transform.position;
-            dir = dir.normalized * ( 1f / (dir.magnitude * dir.magnitude));
-
-            enemy.Knockback(dir);
-        }
     }
 }

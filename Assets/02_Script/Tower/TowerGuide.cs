@@ -2,13 +2,15 @@ using AYellowpaper.SerializedCollections;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
-public class TowerGuide : BaseObject
+public class TowerGuide : BaseObject, IMusicPlayHandle
 {
 
     private TowerSpawner _towerSpawner;
     private Rigidbody2D _rigidbody;
     private CircleCollider2D _collider;
+    private TextMeshProUGUI _text;
 
     private List<Collider2D> _colliders = new List<Collider2D>();
 
@@ -26,6 +28,7 @@ public class TowerGuide : BaseObject
         }
 
         _towerSpawner = Managers.Instance.Game.FindBaseInitScript<TowerSpawner>();
+        _text = gameObject.FindChild<TextMeshProUGUI>("GuideText", true);
 
         _objectType = ObjectType.TowerGuide;
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -143,5 +146,10 @@ public class TowerGuide : BaseObject
                 _isOverlap = true;
             }
         }
+    }
+
+    public void SettingColor(Music music)
+    {
+        _text.color = music.TextColor;
     }
 }

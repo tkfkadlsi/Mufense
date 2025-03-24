@@ -207,6 +207,11 @@ public class MusicPlayer : BaseInit
         _audioSource.pitch = pitch;
     }
 
+    public void SetMute(bool mute)
+    {
+        _audioSource.mute = mute;
+    }
+
     private IEnumerator WaitMusic(Music music, float time)
     {
         PlayableMusicList.Remove(music);
@@ -223,7 +228,7 @@ public class MusicPlayer : BaseInit
         if(_audioSource.isPlaying)
         {
             Managers.Instance.Game.PlayTime += Time.deltaTime;
-            //ธÞที 
+
             if(beatCounter < _beatTimingsInSong[PlayingMusic.SongName].Count)
             {
                 if (_beatTimingsInSong[PlayingMusic.SongName][beatCounter] < _audioSource.time)

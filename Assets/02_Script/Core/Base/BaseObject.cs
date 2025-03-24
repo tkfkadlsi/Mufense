@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum ObjectType
 {
-    Wall = 0,
+    BackGround = 0,
     MusicPowerOrb = 1,
     Effect = 2,
     Attacks = 3,
