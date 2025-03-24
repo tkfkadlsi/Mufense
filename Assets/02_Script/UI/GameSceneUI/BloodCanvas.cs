@@ -53,7 +53,7 @@ public class BloodCanvas : BaseUI
             _bloodImage.color = Color.clear;
             return;
         }
-        _alpha = 1 - (hp / 100f);
+        _alpha = (1 - (hp * 0.01f)) * 0.5f;
         Color color = Color.white;
         color.a = _alpha;
         _bloodImage.color = color;
