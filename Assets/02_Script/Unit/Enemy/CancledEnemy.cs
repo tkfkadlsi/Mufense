@@ -1,10 +1,8 @@
-using UnityEngine;
-
 public class CancledEnemy : Enemy
 {
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -25,7 +23,7 @@ public class CancledEnemy : Enemy
 
     public override void Hit(float damage, int debuff = 0, Tower attacker = null)
     {
-        if(attacker != null)
+        if (attacker != null)
         {
             attacker.Stun(Managers.Instance.Game.UnitTime * 4);
         }

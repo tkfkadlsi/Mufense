@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4919222608677570287}
   - component: {fileID: 4085172797376783828}
   m_Layer: 5
-  m_Name: AutoStartSongNameTag
+  m_Name: FrameLimitNameTag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3698,7 +3698,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Auto Start Song
+  m_text: Frame Limit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b6cf6ab88e144e94ea0e1b0417e27153, type: 2}
   m_sharedMaterial: {fileID: 7588812055781326491, guid: b6cf6ab88e144e94ea0e1b0417e27153, type: 2}
@@ -3781,8 +3781,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2692e927cfa8a8d4a8d78b269a51ae4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _koreanText: "\uC74C\uC545 \uC790\uB3D9 \uC7AC\uC0DD"
-  _englishText: Auto Start Song
+  _koreanText: "\uD504\uB808\uC784 \uC81C\uD55C"
+  _englishText: Frame Limit
 --- !u!1 &4251584854862826057
 GameObject:
   m_ObjectHideFlags: 0
@@ -3795,7 +3795,7 @@ GameObject:
   - component: {fileID: 5624223045501210437}
   - component: {fileID: 979412022489007415}
   m_Layer: 5
-  m_Name: AutoStartSongCheckText
+  m_Name: FrameLimitCheckText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5687,7 +5687,7 @@ GameObject:
   - component: {fileID: 1151966788222062217}
   - component: {fileID: 722274051544488276}
   m_Layer: 5
-  m_Name: AutoStartSongButton
+  m_Name: FrameLimitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8348,7 +8348,7 @@ GameObject:
   - component: {fileID: 2430300437808883221}
   - component: {fileID: 3104770562386994945}
   m_Layer: 5
-  m_Name: AutoStartSong
+  m_Name: FrameLimit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

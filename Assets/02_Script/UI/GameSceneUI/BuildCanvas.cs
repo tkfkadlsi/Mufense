@@ -25,7 +25,7 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
         StringTower,
         ExitButton
     }
-    
+
     enum ETexts
     {
         PianoCostText,
@@ -104,7 +104,7 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
 
     protected override void ActiveOff()
     {
-        if(Managers.Instance != null)
+        if (Managers.Instance != null)
         {
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
         }
@@ -114,7 +114,7 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
 
     private void HandlePianoTower()
     {
-        if(Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().CanRemoveMusicPower(PianoCost))
+        if (Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().CanRemoveMusicPower(PianoCost))
         {
             Managers.Instance.Game.FindBaseInitScript<TowerSpawner>().SetSpawnState(TowerSpawnState.Create, TowerType.Piano, PianoCost);
             DisableBuildingButton();
@@ -134,7 +134,7 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
 
     private void HandleStringTower()
     {
-        if(Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().CanRemoveMusicPower(StringCost))
+        if (Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().CanRemoveMusicPower(StringCost))
         {
             Managers.Instance.Game.FindBaseInitScript<TowerSpawner>().SetSpawnState(TowerSpawnState.Create, TowerType.String, StringCost);
             DisableBuildingButton();

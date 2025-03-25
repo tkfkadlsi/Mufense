@@ -33,12 +33,17 @@ public class GameManager : MonoBehaviour
 
     public T FindBaseInitScript<T>() where T : BaseInit
     {
-        if(_scriptDict.ContainsKey(typeof(T)) == false)
+        if (_scriptDict.ContainsKey(typeof(T)) == false)
         {
             _scriptDict.Add(typeof(T), FindAnyObjectByType<T>());
         }
 
         return _scriptDict[typeof(T)] as T;
+    }
+
+    public void ClearDictionary()
+    {
+        _scriptDict.Clear();
     }
 
     public void SetTimeScale(float timeScale)
@@ -63,7 +68,7 @@ public class GameManager : MonoBehaviour
     public float MusicVolume;
     public float EffectVolume;
 
-    public bool AutoStartSong;
+    public bool FrameLimit;
     public bool LowDetailMod;
 
     #endregion

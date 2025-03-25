@@ -9,7 +9,7 @@ public class PianoTower : Tower
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -41,7 +41,7 @@ public class PianoTower : Tower
     private void SearchTarget()
     {
         int count = Physics2D.OverlapCircle(transform.position, Range, _filter, _enemies);
-        if( count > 0 )
+        if (count > 0)
         {
             _target = _enemies[Random.Range(0, count)].GetComponent<Enemy>();
         }
@@ -49,14 +49,14 @@ public class PianoTower : Tower
 
     protected override void HandleNoteEvent(TowerType type)
     {
-        if(_isStun) return;
+        if (_isStun) return;
         if (type != TowerType.Piano) return;
 
         SearchTarget();
 
         int atkCount = Random.Range(TowerLevel, TowerLevel + 3);
 
-        for(int i = 0; i < atkCount; i++)
+        for (int i = 0; i < atkCount; i++)
         {
             PianoAttack attack = Managers.Instance.Pool.PopObject(PoolType.PianoAttack, transform.position).GetComponent<PianoAttack>();
             attack.transform.position += transform.right * Random.Range(-transform.localScale.x / 2f, transform.localScale.x / 2f);

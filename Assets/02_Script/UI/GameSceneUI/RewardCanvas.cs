@@ -100,13 +100,13 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
         _iconBackGround.DOColor(music.BackGroundColor, 1f);
         _icon.DOColor(music.TextColor, 1f);
         _titleText.DOColor(music.TextColor, 1f);
-        _descriptionText.DOColor(music. TextColor, 1f);
+        _descriptionText.DOColor(music.TextColor, 1f);
     }
 
     private IEnumerator OpenPanel()
     {
 
-        for(int i = 0; i < 15; i++)
+        for (int i = 0; i < 15; i++)
         {
             _iconBackGround.rectTransform.localScale = Vector3.one * 1.05f;
             _iconBackGround.rectTransform.DOScale(Vector3.one, 0.05f);
@@ -157,7 +157,7 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
                 {
                     _descriptionText.text = $"{_rewardMusic.SongName} È¹µæ";
                 }
-                if(Managers.Instance.Game.Language == Language.English)
+                if (Managers.Instance.Game.Language == Language.English)
                 {
                     _descriptionText.text = $"Get {_rewardMusic.SongName}";
                 }
@@ -184,7 +184,7 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
 
     private void HandleExitButton()
     {
-        switch(_rewardType)
+        switch (_rewardType)
         {
             case RewardType.NewSong:
 
@@ -214,7 +214,7 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
         }
 
         FinishReward?.Invoke();
-        
+
         _panel.rectTransform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
         {
             Managers.Instance.UI.GameRootUI.SetActiveCanvas("RewardCanvas", false);

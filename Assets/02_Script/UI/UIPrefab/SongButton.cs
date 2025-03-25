@@ -1,5 +1,4 @@
 using DG.Tweening;
-using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -48,7 +47,7 @@ public class SongButton : BaseUI, IPointerEnterHandler, IPointerExitHandler, IPo
 
     private void Update()
     {
-        if(_music.Clip.length < Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().MusicTime)
+        if (_music.Clip.length < Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().MusicTime)
         {
             _poolable.PushThisObject();
         }

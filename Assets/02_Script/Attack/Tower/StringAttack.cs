@@ -10,7 +10,7 @@ public class StringAttack : TowerAttack
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -25,7 +25,7 @@ public class StringAttack : TowerAttack
         base.Setting();
         Color color = Managers.Instance.Game.PlayingMusic.PlayerColor;
 
-        for(int i = 0; i <  _trailRenderers.Length; i++)
+        for (int i = 0; i < _trailRenderers.Length; i++)
         {
             color.a = 0.8f;
             _trailRenderers[i].startColor = color;
@@ -64,5 +64,5 @@ public class StringAttack : TowerAttack
         }
     }
 
-    
+
 }

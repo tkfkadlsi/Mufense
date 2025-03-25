@@ -1,4 +1,3 @@
-using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ public class PianoAttack : TowerAttack
     private float _speed;
     private Vector3 _direction;
 
-   public override void SettingTarget(Vector3 target, float musicPower, Tower attacker)
+    public override void SettingTarget(Vector3 target, float musicPower, Tower attacker)
     {
         base.SettingTarget(target, musicPower, attacker);
         _speed = Managers.Instance.Game.CurrentBPM / 7.5f;
@@ -28,7 +27,7 @@ public class PianoAttack : TowerAttack
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy"))
         {
             Enemy enemy = collision.GetComponent<Enemy>();
             enemy.Hit(_damage, attacker: _attacker);

@@ -11,7 +11,7 @@ public class MusicPowerTreasure : Treasure
 
     private IEnumerator SpreadMusicPowerCoroutine()
     {
-        for(int i = 0; i < 25; i++)
+        for (int i = 0; i < 25; i++)
         {
             Vector3 jumpPos = new Vector3(Random.Range(-2f, 2f), Random.Range(-1f, 0f));
             jumpPos += transform.position;

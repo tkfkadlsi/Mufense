@@ -14,7 +14,7 @@ public class TowerSpawner : BaseInit
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -28,7 +28,7 @@ public class TowerSpawner : BaseInit
     {
         _state = state;
 
-        if(_state == TowerSpawnState.Create)
+        if (_state == TowerSpawnState.Create)
         {
             _guide.gameObject.SetActive(true);
             _guide.BuildTower(towerType, cost);

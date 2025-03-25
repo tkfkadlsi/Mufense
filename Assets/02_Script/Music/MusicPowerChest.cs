@@ -1,6 +1,6 @@
 using TMPro;
-using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MusicPowerChest : BaseInit
 {
@@ -33,15 +33,15 @@ public class MusicPowerChest : BaseInit
     protected override void Setting()
     {
         base.Setting();
-        
+
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += HandlePlayMusic;
     }
 
     protected override void Release()
     {
-        if(Managers.Instance != null)
+        if (Managers.Instance != null)
         {
-            if(Managers.Instance.Game.FindBaseInitScript<MusicPlayer>() != null)
+            if (Managers.Instance.Game.FindBaseInitScript<MusicPlayer>() != null)
             {
                 Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= HandlePlayMusic;
             }
@@ -68,7 +68,7 @@ public class MusicPowerChest : BaseInit
         Debug.Log($"[사람이냐] : 추가 뮤직 파워 : {value}");
         _musicPower += value;
 
-        if( _musicPower > MaxMusicPower )
+        if (_musicPower > MaxMusicPower)
         {
             _musicPower = MaxMusicPower;
         }

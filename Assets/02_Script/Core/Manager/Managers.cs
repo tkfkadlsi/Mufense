@@ -35,7 +35,7 @@ public class Managers : BaseInit
 
         Application.targetFrameRate = -1;
 
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);

@@ -18,14 +18,14 @@ public class SaveAndLoad : MonoBehaviour
         {
             string jsonData = File.ReadAllText(_optionPath);
 
-            if(string.IsNullOrEmpty(jsonData))
+            if (string.IsNullOrEmpty(jsonData))
             {
                 optionData = new OptionData();
                 optionData.Language = Language.English;
                 optionData.MasterVolume = 0;
                 optionData.MusicVolume = 0;
                 optionData.EffectVolume = 0;
-                optionData.AutoStartSong = false;
+                optionData.FrameLimit = false;
                 optionData.LowDetailMod = false;
             }
             else
@@ -41,7 +41,7 @@ public class SaveAndLoad : MonoBehaviour
             optionData.MasterVolume = 0;
             optionData.MusicVolume = 0;
             optionData.EffectVolume = 0;
-            optionData.AutoStartSong = false;
+            optionData.FrameLimit = false;
             optionData.LowDetailMod = false;
         }
 
@@ -49,8 +49,10 @@ public class SaveAndLoad : MonoBehaviour
         instance.Game.MasterVolume = optionData.MasterVolume;
         instance.Game.MusicVolume = optionData.MusicVolume;
         instance.Game.EffectVolume = optionData.EffectVolume;
-        instance.Game.AutoStartSong = optionData.AutoStartSong;
+        instance.Game.FrameLimit = optionData.FrameLimit;
         instance.Game.LowDetailMod = optionData.LowDetailMod;
+
+        Application.targetFrameRate = instance.Game.FrameLimit ? 60 : -1;
     }
 
     private void OnApplicationQuit()
@@ -62,7 +64,7 @@ public class SaveAndLoad : MonoBehaviour
         optionData.MasterVolume = instance.Game.MasterVolume;
         optionData.MusicVolume = instance.Game.MusicVolume;
         optionData.EffectVolume = instance.Game.EffectVolume;
-        optionData.AutoStartSong = instance.Game.AutoStartSong;
+        optionData.FrameLimit = instance.Game.FrameLimit;
         optionData.LowDetailMod = instance.Game.LowDetailMod;
 
         string jsondata = JsonUtility.ToJson(optionData, true);

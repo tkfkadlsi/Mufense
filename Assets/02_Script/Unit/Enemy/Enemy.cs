@@ -1,7 +1,6 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
-using DG.Tweening;
-using System;
 
 
 
@@ -19,7 +18,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -48,7 +47,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
 
     protected override void Release()
     {
-        if(Managers.Instance != null)
+        if (Managers.Instance != null)
         {
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
         }
@@ -63,7 +62,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
         Vector3 direction = (_core.transform.position - transform.position).normalized;
         transform.position += direction * _speed * Time.deltaTime;
 
-        if(HPSlider != null)
+        if (HPSlider != null)
         {
             HPSlider.transform.position = transform.position + Vector3.up;
         }
@@ -93,7 +92,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
 
         if ((debuff & (int)Debuffs.Stun) == (int)Debuffs.Stun)
         {
-            if(StunCoroutine is not null)
+            if (StunCoroutine is not null)
             {
                 StopCoroutine(StunCoroutine);
             }
@@ -117,7 +116,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
 
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
 
-        while(t < lerpTime)
+        while (t < lerpTime)
         {
             t += Time.deltaTime;
             yield return null;
@@ -141,7 +140,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
     {
         float t = 0f;
         float lerpTime = 1f;
-        while(t < lerpTime)
+        while (t < lerpTime)
         {
             t += Time.deltaTime;
             yield return null;
@@ -165,7 +164,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.CompareTag("Core"))
+        if (collision.collider.CompareTag("Core"))
         {
             collision.collider.GetComponent<Core>().Hit(HP);
             Die();

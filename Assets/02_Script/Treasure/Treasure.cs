@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-using System.Collections.Generic;   
 
 public abstract class Treasure : BaseObject, IMusicPlayHandle
 {
@@ -14,7 +13,7 @@ public abstract class Treasure : BaseObject, IMusicPlayHandle
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -31,7 +30,7 @@ public abstract class Treasure : BaseObject, IMusicPlayHandle
     {
         base.Setting();
 
-        if(_isSetting == false)
+        if (_isSetting == false)
         {
             _isSetting = true;
             return;
@@ -47,7 +46,7 @@ public abstract class Treasure : BaseObject, IMusicPlayHandle
 
     protected override void Release()
     {
-        if(Managers.Instance != null)
+        if (Managers.Instance != null)
         {
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
         }

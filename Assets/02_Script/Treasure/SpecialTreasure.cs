@@ -1,10 +1,8 @@
-using UnityEngine;
-
 public class SpecialTreasure : Treasure
 {
     protected override void Release()
     {
-        if(Managers.Instance != null)
+        if (Managers.Instance != null)
         {
             Managers.Instance.UI.GameRootUI.RewardCanvas.FinishReward -= _poolable.PushThisObject;
         }

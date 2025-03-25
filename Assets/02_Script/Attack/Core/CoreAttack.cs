@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class CoreAttack : Attack
@@ -10,7 +9,7 @@ public class CoreAttack : Attack
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -52,7 +51,7 @@ public class CoreAttack : Attack
         endColor.a = 0f;
         yield return null;
         lerpTime = Managers.Instance.Game.UnitTime;
-        while(t < lerpTime)
+        while (t < lerpTime)
         {
 
             t += Time.deltaTime;
@@ -67,7 +66,7 @@ public class CoreAttack : Attack
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy"))
         {
             Enemy enemy = collision.GetComponent<Enemy>();
             enemy.Hit(_damage);

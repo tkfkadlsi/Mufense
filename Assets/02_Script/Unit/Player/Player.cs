@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class Player : Unit, IMusicHandleObject, IMusicPlayHandle
@@ -13,7 +12,7 @@ public class Player : Unit, IMusicHandleObject, IMusicPlayHandle
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -34,7 +33,7 @@ public class Player : Unit, IMusicHandleObject, IMusicPlayHandle
 
     protected override void Release()
     {
-        if(Managers.Instance != null)
+        if (Managers.Instance != null)
         {
             Managers.Instance.Game.InputReader.DashEvent -= Dash;
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent -= HandleMusicBeat;
@@ -81,7 +80,7 @@ public class Player : Unit, IMusicHandleObject, IMusicPlayHandle
         float originalSpeed = _moveSpeed;
         _moveSpeed *= 10f;
 
-        while(t < lerpTime)
+        while (t < lerpTime)
         {
             yield return null;
             t += Time.deltaTime;
@@ -92,7 +91,7 @@ public class Player : Unit, IMusicHandleObject, IMusicPlayHandle
 
     public void HandleMusicBeat()
     {
-        if(_dashCoolBeat > 0)
+        if (_dashCoolBeat > 0)
             _dashCoolBeat--;
     }
 

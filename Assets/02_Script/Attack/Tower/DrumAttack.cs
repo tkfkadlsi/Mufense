@@ -32,7 +32,7 @@ public class DrumAttack : TowerAttack
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy"))
         {
             Enemy enemy = collision.GetComponent<Enemy>();
             enemy.Hit(_damage, attacker: _attacker);

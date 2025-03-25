@@ -1,6 +1,5 @@
-using UnityEngine;
-using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
 
 public class PlayerInterection : BaseInit, IMusicPlayHandle
 {
@@ -14,7 +13,7 @@ public class PlayerInterection : BaseInit, IMusicPlayHandle
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -39,7 +38,7 @@ public class PlayerInterection : BaseInit, IMusicPlayHandle
 
     protected override void Release()
     {
-        if(Managers.Instance != null)
+        if (Managers.Instance != null)
         {
             Managers.Instance.Game.InputReader.InterectionEvent -= Interection;
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
@@ -58,7 +57,7 @@ public class PlayerInterection : BaseInit, IMusicPlayHandle
         int count = Physics2D.OverlapCircle(transform.position, 1.1f, _filter, _colliders);
         _colliders = Physics2D.OverlapCircleAll(transform.position, 1.1f);
 
-        for(int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
             if (_colliders[i].CompareTag("Tower"))
             {
@@ -77,12 +76,12 @@ public class PlayerInterection : BaseInit, IMusicPlayHandle
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Tower") || collision.CompareTag("Treasure"))
+        if (collision.CompareTag("Tower") || collision.CompareTag("Treasure"))
         {
             _collisionCount++;
         }
 
-        if(_collisionCount == 0)
+        if (_collisionCount == 0)
         {
             _canvas.enabled = false;
         }

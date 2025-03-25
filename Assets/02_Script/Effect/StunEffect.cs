@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class StunEffect : BaseObject
@@ -9,7 +7,7 @@ public class StunEffect : BaseObject
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }

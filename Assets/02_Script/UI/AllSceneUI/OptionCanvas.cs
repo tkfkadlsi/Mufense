@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Android;
 using UnityEngine.UI;
 
 public class OptionCanvas : BaseUI
@@ -31,7 +30,7 @@ public class OptionCanvas : BaseUI
         SelectSound,
         SelectControl,
         SelectGamePlay,
-        AutoStartSongButton,
+        FrameLimitButton,
         LowDetailModButton,
         ChangeLanguageButton,
         ExitButton
@@ -39,7 +38,7 @@ public class OptionCanvas : BaseUI
 
     private enum ETexts
     {
-        AutoStartSongCheckText,
+        FrameLimitCheckText,
         LowDetailModCheckText
     }
 
@@ -65,12 +64,12 @@ public class OptionCanvas : BaseUI
 
     private Button _exitButton;
 
-    private TextMeshProUGUI _autoStartSongCheckText;
+    private TextMeshProUGUI _frameLimitCheckText;
     private TextMeshProUGUI _lowDetailModCheckText;
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -97,13 +96,13 @@ public class OptionCanvas : BaseUI
         _selectControl = Get<Button>((int)EButtons.SelectControl);
         _selectGamePlay = Get<Button>((int)EButtons.SelectGamePlay);
 
-        _autoStartSongButton = Get<Button>((int)EButtons.AutoStartSongButton);
+        _autoStartSongButton = Get<Button>((int)EButtons.FrameLimitButton);
         _lowDetailModButton = Get<Button>((int)EButtons.LowDetailModButton);
         _changeLanguageButton = Get<Button>((int)EButtons.ChangeLanguageButton);
 
         _exitButton = Get<Button>((int)EButtons.ExitButton);
 
-        _autoStartSongCheckText = Get<TextMeshProUGUI>((int)ETexts.AutoStartSongCheckText);
+        _frameLimitCheckText = Get<TextMeshProUGUI>((int)ETexts.FrameLimitCheckText);
         _lowDetailModCheckText = Get<TextMeshProUGUI>((int)ETexts.LowDetailModCheckText);
 
         _masterVolumeSlider.onValueChanged.AddListener(HandleMasterVolumeSlider);
@@ -114,7 +113,7 @@ public class OptionCanvas : BaseUI
         _selectControl.onClick.AddListener(HandleSelectControl);
         _selectGamePlay.onClick.AddListener(HandleSelectGamePlay);
 
-        _autoStartSongButton.onClick.AddListener(HandleAutoStartSong);
+        _autoStartSongButton.onClick.AddListener(HandleFrameLimit);
         _lowDetailModButton.onClick.AddListener(HandleLowDetailMod);
         _changeLanguageButton.onClick.AddListener(HandleChangeLanguage);
 
@@ -133,7 +132,7 @@ public class OptionCanvas : BaseUI
         _musicVolumeSlider.value = Managers.Instance.Game.MusicVolume;
         _effectVolumeSlider.value = Managers.Instance.Game.EffectVolume;
 
-        _autoStartSongCheckText.text = Managers.Instance.Game.AutoStartSong ? "V" : "";
+        _frameLimitCheckText.text = Managers.Instance.Game.FrameLimit ? "V" : "";
         _lowDetailModCheckText.text = Managers.Instance.Game.LowDetailMod ? "V" : "";
     }
 
@@ -171,7 +170,7 @@ public class OptionCanvas : BaseUI
         _selectControlOutline.effectColor = gray;
         _selectGamePlayOutline.effectColor = gray;
 
-        switch(Eoutline)
+        switch (Eoutline)
         {
             case EOutlines.SelectSound:
                 _selectSoundOutline.effectColor = yellow;
@@ -191,7 +190,7 @@ public class OptionCanvas : BaseUI
         _controlSetting.SetActive(false);
         _gameSetting.SetActive(false);
 
-        switch(Ego)
+        switch (Ego)
         {
             case EGameObjects.SoundSetting:
                 _soundSetting.SetActive(true);
@@ -231,17 +230,19 @@ public class OptionCanvas : BaseUI
 
     #region Game
 
-    private void HandleAutoStartSong()
+    private void HandleFrameLimit()
     {
-        Managers.Instance.Game.AutoStartSong = !Managers.Instance.Game.AutoStartSong;
+        Managers.Instance.Game.FrameLimit = !Managers.Instance.Game.FrameLimit;
 
-        if(Managers.Instance.Game.AutoStartSong)
+        if (Managers.Instance.Game.FrameLimit)
         {
-            _autoStartSongCheckText.text = "V";
+            _frameLimitCheckText.text = "V";
+            Application.targetFrameRate = 60;
         }
         else
         {
-            _autoStartSongCheckText.text = "";
+            _frameLimitCheckText.text = "";
+            Application.targetFrameRate = -1;
         }
     }
 
@@ -249,7 +250,7 @@ public class OptionCanvas : BaseUI
     {
         Managers.Instance.Game.LowDetailMod = !Managers.Instance.Game.LowDetailMod;
 
-        if(Managers.Instance.Game.LowDetailMod)
+        if (Managers.Instance.Game.LowDetailMod)
         {
             _lowDetailModCheckText.text = "V";
         }
@@ -261,7 +262,7 @@ public class OptionCanvas : BaseUI
 
     private void HandleChangeLanguage()
     {
-        switch(Managers.Instance.Game.Language)
+        switch (Managers.Instance.Game.Language)
         {
             case Language.English:
                 Managers.Instance.Game.Language = Language.Korean;

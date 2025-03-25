@@ -7,7 +7,7 @@ public class TowerIcon : BaseObject
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }

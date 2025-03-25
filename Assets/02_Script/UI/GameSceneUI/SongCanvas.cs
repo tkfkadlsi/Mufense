@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class SongCanvas : BaseUI
 {
@@ -52,7 +52,7 @@ public class SongCanvas : BaseUI
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -87,10 +87,10 @@ public class SongCanvas : BaseUI
 
         _songPanel.rectTransform.localScale = Vector3.one * 0.0001f;
 
-        foreach(Music music in Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayableMusicList)
+        foreach (Music music in Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayableMusicList)
         {
             if (music == Managers.Instance.Game.PlayingMusic) continue;
-            if(music.Clip.length < Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().MusicTime) continue;
+            if (music.Clip.length < Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().MusicTime) continue;
 
             SongButton songButton = Managers.Instance.Pool.PopObject(PoolType.SongButton, Vector3.zero, _panel.transform).GetComponent<SongButton>();
             songButton.transform.localScale = Vector3.zero;
@@ -102,7 +102,7 @@ public class SongCanvas : BaseUI
 
     protected override void ActiveOff()
     {
-        while(_songButtonList.Count > 0)
+        while (_songButtonList.Count > 0)
         {
             _songButtonList[0].PushThisObject();
             _songButtonList.RemoveAt(0);
@@ -118,13 +118,13 @@ public class SongCanvas : BaseUI
 
         float minbpm = float.MaxValue;
         float maxbpm = float.MinValue;
-        foreach(var dict in music.BpmChangeDict)
+        foreach (var dict in music.BpmChangeDict)
         {
-            if(minbpm > dict.Value) minbpm = dict.Value;
-            if(maxbpm < dict.Value) maxbpm = dict.Value;
+            if (minbpm > dict.Value) minbpm = dict.Value;
+            if (maxbpm < dict.Value) maxbpm = dict.Value;
         }
 
-        if(minbpm == maxbpm)
+        if (minbpm == maxbpm)
         {
             _bpm.text = $"Bpm : {minbpm}";
         }
@@ -138,7 +138,7 @@ public class SongCanvas : BaseUI
         _stringSlider.value = music.StringAmount;
         _coreSlider.value = music.CoreAmount;
 
-        if(_songPanelCoroutine is not null)
+        if (_songPanelCoroutine is not null)
         {
             StopCoroutine(_songPanelCoroutine);
         }
@@ -161,7 +161,7 @@ public class SongCanvas : BaseUI
         float t = 0f;
         float lerpTime = 0.5f;
 
-        while(t < lerpTime)
+        while (t < lerpTime)
         {
             t += Time.deltaTime;
             yield return null;

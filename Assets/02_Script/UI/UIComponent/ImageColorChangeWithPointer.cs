@@ -17,7 +17,7 @@ public class ImageColorChangeWithPointer : BaseUI, IPointerEnterHandler, IPointe
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -30,7 +30,7 @@ public class ImageColorChangeWithPointer : BaseUI, IPointerEnterHandler, IPointe
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(Coroutine is not null)
+        if (Coroutine is not null)
         {
             StopCoroutine(Coroutine);
         }
@@ -54,7 +54,7 @@ public class ImageColorChangeWithPointer : BaseUI, IPointerEnterHandler, IPointe
     {
         float t = 0f;
 
-        while(t < _lerpTime)
+        while (t < _lerpTime)
         {
             yield return null;
             t += Time.deltaTime;

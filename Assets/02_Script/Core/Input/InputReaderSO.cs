@@ -16,7 +16,7 @@ public class InputReaderSO : ScriptableObject, IPlayerActions
 
     private void OnEnable()
     {
-        if(_controls == null)
+        if (_controls == null)
         {
             _controls = new Controls();
         }
@@ -33,7 +33,7 @@ public class InputReaderSO : ScriptableObject, IPlayerActions
     public void OnMove(InputAction.CallbackContext context)
     {
         MoveDirection = context.ReadValue<Vector2>();
-        if(context.canceled) MoveDirection = Vector2.zero;
+        if (context.canceled) MoveDirection = Vector2.zero;
     }
 
     public void OnDash(InputAction.CallbackContext context)

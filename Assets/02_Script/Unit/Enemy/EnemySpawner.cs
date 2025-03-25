@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawner : BaseInit, IMusicHandleObject, IMusicPlayHandle
@@ -73,11 +70,11 @@ public class EnemySpawner : BaseInit, IMusicHandleObject, IMusicPlayHandle
                 break;
         }
 
-        if(rand >= 10)
+        if (rand >= 10)
         {
             Managers.Instance.Pool.PopObject(PoolType.CancledEnemy, direction.normalized * _spawnDistance);
         }
-        else if(rand >= 8)
+        else if (rand >= 8)
         {
             Managers.Instance.Pool.PopObject(PoolType.BlinkEnemy, direction.normalized * _spawnDistance);
         }
@@ -94,11 +91,11 @@ public class EnemySpawner : BaseInit, IMusicHandleObject, IMusicPlayHandle
 
     private void Update()
     {
-        if(_spawnDistance < 30f)
+        if (_spawnDistance < 30f)
         {
             _spawnDistance += Time.deltaTime;
         }
-        if(_spawnDistance > 30f)
+        if (_spawnDistance > 30f)
         {
             _spawnDistance = 30f;
         }

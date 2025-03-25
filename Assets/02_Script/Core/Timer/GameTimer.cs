@@ -8,7 +8,7 @@ public class GameTimer : BaseInit
 
 
     private readonly float _hpLevelCooltime = 120.0f;
-    private readonly float _amountLevelCooltime =  230.0f;
+    private readonly float _amountLevelCooltime = 230.0f;
     private float _spawnLevelCooltime = 10.0f;
 
     private readonly float _treasureSpawnCooltime = 40.0f;
@@ -23,7 +23,7 @@ public class GameTimer : BaseInit
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -42,17 +42,17 @@ public class GameTimer : BaseInit
         _treasureSpawnCooldown += Time.deltaTime;
         _spawnLevelCooldown += Time.deltaTime;
 
-        if(_hpLevelCooldown >= _hpLevelCooltime)
+        if (_hpLevelCooldown >= _hpLevelCooltime)
         {
             _hpLevelCooldown -= _hpLevelCooltime;
             EnemyHPLevel++;
         }
-        if(EnemySpawnAmountLevel < 5 && _amountLevelCooldown >= _amountLevelCooltime)
+        if (EnemySpawnAmountLevel < 5 && _amountLevelCooldown >= _amountLevelCooltime)
         {
             _amountLevelCooldown -= _amountLevelCooltime;
             EnemySpawnAmountLevel++;
         }
-        if(_treasureSpawnCooldown >=  _treasureSpawnCooltime)
+        if (_treasureSpawnCooldown >= _treasureSpawnCooltime)
         {
             _treasureSpawnCooldown -= _treasureSpawnCooltime;
 
@@ -65,7 +65,7 @@ public class GameTimer : BaseInit
                 Managers.Instance.Pool.PopObject(PoolType.SpecialTreasure, Vector3.zero);
             }
         }
-        if(EnemySpawnLevel < 3 && _spawnLevelCooldown >= _spawnLevelCooltime)
+        if (EnemySpawnLevel < 3 && _spawnLevelCooldown >= _spawnLevelCooltime)
         {
             _spawnLevelCooldown -= _spawnLevelCooltime;
             EnemySpawnLevel++;
@@ -86,7 +86,7 @@ public class GameTimer : BaseInit
 
     public float GetSpawnLevelCooldown()
     {
-        if(EnemySpawnLevel >= 3) return float.MaxValue;
+        if (EnemySpawnLevel >= 3) return float.MaxValue;
         return _spawnLevelCooltime - _spawnLevelCooldown;
     }
 

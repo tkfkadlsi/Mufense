@@ -1,7 +1,7 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections;
 
 public class TextColorChangeWithPointer : BaseUI, IPointerEnterHandler, IPointerExitHandler
 {

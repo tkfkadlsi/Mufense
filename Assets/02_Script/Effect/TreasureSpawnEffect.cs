@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class TreasureSpawnEffect : BaseObject, IMusicPlayHandle
 {
@@ -9,7 +8,7 @@ public class TreasureSpawnEffect : BaseObject, IMusicPlayHandle
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -36,7 +35,7 @@ public class TreasureSpawnEffect : BaseObject, IMusicPlayHandle
 
         Color startColor = Managers.Instance.Game.PlayingMusic.PlayerColor;
 
-        while( t < lerpTime )
+        while (t < lerpTime)
         {
             t += Time.deltaTime;
             yield return null;

@@ -29,14 +29,14 @@ public class MusicPlayer : BaseInit
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
 
         _audioSource = GetComponent<AudioSource>();
 
-        foreach(Music music in MusicList)
+        foreach (Music music in MusicList)
         {
             _beatTimingsInSong.Add(music.SongName, new List<float>());
             _bpmTimingsInSong.Add(music.SongName, new List<float>());
@@ -45,7 +45,7 @@ public class MusicPlayer : BaseInit
             MakeBeatTiming(music);
         }
 
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             Music playableMusic = MusicList[0];
             PlayableMusicList.Add(playableMusic);
@@ -58,7 +58,7 @@ public class MusicPlayer : BaseInit
     private void MakeBeatTiming(Music music)
     {
         List<float> timings = new List<float>();
-        foreach(var bcd in music.BpmChangeDict)
+        foreach (var bcd in music.BpmChangeDict)
         {
             timings.Add(bcd.Key);
             _bpmTimingsInSong[music.SongName].Add(bcd.Key);
@@ -84,12 +84,12 @@ public class MusicPlayer : BaseInit
         float timing = 0f;
         float unitTime = 0f;
 
-        for(int i = 0; i < timings.Count; i++)
+        for (int i = 0; i < timings.Count; i++)
         {
             timing = timings[i];
             unitTime = 60f / music.BpmChangeDict[timings[i]];
-        
-            while(timing < (i == timings.Count - 1 ? music.Clip.length : timings[i + 1]))
+
+            while (timing < (i == timings.Count - 1 ? music.Clip.length : timings[i + 1]))
             {
                 _beatTimingsInSong[music.SongName].Add(timing);
                 timing += unitTime;
@@ -99,7 +99,7 @@ public class MusicPlayer : BaseInit
 
     private TowerType ParseChaeboToTowerType(string chaebotxt)
     {
-        switch(chaebotxt)
+        switch (chaebotxt)
         {
             case "36":
                 return TowerType.Piano;
@@ -160,25 +160,25 @@ public class MusicPlayer : BaseInit
         int bpmCounter = 0;
         int attackCounter = 0;
 
-        while(time > _beatTimingsInSong[music.SongName][beatCounter])
+        while (time > _beatTimingsInSong[music.SongName][beatCounter])
         {
             beatCounter++;
             if (beatCounter >= _beatTimingsInSong[music.SongName].Count) break;
         }
 
-        while(time > _noteTimingsInSong[music.SongName][noteCounter].timing)
+        while (time > _noteTimingsInSong[music.SongName][noteCounter].timing)
         {
             noteCounter++;
             if (noteCounter >= _noteTimingsInSong[music.SongName].Count) break;
         }
 
-        while(time > _bpmTimingsInSong[music.SongName][bpmCounter])
+        while (time > _bpmTimingsInSong[music.SongName][bpmCounter])
         {
             bpmCounter++;
             if (bpmCounter >= _bpmTimingsInSong[music.SongName].Count) break;
         }
 
-        while(time > _circleArcAttackTimingsInSong[music.SongName][attackCounter])
+        while (time > _circleArcAttackTimingsInSong[music.SongName][attackCounter])
         {
             attackCounter++;
             if (attackCounter >= _circleArcAttackTimingsInSong[music.SongName].Count) break;
@@ -225,11 +225,11 @@ public class MusicPlayer : BaseInit
 
     private void Update()
     {
-        if(_audioSource.isPlaying)
+        if (_audioSource.isPlaying)
         {
             Managers.Instance.Game.PlayTime += Time.deltaTime;
 
-            if(beatCounter < _beatTimingsInSong[PlayingMusic.SongName].Count)
+            if (beatCounter < _beatTimingsInSong[PlayingMusic.SongName].Count)
             {
                 if (_beatTimingsInSong[PlayingMusic.SongName][beatCounter] < _audioSource.time)
                 {
@@ -238,21 +238,21 @@ public class MusicPlayer : BaseInit
                 }
             }
 
-            if(noteCounter < _noteTimingsInSong[PlayingMusic.SongName].Count)
+            if (noteCounter < _noteTimingsInSong[PlayingMusic.SongName].Count)
             {
                 while (_noteTimingsInSong[PlayingMusic.SongName][noteCounter].timing < _audioSource.time)
                 {
                     NoteEvent?.Invoke(_noteTimingsInSong[PlayingMusic.SongName][noteCounter].type);
                     noteCounter++;
 
-                    if(noteCounter >= _noteTimingsInSong[PlayingMusic.SongName].Count)
+                    if (noteCounter >= _noteTimingsInSong[PlayingMusic.SongName].Count)
                     {
                         break;
                     }
                 }
             }
 
-            if(bpmCounter < _bpmTimingsInSong[PlayingMusic.SongName].Count)
+            if (bpmCounter < _bpmTimingsInSong[PlayingMusic.SongName].Count)
             {
                 if (_bpmTimingsInSong[PlayingMusic.SongName][bpmCounter] < _audioSource.time)
                 {
@@ -261,7 +261,7 @@ public class MusicPlayer : BaseInit
                 }
             }
 
-            if(attackCounter < _circleArcAttackTimingsInSong[PlayingMusic.SongName].Count)
+            if (attackCounter < _circleArcAttackTimingsInSong[PlayingMusic.SongName].Count)
             {
                 if (_circleArcAttackTimingsInSong[PlayingMusic.SongName][attackCounter] < _audioSource.time)
                 {

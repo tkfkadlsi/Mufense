@@ -1,6 +1,3 @@
-using System.Collections;
-using UnityEngine;
-
 public enum Debuffs
 {
     None = 0,
@@ -11,7 +8,7 @@ public enum Debuffs
 
 public interface IHealth
 {
-    public float HP {  get; set; }
+    public float HP { get; set; }
     public HPSlider HPSlider { get; set; }
     public void Hit(float damage, int debuff = 0, Tower attacker = null);
     public void Die();

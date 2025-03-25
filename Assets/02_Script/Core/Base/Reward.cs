@@ -13,11 +13,11 @@ public class Reward
     public Sprite Icon;
     public string GetName()
     {
-        if(Managers.Instance.Game.Language == Language.Korean)
+        if (Managers.Instance.Game.Language == Language.Korean)
         {
             return KRName;
         }
-        if(Managers.Instance.Game.Language == Language.English)
+        if (Managers.Instance.Game.Language == Language.English)
         {
             return ENGName;
         }
@@ -27,11 +27,11 @@ public class Reward
 
     public string GetDescription()
     {
-        if(Managers.Instance.Game.Language == Language.Korean)
+        if (Managers.Instance.Game.Language == Language.Korean)
         {
             return KRDescription;
         }
-        if(Managers.Instance.Game.Language == Language.English)
+        if (Managers.Instance.Game.Language == Language.English)
         {
             return ENGDescription;
         }

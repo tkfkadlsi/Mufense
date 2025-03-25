@@ -26,7 +26,7 @@ public abstract class Tower : BaseObject, IMusicPlayHandle
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -51,7 +51,7 @@ public abstract class Tower : BaseObject, IMusicPlayHandle
 
     protected override void Release()
     {
-        if(Managers.Instance != null)
+        if (Managers.Instance != null)
         {
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().NoteEvent -= HandleNoteEvent;
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;

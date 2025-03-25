@@ -40,7 +40,7 @@ public class PoolManager : MonoBehaviour
         foreach (var setting in SettingPoolObjectDict)
         {
             Pool pool = new Pool();
-            
+
             _pools.Add(setting.Key, pool);
         }
     }
@@ -54,7 +54,7 @@ public class PoolManager : MonoBehaviour
 
     public PoolableObject PopObject(PoolType poolType, Vector3 position)
     {
-        if(_pools[poolType].PoolCount <= 0)
+        if (_pools[poolType].PoolCount <= 0)
         {
             CreatePO(poolType);
         }
@@ -75,5 +75,13 @@ public class PoolManager : MonoBehaviour
     public void PushObject(PoolType poolType, PoolableObject obj)
     {
         _pools[poolType].PushObject(obj);
+    }
+
+    public void ClearAllPool()
+    {
+        foreach (var pool in _pools.Values)
+        {
+            pool.ClearPool();
+        }
     }
 }

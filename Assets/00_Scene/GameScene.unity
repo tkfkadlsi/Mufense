@@ -1129,7 +1129,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -1324,8 +1324,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 8404797581655705315, guid: 08e09d8f4676b9e468e02224736929bc, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 03ba081bf0edc9141a65833c0cc04c4c, type: 3}
-  m_Resource: {fileID: 8300000, guid: 03ba081bf0edc9141a65833c0cc04c4c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 53ac099c185b9a74e8c09c573f6c5c67, type: 3}
+  m_Resource: {fileID: 8300000, guid: 53ac099c185b9a74e8c09c573f6c5c67, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1423,7 +1423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9c9121fcf255d94e9daa12136f43289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _noiseClip: {fileID: 8300000, guid: 03ba081bf0edc9141a65833c0cc04c4c, type: 3}
+  _noiseClip: {fileID: 8300000, guid: 53ac099c185b9a74e8c09c573f6c5c67, type: 3}
 --- !u!1 &265478324
 GameObject:
   m_ObjectHideFlags: 0
@@ -2801,61 +2801,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1068567203}
     m_Modifications:
-    - target: {fileID: 1870621013046397248, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1870621013046397248, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1870621013046397248, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1955631691623353508, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1955631691623353508, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3469884705156273804, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3469884705156273804, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6076192330555276021, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
       propertyPath: m_Name
       value: OptionCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 6076192330555276021, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6421189128751680805, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6421189128751680805, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6421189128751680805, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6505656510814760400, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6505656510814760400, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7607130173334980485, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
       propertyPath: m_Pivot.x
@@ -2935,18 +2883,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7607130173334980485, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7791519114973677250, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7791519114973677250, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7791519114973677250, guid: f24b108aa6492e745b8f48b7e6dbebeb, type: 3}
-      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3033,7 +2969,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -3677,6 +3613,7 @@ GameObject:
   - component: {fileID: 659889160}
   - component: {fileID: 659889159}
   - component: {fileID: 659889162}
+  - component: {fileID: 659889163}
   m_Layer: 5
   m_Name: PianoTower
   m_TagString: Untagged
@@ -3703,7 +3640,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -300, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 175, y: 175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &659889159
 MonoBehaviour:
@@ -3802,6 +3739,19 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 5, y: 5}
   m_UseGraphicAlpha: 1
+--- !u!114 &659889163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659889157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 656ef3af793da0841bd4e2f5a376e0b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SizeMultiplyWithPointer: 1.1
 --- !u!1 &663760935
 GameObject:
   m_ObjectHideFlags: 0
@@ -5070,6 +5020,7 @@ GameObject:
   - component: {fileID: 1104441079}
   - component: {fileID: 1104441078}
   - component: {fileID: 1104441081}
+  - component: {fileID: 1104441082}
   m_Layer: 5
   m_Name: StringTower
   m_TagString: Untagged
@@ -5096,7 +5047,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 300, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 175, y: 175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1104441078
 MonoBehaviour:
@@ -5195,6 +5146,19 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 5, y: 5}
   m_UseGraphicAlpha: 1
+--- !u!114 &1104441082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104441076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 656ef3af793da0841bd4e2f5a376e0b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SizeMultiplyWithPointer: 1.1
 --- !u!1 &1108454544
 GameObject:
   m_ObjectHideFlags: 0
@@ -5282,6 +5246,7 @@ GameObject:
   - component: {fileID: 1135814701}
   - component: {fileID: 1135814700}
   - component: {fileID: 1135814699}
+  - component: {fileID: 1135814702}
   m_Layer: 5
   m_Name: TowerBuildButton
   m_TagString: Untagged
@@ -5392,6 +5357,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1135814697}
   m_CullTransparentMesh: 1
+--- !u!114 &1135814702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135814697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 656ef3af793da0841bd4e2f5a376e0b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SizeMultiplyWithPointer: 1.1
 --- !u!1 &1148404816
 GameObject:
   m_ObjectHideFlags: 0
@@ -5555,6 +5533,7 @@ GameObject:
   - component: {fileID: 1202618120}
   - component: {fileID: 1202618119}
   - component: {fileID: 1202618118}
+  - component: {fileID: 1202618122}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -5679,6 +5658,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202618116}
   m_CullTransparentMesh: 1
+--- !u!114 &1202618122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202618116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 656ef3af793da0841bd4e2f5a376e0b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SizeMultiplyWithPointer: 1.1
 --- !u!1 &1210068282
 GameObject:
   m_ObjectHideFlags: 0
@@ -5691,6 +5683,7 @@ GameObject:
   - component: {fileID: 1210068285}
   - component: {fileID: 1210068284}
   - component: {fileID: 1210068286}
+  - component: {fileID: 1210068287}
   m_Layer: 5
   m_Name: SongChangeButton
   m_TagString: Untagged
@@ -5801,6 +5794,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1210068287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210068282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 656ef3af793da0841bd4e2f5a376e0b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SizeMultiplyWithPointer: 1.1
 --- !u!1 &1233035510
 GameObject:
   m_ObjectHideFlags: 0
@@ -7092,6 +7098,7 @@ GameObject:
   - component: {fileID: 1632905091}
   - component: {fileID: 1632905090}
   - component: {fileID: 1632905093}
+  - component: {fileID: 1632905094}
   m_Layer: 5
   m_Name: DrumTower
   m_TagString: Untagged
@@ -7118,7 +7125,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 175, y: 175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1632905090
 MonoBehaviour:
@@ -7217,6 +7224,19 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 5, y: 5}
   m_UseGraphicAlpha: 1
+--- !u!114 &1632905094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632905088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 656ef3af793da0841bd4e2f5a376e0b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SizeMultiplyWithPointer: 1.1
 --- !u!1 &1633606594
 GameObject:
   m_ObjectHideFlags: 0
@@ -8726,6 +8746,7 @@ GameObject:
   - component: {fileID: 2112220021}
   - component: {fileID: 2112220020}
   - component: {fileID: 2112220023}
+  - component: {fileID: 2112220024}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -8752,7 +8773,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 800, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 175, y: 175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2112220020
 MonoBehaviour:
@@ -8851,6 +8872,19 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 5, y: 5}
   m_UseGraphicAlpha: 1
+--- !u!114 &2112220024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112220018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 656ef3af793da0841bd4e2f5a376e0b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SizeMultiplyWithPointer: 1.1
 --- !u!114 &3539356428130642393
 MonoBehaviour:
   m_ObjectHideFlags: 0

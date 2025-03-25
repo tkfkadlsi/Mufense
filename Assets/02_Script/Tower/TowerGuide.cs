@@ -1,8 +1,7 @@
-using AYellowpaper.SerializedCollections;
-using System.Collections.Generic;
 using System.Collections;
-using UnityEngine;
+using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
 
 public class TowerGuide : BaseObject, IMusicPlayHandle
 {
@@ -22,7 +21,7 @@ public class TowerGuide : BaseObject, IMusicPlayHandle
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -51,7 +50,7 @@ public class TowerGuide : BaseObject, IMusicPlayHandle
 
     private void Update()
     {
-        if(transform.position.magnitude > 15f)
+        if (transform.position.magnitude > 15f)
         {
             _isRangeOut = true;
         }
@@ -60,7 +59,7 @@ public class TowerGuide : BaseObject, IMusicPlayHandle
             _isRangeOut = false;
         }
 
-        if(_isRangeOut || _isOverlap)
+        if (_isRangeOut || _isOverlap)
         {
             _spriteRenderer.color = Color.red;
             _canBuild = false;
@@ -71,7 +70,7 @@ public class TowerGuide : BaseObject, IMusicPlayHandle
             _canBuild = true;
         }
 
-        if(Input.GetMouseButtonDown(1) && BuildCor is not null)
+        if (Input.GetMouseButtonDown(1) && BuildCor is not null)
         {
             StopCoroutine(BuildCor);
             _towerSpawner.SetSpawnState(TowerSpawnState.None, TowerType.None, 0);
@@ -95,7 +94,7 @@ public class TowerGuide : BaseObject, IMusicPlayHandle
 
         Tower newTower;
 
-        switch(type)
+        switch (type)
         {
             case TowerType.Piano:
                 newTower = Managers.Instance.Pool.PopObject(PoolType.PianoTower, buildPos).GetComponent<Tower>();
@@ -116,7 +115,7 @@ public class TowerGuide : BaseObject, IMusicPlayHandle
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Tower") || collision.CompareTag("Core"))
+        if (collision.CompareTag("Tower") || collision.CompareTag("Core"))
         {
             _colliders.Add(collision);
 
@@ -133,7 +132,7 @@ public class TowerGuide : BaseObject, IMusicPlayHandle
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(_colliders.Contains(collision))
+        if (_colliders.Contains(collision))
         {
             _colliders.Remove(collision);
 

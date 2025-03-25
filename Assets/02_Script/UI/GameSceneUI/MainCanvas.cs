@@ -1,6 +1,5 @@
 using DG.Tweening;
 using TMPro;
-using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,7 +27,7 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }

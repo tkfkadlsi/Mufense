@@ -22,7 +22,7 @@ public class CooltimeCanvas : BaseUI, IMusicPlayHandle
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -35,11 +35,26 @@ public class CooltimeCanvas : BaseUI, IMusicPlayHandle
         return true;
     }
 
+    protected override void ActiveOn()
+    {
+        base.ActiveOn();
+
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
+    }
+
+    protected override void ActiveOff()
+    {
+        if (Managers.Instance != null)
+        {
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
+        }
+
+        base.ActiveOff();
+    }
+
     public void SettingColor(Music music)
     {
-        Color color = music.TextColor;
-
-        _nearOneEventText.color = color;
+        _nearOneEventText.color = music.TextColor;
     }
 
     private void Update()
@@ -48,13 +63,13 @@ public class CooltimeCanvas : BaseUI, IMusicPlayHandle
         (EventType, float) enemySpawnAmount = (EventType.EnemySpawnAmount, _gameTimer.GetSpawnAmountCooldown());
         (EventType, float) enemyHPLevel = (EventType.EnemyHPLevel, _gameTimer.GetHPLevelCooldown());
         (EventType, float) spawnTreasure = (EventType.SpawnTreasure, _gameTimer.GetTreasureCooldown());
-         
+
         (EventType, float) win1;
         (EventType, float) win2;
         (EventType, float) lose1;
         (EventType, float) lose2;
 
-        if(enemySpawnLevel.Item2 > enemySpawnAmount.Item2)
+        if (enemySpawnLevel.Item2 > enemySpawnAmount.Item2)
         {
             win1 = enemySpawnAmount;
             lose1 = enemySpawnLevel;
@@ -65,7 +80,7 @@ public class CooltimeCanvas : BaseUI, IMusicPlayHandle
             lose1 = enemySpawnAmount;
         }
 
-        if(enemyHPLevel.Item2 > spawnTreasure.Item2)
+        if (enemyHPLevel.Item2 > spawnTreasure.Item2)
         {
             win2 = spawnTreasure;
             lose2 = enemyHPLevel;
@@ -81,11 +96,11 @@ public class CooltimeCanvas : BaseUI, IMusicPlayHandle
         win2 = win2.Item2 > lose1.Item2 ? lose1 : win2;
         win1 = win1.Item2 > win2.Item2 ? win2 : win1;
 
-        if(Managers.Instance.Game.Language == Language.Korean)
+        if (Managers.Instance.Game.Language == Language.Korean)
         {
             _nearOneEventText.text = $"다음 이벤트 | {GetText(win1.Item1)} - {Mathf.Round(win1.Item2)}초";
         }
-        else if(Managers.Instance.Game.Language == Language.English)
+        else if (Managers.Instance.Game.Language == Language.English)
         {
             _nearOneEventText.text = $"Next Event | {GetText(win1.Item1)} - {Mathf.Round(win1.Item2)}sec";
         }
@@ -93,17 +108,17 @@ public class CooltimeCanvas : BaseUI, IMusicPlayHandle
 
     private string GetText(EventType type)
     {
-        if(Managers.Instance.Game.Language == Language.Korean)
+        if (Managers.Instance.Game.Language == Language.Korean)
         {
             switch (type)
             {
                 case EventType.EnemySpawnLevel: return "새로운 적 추가";
                 case EventType.EnemySpawnAmount: return "적 소환 수 증가";
                 case EventType.EnemyHPLevel: return "적 체력 증가";
-                case EventType.SpawnTreasure: return "메일 받기";
+                case EventType.SpawnTreasure: return "메일 수신";
             }
         }
-        else if(Managers.Instance.Game.Language == Language.English)
+        else if (Managers.Instance.Game.Language == Language.English)
         {
             switch (type)
             {

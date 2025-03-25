@@ -1,5 +1,4 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 
 public class CoreNoise : BaseInit
@@ -13,7 +12,7 @@ public class CoreNoise : BaseInit
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -45,12 +44,12 @@ public class CoreNoise : BaseInit
 
     private void CheckNoiseLevel(float hp)
     {
-        if (hp > 75f) 
+        if (hp > 75f)
         {
             _noiseLevel = 0;
             _audioSource.volume = 0;
         }
-        else if (hp > 50f) 
+        else if (hp > 50f)
         {
             _noiseLevel = 1;
             _audioSource.volume = 0.25f;
@@ -60,7 +59,7 @@ public class CoreNoise : BaseInit
             _noiseLevel = 2;
             _audioSource.volume = 0.5f;
         }
-        else if (hp > 10f) 
+        else if (hp > 10f)
         {
             _noiseLevel = 3;
             _audioSource.volume = 0.625f;
@@ -74,11 +73,11 @@ public class CoreNoise : BaseInit
 
     private IEnumerator NoiseCoroutine()
     {
-        while(true)
+        while (true)
         {
             yield return new WaitUntil(() => _noiseLevel > 0);
 
-            _audioSource.time = 1;
+            _audioSource.time = Random.Range(1f, 15f);
             _audioSource.mute = false;
             Managers.Instance.Game.FindBaseInitScript<InGameCamera>().SetCameraShake(_noiseLevel);
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().SetMute(true);

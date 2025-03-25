@@ -2,7 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class Core : Unit, IMusicPlayHandle, IHealth
@@ -12,10 +12,11 @@ public class Core : Unit, IMusicPlayHandle, IHealth
     public HPSlider HPSlider { get; set; }
 
     private float _damage;
+    private IEnumerator HitCoroutine;
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -42,7 +43,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth
 
     protected override void Release()
     {
-        if(Managers.Instance != null)
+        if (Managers.Instance != null)
         {
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().NoteEvent -= HandleNoteEvent;
@@ -91,18 +92,25 @@ public class Core : Unit, IMusicPlayHandle, IHealth
     {
         HP -= damage;
 
-        if(HP <= 0f)
+        if (HP <= 0f)
         {
             Die();
         }
         HPSlider.Slider.value = HP;
         HPChangeEvent?.Invoke(HP);
+
+        if (HitCoroutine is not null)
+        {
+            StopCoroutine(HitCoroutine);
+        }
+        HitCoroutine = Hited();
+        StartCoroutine(HitCoroutine);
     }
 
     public void Heal(float heal)
     {
         HP += heal;
-        if(HP > 100f)
+        if (HP > 100f)
         {
             HP = 100f;
         }
@@ -110,8 +118,24 @@ public class Core : Unit, IMusicPlayHandle, IHealth
         HPChangeEvent?.Invoke(HP);
     }
 
+    private IEnumerator Hited()
+    {
+        float t = 0f;
+        float lerpTime = Managers.Instance.Game.UnitTime;
+
+        while (t < lerpTime)
+        {
+            t += Time.deltaTime;
+            yield return null;
+
+            _spriteRenderer.color = Color.Lerp(Managers.Instance.Game.PlayingMusic.EnemyColor, Managers.Instance.Game.PlayingMusic.PlayerColor, t / lerpTime);
+        }
+    }
+
     public void Die()
     {
         //게임오버
+
+        SceneManager.LoadScene("ResultScene");
     }
 }

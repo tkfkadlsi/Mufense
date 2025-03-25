@@ -23,6 +23,10 @@ public class TitleRootUI : BaseUI, ISetActiveCanvases
 
         SetActiveCanvas("TitleCanvas", true);
         SetActiveCanvas("OptionCanvas", false);
+
+        Screen.SetResolution(1920, 1080, true);
+        Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+        Application.runInBackground = true;
         return true;
     }
 

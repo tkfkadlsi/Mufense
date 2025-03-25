@@ -5,7 +5,6 @@ public struct OptionData
     public float MasterVolume;
     public float MusicVolume;
     public float EffectVolume;
-
-    public bool AutoStartSong;
+    public bool FrameLimit;
     public bool LowDetailMod;
 }

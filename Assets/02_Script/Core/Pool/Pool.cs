@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class Pool
@@ -38,5 +37,10 @@ public class Pool
 
         po.gameObject.SetActive(true);
         return po;
+    }
+
+    public void ClearPool()
+    {
+        _objectStack.Clear();
     }
 }

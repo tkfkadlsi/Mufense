@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +14,7 @@ public class BloodCanvas : BaseUI
 
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -38,7 +37,7 @@ public class BloodCanvas : BaseUI
 
     protected override void ActiveOff()
     {
-        if(Managers.Instance != null)
+        if (Managers.Instance != null)
         {
             Managers.Instance.Game.FindBaseInitScript<Core>().HPChangeEvent -= SettingAlpha;
         }

@@ -1,11 +1,10 @@
 using DG.Tweening;
-using UnityEngine;
 
 public class BackGround : BaseObject, IMusicPlayHandle
 {
     protected override bool Init()
     {
-        if(base.Init() == false)
+        if (base.Init() == false)
         {
             return false;
         }
@@ -18,7 +17,7 @@ public class BackGround : BaseObject, IMusicPlayHandle
 
     private void OnDestroy()
     {
-        if(Managers.Instance != null)
+        if (Managers.Instance != null)
         {
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
         }
