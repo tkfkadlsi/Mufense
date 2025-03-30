@@ -3,9 +3,10 @@ using UnityEngine;
 public enum ObjectType
 {
     BackGround = 0,
-    MusicPowerOrb = 1,
-    Effect = 2,
-    Attacks = 3,
+    Way = 1,
+    MusicPowerOrb = 10,
+    Effect = 11,
+    Attacks = 12,
     Tower = 100,
     TowerIcon = 101,
     TowerGuide = 102,

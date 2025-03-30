@@ -25,7 +25,9 @@ public enum PoolType
     BlinkEnemy,
     CancledEnemy,
     StunEffect,
-    BlinkEffect
+    BlinkEffect,
+    EnemySpawner,
+    Null
 }
 
 public class PoolManager : MonoBehaviour

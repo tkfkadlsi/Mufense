@@ -60,7 +60,7 @@ public class MusicPowerOrb : BaseObject
 
     private IEnumerator EnableCoroutine()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return Managers.Instance.Game.GetWaitForSecond(0.5f);
         _state = OrbState.Enable;
     }
 

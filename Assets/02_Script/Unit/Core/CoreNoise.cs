@@ -82,13 +82,13 @@ public class CoreNoise : BaseInit
             Managers.Instance.Game.FindBaseInitScript<InGameCamera>().SetCameraShake(_noiseLevel);
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().SetMute(true);
 
-            yield return new WaitForSeconds(Random.Range(_noiseLevel * 0.1f, _noiseLevel * 0.3f));
+            yield return Managers.Instance.Game.GetWaitForSecond(_noiseLevel * 0.2f);
 
             _audioSource.mute = true;
             Managers.Instance.Game.FindBaseInitScript<InGameCamera>().SetCameraShake(0);
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().SetMute(false);
 
-            yield return new WaitForSeconds(Random.Range(3f / _noiseLevel, 5f / _noiseLevel));
+            yield return Managers.Instance.Game.GetWaitForSecond(4f / _noiseLevel);
         }
     }
 }

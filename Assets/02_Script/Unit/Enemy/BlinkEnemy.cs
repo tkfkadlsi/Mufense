@@ -17,10 +17,6 @@ public class BlinkEnemy : Enemy
 
         Managers.Instance.Pool.PopObject(PoolType.BlinkEffect, transform.position);
 
-        Vector3 direction = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-
-        float distance = Vector3.Distance(_core.transform.position, transform.position);
-
-        transform.position = direction.normalized * distance;
+        BackBlink(Random.Range(-2, 3));
     }
 }

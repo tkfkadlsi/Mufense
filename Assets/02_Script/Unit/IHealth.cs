@@ -2,8 +2,6 @@ public enum Debuffs
 {
     None = 0,
     Stun = 1,
-    Poison = 2,
-
 }
 
 public interface IHealth

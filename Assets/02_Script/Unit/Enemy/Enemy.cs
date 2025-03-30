@@ -4,17 +4,20 @@ using UnityEngine;
 
 
 
-public class Enemy : Unit, IHealth, IMusicPlayHandle
+public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObject
 {
     public float HP { get; set; }
     public HPSlider HPSlider { get; set; }
 
+    protected bool _isStun;
+    protected int _moveAmount;
+    protected int _moveCooltime;
+    protected int _moveCooldown;
+    protected Vector3 _targetPosition { get; private set; }
+
     private PoolableObject _poolable;
-
-    protected float _originSpeed = 1.25f;
-    private float _speed;
-
-    protected Core _core;
+    private int _moveIndex;
+    private int _wayNumber;
 
     protected override bool Init()
     {
@@ -23,26 +26,26 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
             return false;
         }
 
-        _core = Managers.Instance.Game.FindBaseInitScript<Core>();
         _poolable = GetComponent<PoolableObject>();
         _objectType = ObjectType.Enemy;
 
         return true;
     }
 
-    protected override void Setting()
+    public void EnemySetting(int wayNumber)
     {
         base.Setting();
         HPSlider = Managers.Instance.Pool.PopObject(PoolType.HPSlider, transform.position).GetComponent<HPSlider>();
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
         transform.rotation = Quaternion.identity;
+        _isStun = false;
+        _moveCooldown = 0;
 
-        _speed = _originSpeed;
-        HP = 7 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemyHPLevel * 2;
-        HPSlider.Slider.maxValue = HP;
-        HPSlider.Slider.value = HP;
+        _wayNumber = wayNumber;
+        _moveIndex = 0;
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent += HandleMusicBeat;
     }
 
     protected override void Release()
@@ -50,6 +53,7 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
         if (Managers.Instance != null)
         {
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent -= HandleMusicBeat;
         }
 
         HPSlider.PushThisObject();
@@ -57,20 +61,9 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
         base.Release();
     }
 
-    private void Update()
-    {
-        Vector3 direction = (_core.transform.position - transform.position).normalized;
-        transform.position += direction * _speed * Time.deltaTime;
-
-        if (HPSlider != null)
-        {
-            HPSlider.transform.position = transform.position + Vector3.up;
-        }
-    }
-
+    private IEnumerator MoveCoroutine;
     private IEnumerator HitedCoroutine;
     private IEnumerator StunCoroutine;
-    private IEnumerator PoisonCoroutine;
 
     public virtual void Hit(float damage, int debuff = 0, Tower attacker = null)
     {
@@ -99,15 +92,6 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
             StunCoroutine = Stun(3f);
             StartCoroutine(StunCoroutine);
         }
-        if ((debuff & (int)Debuffs.Poison) == (int)Debuffs.Poison)
-        {
-            if (PoisonCoroutine is not null)
-            {
-                StopCoroutine(PoisonCoroutine);
-            }
-            PoisonCoroutine = Poison(damage);
-            StartCoroutine(PoisonCoroutine);
-        }
     }
 
     public IEnumerator Hited(float lerpTime)
@@ -127,38 +111,40 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
 
     private IEnumerator Stun(float time)
     {
-        _speed = 0f;
 
         StunEffect stunEffect = Managers.Instance.Pool.PopObject(PoolType.StunEffect, transform.position).GetComponent<StunEffect>();
         stunEffect.SettingTime(Vector3.one, time);
+        _isStun = true;
 
-        yield return new WaitForSeconds(time);
-        _speed = _originSpeed;
+        yield return Managers.Instance.Game.GetWaitForSecond(time);
+
+        _isStun = false;
     }
 
-    private IEnumerator Poison(float damage)
+    private IEnumerator Move()
     {
         float t = 0f;
-        float lerpTime = 1f;
-        while (t < lerpTime)
+        float lerptime = Managers.Instance.Game.UnitTime;
+
+        while (t < lerptime)
         {
             t += Time.deltaTime;
             yield return null;
 
-            HP -= damage * Time.deltaTime;
-            HPSlider.Slider.value = HP;
+            transform.position = Vector3.Lerp(transform.position, _targetPosition, t / lerptime);
         }
-    }
-
-    public void Knockback(Vector2 vector)
-    {
-        _rigidbody.AddForce(vector, ForceMode2D.Impulse);
     }
 
     public void Die()
     {
         Managers.Instance.Pool.PopObject(PoolType.EnemyDeathEffect, transform.position);
         Managers.Instance.Pool.PopObject(PoolType.MusicPowerOrb, transform.position);
+        Managers.Instance.Game.FindBaseInitScript<WaveController>().CurrentWave.HandleDeathEnemy(this);
+        _poolable.PushThisObject();
+    }
+
+    public void PushThisObject()
+    {
         _poolable.PushThisObject();
     }
 
@@ -174,5 +160,40 @@ public class Enemy : Unit, IHealth, IMusicPlayHandle
     public void SettingColor(Music music)
     {
         _spriteRenderer.DOColor(music.EnemyColor, 1f);
+    }
+
+    public void HandleMusicBeat()
+    {
+        _moveCooldown++;
+        if (_moveCooldown > _moveCooltime)
+        {
+            _moveCooldown -= _moveCooltime;
+            _moveIndex += _moveAmount;
+            SetPosition();
+
+            if (MoveCoroutine is not null)
+            {
+                StopCoroutine(MoveCoroutine);
+            }
+            MoveCoroutine = Move();
+            StartCoroutine(MoveCoroutine);
+        }
+    }
+
+    protected void SetPosition()
+    {
+        _targetPosition = Managers.Instance.Game.FindBaseInitScript<WaveController>()
+                            .CurrentWave.WayObject.GetTargetPosition(_wayNumber, _moveIndex);
+    }
+
+    protected void BackBlink(int value)
+    {
+        _moveIndex -= value;
+        if(_moveIndex < 0 )
+            _moveIndex = 0;
+
+        SetPosition();
+
+        transform.position = _targetPosition;
     }
 }

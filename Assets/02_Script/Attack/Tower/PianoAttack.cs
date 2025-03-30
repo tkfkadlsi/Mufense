@@ -16,7 +16,7 @@ public class PianoAttack : TowerAttack
 
     private IEnumerator PushCoroutine()
     {
-        yield return new WaitForSeconds(Managers.Instance.Game.UnitTime);
+        yield return Managers.Instance.Game.GetWaitForSecond(Managers.Instance.Game.UnitTime);
         _poolable.PushThisObject();
     }
 

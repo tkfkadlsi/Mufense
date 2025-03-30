@@ -7,7 +7,8 @@ public class CancledEnemy : Enemy
             return false;
         }
 
-        _originSpeed = 2f;
+        _moveAmount = 1;
+        _moveCooltime = 1;
 
         return true;
     }

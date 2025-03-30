@@ -46,6 +46,18 @@ public class GameManager : MonoBehaviour
         _scriptDict.Clear();
     }
 
+    private Dictionary<float, WaitForSeconds> _waitDict = new Dictionary<float, WaitForSeconds>();
+
+    public WaitForSeconds GetWaitForSecond(float seconds)
+    {
+        if(_waitDict.ContainsKey(seconds) == false)
+        {
+            _waitDict.Add(seconds, new WaitForSeconds(seconds));
+        }
+
+        return _waitDict[seconds];
+    }
+
     public void SetTimeScale(float timeScale)
     {
         Time.timeScale = timeScale;

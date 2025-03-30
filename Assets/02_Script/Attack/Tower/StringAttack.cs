@@ -52,7 +52,7 @@ public class StringAttack : TowerAttack
 
     private IEnumerator PushCoroutine()
     {
-        yield return new WaitForSeconds((Managers.Instance.Game.UnitTime * 2));
+        yield return Managers.Instance.Game.GetWaitForSecond((Managers.Instance.Game.UnitTime * 2));
         _poolable.PushThisObject();
     }
     private void OnTriggerEnter2D(Collider2D collision)

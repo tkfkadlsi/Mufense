@@ -26,7 +26,7 @@ public class DrumAttack : TowerAttack
     {
         _spriteRenderer.DOColor(_endColor, Managers.Instance.Game.UnitTime).SetEase(Ease.Linear);
         transform.DOScale(_range, Managers.Instance.Game.UnitTime).SetEase(Ease.Linear);
-        yield return new WaitForSeconds(Managers.Instance.Game.UnitTime);
+        yield return Managers.Instance.Game.GetWaitForSecond(Managers.Instance.Game.UnitTime);
         _poolable.PushThisObject();
     }
 

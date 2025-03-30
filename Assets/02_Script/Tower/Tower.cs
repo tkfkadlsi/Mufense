@@ -87,7 +87,7 @@ public abstract class Tower : BaseObject, IMusicPlayHandle
         StunEffect stunEffect = Managers.Instance.Pool.PopObject(PoolType.StunEffect, transform.position).GetComponent<StunEffect>();
         stunEffect.SettingTime(Vector3.one * 2, time);
 
-        yield return new WaitForSeconds(time);
+        yield return Managers.Instance.Game.GetWaitForSecond(time);
         _isStun = false;
     }
 }

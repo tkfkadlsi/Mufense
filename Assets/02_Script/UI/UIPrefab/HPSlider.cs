@@ -72,7 +72,7 @@ public class HPSlider : BaseUI
         _backgroundImage.color = color * 0.5f;
         _fillImage.color = color;
 
-        yield return new WaitForSeconds(time);
+        yield return Managers.Instance.Game.GetWaitForSecond(time);
 
         _backgroundImage.color = _originBackgroundColor;
         _fillImage.color = _originFillColor;

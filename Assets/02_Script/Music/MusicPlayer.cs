@@ -217,7 +217,7 @@ public class MusicPlayer : BaseInit
         PlayableMusicList.Remove(music);
         WaitMusicList.Add(music);
 
-        yield return new WaitForSeconds(time);
+        yield return Managers.Instance.Game.GetWaitForSecond(time);
 
         WaitMusicList.Remove(music);
         PlayableMusicList.Add(music);
