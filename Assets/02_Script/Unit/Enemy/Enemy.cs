@@ -4,20 +4,14 @@ using UnityEngine;
 
 
 
-public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObject
+public abstract class Enemy : Unit, IHealth, IMusicPlayHandle
 {
     public float HP { get; set; }
     public HPSlider HPSlider { get; set; }
 
     protected bool _isStun;
-    protected int _moveAmount;
-    protected int _moveCooltime;
-    protected int _moveCooldown;
-    protected Vector3 _targetPosition { get; private set; }
 
     private PoolableObject _poolable;
-    private int _moveIndex;
-    private int _wayNumber;
 
     protected override bool Init()
     {
@@ -35,17 +29,13 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
     public void EnemySetting(int wayNumber)
     {
         base.Setting();
+
         HPSlider = Managers.Instance.Pool.PopObject(PoolType.HPSlider, transform.position).GetComponent<HPSlider>();
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
         transform.rotation = Quaternion.identity;
         _isStun = false;
-        _moveCooldown = 0;
-
-        _wayNumber = wayNumber;
-        _moveIndex = 0;
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
-        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent += HandleMusicBeat;
     }
 
     protected override void Release()
@@ -53,7 +43,6 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
         if (Managers.Instance != null)
         {
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
-            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent -= HandleMusicBeat;
         }
 
         HPSlider.PushThisObject();
@@ -121,25 +110,11 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
         _isStun = false;
     }
 
-    private IEnumerator Move()
-    {
-        float t = 0f;
-        float lerptime = Managers.Instance.Game.UnitTime;
-
-        while (t < lerptime)
-        {
-            t += Time.deltaTime;
-            yield return null;
-
-            transform.position = Vector3.Lerp(transform.position, _targetPosition, t / lerptime);
-        }
-    }
 
     public void Die()
     {
         Managers.Instance.Pool.PopObject(PoolType.EnemyDeathEffect, transform.position);
         Managers.Instance.Pool.PopObject(PoolType.MusicPowerOrb, transform.position);
-        Managers.Instance.Game.FindBaseInitScript<WaveController>().CurrentWave.HandleDeathEnemy(this);
         _poolable.PushThisObject();
     }
 
@@ -162,38 +137,5 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
         _spriteRenderer.DOColor(music.EnemyColor, 1f);
     }
 
-    public void HandleMusicBeat()
-    {
-        _moveCooldown++;
-        if (_moveCooldown > _moveCooltime)
-        {
-            _moveCooldown -= _moveCooltime;
-            _moveIndex += _moveAmount;
-            SetPosition();
 
-            if (MoveCoroutine is not null)
-            {
-                StopCoroutine(MoveCoroutine);
-            }
-            MoveCoroutine = Move();
-            StartCoroutine(MoveCoroutine);
-        }
-    }
-
-    protected void SetPosition()
-    {
-        _targetPosition = Managers.Instance.Game.FindBaseInitScript<WaveController>()
-                            .CurrentWave.WayObject.GetTargetPosition(_wayNumber, _moveIndex);
-    }
-
-    protected void BackBlink(int value)
-    {
-        _moveIndex -= value;
-        if(_moveIndex < 0 )
-            _moveIndex = 0;
-
-        SetPosition();
-
-        transform.position = _targetPosition;
-    }
 }

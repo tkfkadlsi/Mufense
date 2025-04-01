@@ -87,7 +87,7 @@ public class SongCanvas : BaseUI
 
         _songPanel.rectTransform.localScale = Vector3.one * 0.0001f;
 
-        foreach (Music music in Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayableMusicList)
+        foreach (Music music in Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().MusicList)
         {
             if (music == Managers.Instance.Game.PlayingMusic) continue;
             if (music.Clip.length < Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().MusicTime) continue;

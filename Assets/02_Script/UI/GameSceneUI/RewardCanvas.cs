@@ -186,13 +186,6 @@ public class RewardCanvas : BaseUI, IMusicPlayHandle
     {
         switch (_rewardType)
         {
-            case RewardType.NewSong:
-
-                Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().MusicList.Remove(_rewardMusic);
-                Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayableMusicList.Add(_rewardMusic);
-
-                break;
-
             case RewardType.StunArc:
 
                 Managers.Instance.Game.FindBaseInitScript<Core>().StunArcAttack();

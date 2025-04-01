@@ -16,9 +16,12 @@ public class EnemySpawner : BaseInit
         return true;
     }
 
-    public Enemy SpawnEnemy(PoolType type)
+    public void SpawnEnemy(PoolType type, int wayNumber)
     {
-        return Managers.Instance.Pool.PopObject(type, transform.position).GetComponent<Enemy>();
+        if (type != PoolType.Null)
+        {
+            Managers.Instance.Pool.PopObject(type, transform.position).GetComponent<Enemy>().EnemySetting(wayNumber);
+        }
     }
 
     public void PushThisObject()

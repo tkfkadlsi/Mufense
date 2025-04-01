@@ -2,6 +2,16 @@ using UnityEngine;
 
 public class BlinkEnemy : Enemy
 {
+    protected override bool Init()
+    {
+        if (base.Init() == false)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     protected override void Setting()
     {
         base.Setting();
@@ -17,6 +27,5 @@ public class BlinkEnemy : Enemy
 
         Managers.Instance.Pool.PopObject(PoolType.BlinkEffect, transform.position);
 
-        BackBlink(Random.Range(-2, 3));
     }
 }

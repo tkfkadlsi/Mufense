@@ -1,13 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-public enum EnemyType
-{
-    None,
-    Normal,
-    Blink,
-    Cancled,
-}
 
 [Serializable]
 public class EnemyDataInWave
