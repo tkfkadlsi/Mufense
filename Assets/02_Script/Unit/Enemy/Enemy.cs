@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public abstract class Enemy : Unit, IHealth, IMusicPlayHandle
+public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObject
 {
     public float HP { get; set; }
     public HPSlider HPSlider { get; set; }
@@ -12,6 +12,11 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle
     protected bool _isStun;
 
     private PoolableObject _poolable;
+    private Way _currentWay;
+
+    private IEnumerator MoveCoroutine;
+    private IEnumerator HitedCoroutine;
+    private IEnumerator StunCoroutine;
 
     protected override bool Init()
     {
@@ -26,7 +31,7 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle
         return true;
     }
 
-    public void EnemySetting(int wayNumber)
+    public void EnemySetting(Way way)
     {
         base.Setting();
 
@@ -34,6 +39,7 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
         transform.rotation = Quaternion.identity;
         _isStun = false;
+        _currentWay = way;
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
     }
@@ -50,9 +56,6 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle
         base.Release();
     }
 
-    private IEnumerator MoveCoroutine;
-    private IEnumerator HitedCoroutine;
-    private IEnumerator StunCoroutine;
 
     public virtual void Hit(float damage, int debuff = 0, Tower attacker = null)
     {
@@ -137,5 +140,29 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle
         _spriteRenderer.DOColor(music.EnemyColor, 1f);
     }
 
+    public void HandleMusicBeat()
+    {
+        _currentWay = _currentWay.GetNextWay();
+        if(MoveCoroutine is not null)
+        {
+            StopCoroutine(MoveCoroutine);
+        }
+        MoveCoroutine = Move();
+        StartCoroutine(MoveCoroutine);
+    }
 
+    private IEnumerator Move()
+    {
+        float t = 0f;
+        float lerpTime = Managers.Instance.Game.UnitTime;
+        Vector3 endPos = _currentWay.transform.position;
+
+        while(t < lerpTime)
+        {
+            t += Time.deltaTime;
+            yield return null;
+
+            transform.position = Vector3.Lerp(transform.position, endPos, t / lerpTime);
+        }
+    }
 }

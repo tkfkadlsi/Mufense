@@ -13,11 +13,6 @@ public class MusicPlayer : BaseInit
     public event Action BeatEvent;
     public event Action<TowerType> NoteEvent;
 
-    private Dictionary<string, List<float>> _beatTimingsInSong = new Dictionary<string, List<float>>();
-    private Dictionary<string, List<TowerNote>> _towerNoteTimingsInSong = new Dictionary<string, List<TowerNote>>();
-    private Dictionary<string, List<float>> _bpmTimingsInSong = new Dictionary<string, List<float>>();
-    private Dictionary<string, Dictionary<int, float>> _sessionTimingsInSong = new Dictionary<string, Dictionary<int, float>>();
-
     private AudioSource _audioSource;
     private int beatCounter = 0;
     private int noteCounter = 0;
@@ -37,71 +32,10 @@ public class MusicPlayer : BaseInit
 
         foreach (Music music in MusicList)
         {
-            _beatTimingsInSong.Add(music.SongName, new List<float>());
-            _bpmTimingsInSong.Add(music.SongName, new List<float>());
-            _towerNoteTimingsInSong.Add(music.SongName, new List<TowerNote>());
-            _sessionTimingsInSong.Add(music.SongName, new Dictionary<int, float>());
-            MakeBeatTiming(music);
+            music.MakeBeat();
         }
 
         return true;
-    }
-
-    private void MakeBeatTiming(Music music)
-    {
-        List<float> timings = new List<float>();
-        foreach (var bcd in music.BpmChangeDict)
-        {
-            timings.Add(bcd.Key);
-            _bpmTimingsInSong[music.SongName].Add(bcd.Key);
-        }
-
-        string[] notes = music.TowerChaebo.ToString().Split('\n');
-        foreach (var note in notes)
-        {
-            string[] noteinfos = note.Split(',');
-
-            TowerNote newNote = new TowerNote();
-            newNote.type = ParseChaeboToTowerType(noteinfos[0]);
-            newNote.timing = int.Parse(noteinfos[2]) / 1000f;
-
-            _towerNoteTimingsInSong[music.SongName].Add(newNote);
-        }
-
-        float timing = 0f;
-        float unitTime = 0f;
-
-        for (int i = 0; i < timings.Count; i++)
-        {
-            timing = timings[i];
-            unitTime = 60f / music.BpmChangeDict[timings[i]];
-
-            while (timing < (i == timings.Count - 1 ? music.Clip.length : timings[i + 1]))
-            {
-                _beatTimingsInSong[music.SongName].Add(timing);
-                timing += unitTime;
-            }
-        }
-    }
-
-    private TowerType ParseChaeboToTowerType(string chaebotxt)
-    {
-        switch (chaebotxt)
-        {
-            case "36":
-                return TowerType.Piano;
-            case "109":
-                return TowerType.Drum;
-            case "182":
-                return TowerType.String;
-            case "256":
-            case "329":
-            case "402":
-            case "475":
-                return TowerType.Core;
-            default:
-                return TowerType.None;
-        }
     }
 
     private void Start()
@@ -142,24 +76,23 @@ public class MusicPlayer : BaseInit
         int beatCounter = 0;
         int noteCounter = 0;
         int bpmCounter = 0;
-        int attackCounter = 0;
 
-        while (time > _beatTimingsInSong[music.SongName][beatCounter])
+        while (time > music.GetBeatTiming(beatCounter))
         {
             beatCounter++;
-            if (beatCounter >= _beatTimingsInSong[music.SongName].Count) break;
+            if (beatCounter >= music.GetBeatTimingCount()) break;
         }
 
-        while (time > _towerNoteTimingsInSong[music.SongName][noteCounter].timing)
+        while (time > music.GetTowerNote(noteCounter).timing)
         {
             noteCounter++;
-            if (noteCounter >= _towerNoteTimingsInSong[music.SongName].Count) break;
+            if (noteCounter >= music.GetTowerNoteCount()) break;
         }
 
-        while (time > _bpmTimingsInSong[music.SongName][bpmCounter])
+        while (time > music.GetBpmChangeTiming(bpmCounter))
         {
             bpmCounter++;
-            if (bpmCounter >= _bpmTimingsInSong[music.SongName].Count) break;
+            if (bpmCounter >= music.GetBpmChangeTimingCount()) break;
         }
 
         await Awaitable.MainThreadAsync();
@@ -194,34 +127,34 @@ public class MusicPlayer : BaseInit
         {
             Managers.Instance.Game.PlayTime += Time.deltaTime;
 
-            if (beatCounter < _beatTimingsInSong[PlayingMusic.SongName].Count)
+            if (beatCounter < PlayingMusic.GetBeatTimingCount())
             {
-                if (_beatTimingsInSong[PlayingMusic.SongName][beatCounter] < _audioSource.time)
+                if (PlayingMusic.GetBeatTiming(beatCounter) < _audioSource.time)
                 {
                     BeatEvent?.Invoke();
                     beatCounter++;
                 }
             }
 
-            if (noteCounter < _towerNoteTimingsInSong[PlayingMusic.SongName].Count)
+            if (noteCounter < PlayingMusic.GetTowerNoteCount())
             {
-                while (_towerNoteTimingsInSong[PlayingMusic.SongName][noteCounter].timing < _audioSource.time)
+                while (PlayingMusic.GetTowerNote(noteCounter).timing < _audioSource.time)
                 {
-                    NoteEvent?.Invoke(_towerNoteTimingsInSong[PlayingMusic.SongName][noteCounter].type);
+                    NoteEvent?.Invoke(PlayingMusic.GetTowerNote(noteCounter).type);
                     noteCounter++;
 
-                    if (noteCounter >= _towerNoteTimingsInSong[PlayingMusic.SongName].Count)
+                    if (noteCounter >= PlayingMusic.GetTowerNoteCount())
                     {
                         break;
                     }
                 }
             }
 
-            if (bpmCounter < _bpmTimingsInSong[PlayingMusic.SongName].Count)
+            if (bpmCounter < PlayingMusic.GetBpmChangeTimingCount())
             {
-                if (_bpmTimingsInSong[PlayingMusic.SongName][bpmCounter] < _audioSource.time)
+                if (PlayingMusic.GetBpmChangeTiming(bpmCounter) < _audioSource.time)
                 {
-                    Managers.Instance.Game.SetBPM(PlayingMusic.BpmChangeDict[_bpmTimingsInSong[PlayingMusic.SongName][bpmCounter]]);
+                    Managers.Instance.Game.SetBPM(PlayingMusic.GetBpmChangeTiming(bpmCounter));
                     bpmCounter++;
                 }
             }
