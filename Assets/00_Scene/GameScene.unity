@@ -4567,7 +4567,7 @@ MonoBehaviour:
   - SongName: Secret Library
     ArtistName: Mute
     Clip: {fileID: 8300000, guid: 0ad076d763a09124ebf5634caa125bb1, type: 3}
-    Chaebo: {fileID: 4900000, guid: 15926390545fe2148b26b3359bebc6b5, type: 3}
+    TowerChaebo: {fileID: 0}
     BpmChangeDict:
       _serializedList:
       - Key: 1.5
@@ -4576,8 +4576,6 @@ MonoBehaviour:
     EnemyColor: {r: 0.99215686, g: 0.5176471, b: 0.56159633, a: 1}
     BackGroundColor: {r: 0.88309896, g: 0.9766351, b: 0.990566, a: 1}
     TextColor: {r: 0, g: 0, b: 0, a: 1}
-    CircleArcAttackTimings:
-    - 98
     PianoAmount: 3
     DrumAmount: 2
     StringAmount: 1
@@ -4585,7 +4583,7 @@ MonoBehaviour:
   - SongName: Bunny Hop
     ArtistName: Mute
     Clip: {fileID: 8300000, guid: 08576596b6dd90547aac9a3099f30d48, type: 3}
-    Chaebo: {fileID: 4900000, guid: 0ef646635d5e1d74488562161ebed474, type: 3}
+    TowerChaebo: {fileID: 0}
     BpmChangeDict:
       _serializedList:
       - Key: 2
@@ -4594,8 +4592,6 @@ MonoBehaviour:
     EnemyColor: {r: 0.5471698, g: 0.4258633, b: 0.4258633, a: 1}
     BackGroundColor: {r: 0.022722641, g: 0.3018868, b: 0, a: 1}
     TextColor: {r: 1, g: 1, b: 1, a: 1}
-    CircleArcAttackTimings:
-    - 129.5
     PianoAmount: 4
     DrumAmount: 3
     StringAmount: 0
@@ -4603,7 +4599,7 @@ MonoBehaviour:
   - SongName: Witch's Hunt
     ArtistName: Mute
     Clip: {fileID: 8300000, guid: 57e4a47eaf007494890d91138fbfeb8f, type: 3}
-    Chaebo: {fileID: 4900000, guid: 54a67fd652d602248a61903803b87300, type: 3}
+    TowerChaebo: {fileID: 0}
     BpmChangeDict:
       _serializedList:
       - Key: 2.182
@@ -4612,8 +4608,6 @@ MonoBehaviour:
     EnemyColor: {r: 0.030076126, g: 0.6226415, b: 0, a: 1}
     BackGroundColor: {r: 0.099, g: 0, b: 0, a: 1}
     TextColor: {r: 1, g: 1, b: 1, a: 1}
-    CircleArcAttackTimings:
-    - 106.909
     PianoAmount: 2
     DrumAmount: 2
     StringAmount: 2
@@ -4621,7 +4615,7 @@ MonoBehaviour:
   - SongName: Cookie's Request
     ArtistName: Mute
     Clip: {fileID: 8300000, guid: 382f02f711110ea44884a8d322ed9e6a, type: 3}
-    Chaebo: {fileID: 4900000, guid: a7100219157536e418da04dc90bea43e, type: 3}
+    TowerChaebo: {fileID: 0}
     BpmChangeDict:
       _serializedList:
       - Key: 1.6
@@ -4630,8 +4624,6 @@ MonoBehaviour:
     EnemyColor: {r: 0, g: 0.46610165, b: 1, a: 1}
     BackGroundColor: {r: 0.9578586, g: 0.990566, b: 0.95972764, a: 1}
     TextColor: {r: 0, g: 0, b: 0, a: 1}
-    CircleArcAttackTimings:
-    - 116.8
     PianoAmount: 2
     DrumAmount: 3
     StringAmount: 2
@@ -4639,7 +4631,7 @@ MonoBehaviour:
   - SongName: Victory
     ArtistName: Mute
     Clip: {fileID: 8300000, guid: 0e67477fe08df034ab3bfc0a00b9c479, type: 3}
-    Chaebo: {fileID: 4900000, guid: 46af3a6f6fed1d34fb474363509e5603, type: 3}
+    TowerChaebo: {fileID: 0}
     BpmChangeDict:
       _serializedList:
       - Key: 0
@@ -4648,8 +4640,6 @@ MonoBehaviour:
     EnemyColor: {r: 1, g: 0.32200038, b: 0.2783019, a: 1}
     BackGroundColor: {r: 1, g: 0.92941177, b: 0.9698722, a: 1}
     TextColor: {r: 0, g: 0, b: 0, a: 1}
-    CircleArcAttackTimings:
-    - 134.666
     PianoAmount: 4
     DrumAmount: 3
     StringAmount: 1
@@ -4657,7 +4647,7 @@ MonoBehaviour:
   - SongName: In 59 seconds
     ArtistName: Mute
     Clip: {fileID: 8300000, guid: 5e4993e77e4df1a43b5a995f34a8d157, type: 3}
-    Chaebo: {fileID: 4900000, guid: 203efffbe1beda349aa0917f9eb5fde0, type: 3}
+    TowerChaebo: {fileID: 0}
     BpmChangeDict:
       _serializedList:
       - Key: 0
@@ -4666,14 +4656,10 @@ MonoBehaviour:
     EnemyColor: {r: 0.24238618, g: 0.049661797, b: 0.33962262, a: 1}
     BackGroundColor: {r: 0.084905684, g: 0.00040049947, b: 0.04181201, a: 1}
     TextColor: {r: 1, g: 1, b: 1, a: 1}
-    CircleArcAttackTimings:
-    - 97.2
     PianoAmount: 2
     DrumAmount: 4
     StringAmount: 3
     CoreAmount: 3
-  PlayableMusicList: []
-  WaitMusicList: []
 --- !u!1 &1024480453
 GameObject:
   m_ObjectHideFlags: 0
