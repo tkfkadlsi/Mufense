@@ -10,9 +10,12 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
     public HPSlider HPSlider { get; set; }
 
     protected bool _isStun;
+    protected int _moveCooltime;
 
     private PoolableObject _poolable;
     private Way _currentWay;
+
+    private int _moveCooldown;
 
     private IEnumerator MoveCoroutine;
     private IEnumerator HitedCoroutine;
@@ -40,6 +43,7 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
         transform.rotation = Quaternion.identity;
         _isStun = false;
         _currentWay = way;
+        _moveCooldown = _moveCooltime;
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
     }
@@ -142,13 +146,19 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
 
     public void HandleMusicBeat()
     {
-        _currentWay = _currentWay.GetNextWay();
-        if(MoveCoroutine is not null)
+        _moveCooldown++;
+        if(_moveCooldown > _moveCooltime)
         {
-            StopCoroutine(MoveCoroutine);
+            _moveCooldown -= _moveCooltime;
+
+            _currentWay = _currentWay.GetNextWay();
+            if (MoveCoroutine is not null)
+            {
+                StopCoroutine(MoveCoroutine);
+            }
+            MoveCoroutine = Move();
+            StartCoroutine(MoveCoroutine);
         }
-        MoveCoroutine = Move();
-        StartCoroutine(MoveCoroutine);
     }
 
     private IEnumerator Move()

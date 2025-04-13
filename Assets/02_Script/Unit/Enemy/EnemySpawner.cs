@@ -40,6 +40,7 @@ public class EnemySpawner : BaseInit, IMusicHandleObject
             _savedEnemyCount = 0;
         }
 
+        transform.position = _startWay.transform.position;
         _spawnData.ResetCount();
         _savedEnemyCount += _spawnData.SpawnData.Count;
         _poolable = GetComponent<PoolableObject>();
