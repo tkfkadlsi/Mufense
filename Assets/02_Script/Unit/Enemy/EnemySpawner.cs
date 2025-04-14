@@ -42,18 +42,32 @@ public class EnemySpawner : BaseInit, IMusicHandleObject
 
         transform.position = _startWay.transform.position;
         _spawnData.ResetCount();
-        _savedEnemyCount += _spawnData.SpawnData.Count;
+        _savedEnemyCount += _spawnData.SpawnDataCount;
         _poolable = GetComponent<PoolableObject>();
 
         return true;
     }
 
+    protected override void Setting()
+    {
+        base.Setting();
+
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent += HandleMusicBeat;
+    }
+
+    protected override void Release()
+    {
+        if(Managers.Instance != null)
+        {
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent -= HandleMusicBeat;
+        }
+
+        base.Release();
+    }
+
     public void SpawnEnemy(PoolType type, Way way)
     {
-        if (type != PoolType.Null)
-        {
-            Managers.Instance.Pool.PopObject(type, transform.position).GetComponent<Enemy>().EnemySetting(way);
-        }
+        Managers.Instance.Pool.PopObject(type, transform.position).GetComponent<Enemy>().EnemySetting(way);
     }
 
     public void PushThisObject()
@@ -63,8 +77,8 @@ public class EnemySpawner : BaseInit, IMusicHandleObject
 
     public void HandleMusicBeat()
     {
-        EnemySpawnData enemySpawnData = _spawnData.GetSpawnData();
-        if (enemySpawnData == null) return;
-        SpawnEnemy(enemySpawnData.GetEnemyType, _startWay);
+        PoolType type = _spawnData.GetSpawnData();
+        if (type == PoolType.Null) return;
+        SpawnEnemy(type, _startWay);
     }
 }

@@ -15,6 +15,7 @@ public class PianoTower : Tower
         }
 
         _filter.layerMask = _whatIsEnemy;
+        _filter.useTriggers = true;
 
         return true;
     }
@@ -25,7 +26,7 @@ public class PianoTower : Tower
 
         TowerLevel = 1;
         Damage = 1;
-        Range = 7;
+        Range = 8;
     }
 
     private void Update()

@@ -19,7 +19,7 @@ public class MusicPlayer : BaseInit
     private int bpmCounter = 0;
 
     public Music PlayingMusic { get; private set; } = null;
-    public float MusicTime => _audioSource.time;
+    public float MusicTime => _audioSource == null ? 0 : _audioSource.time;
 
     protected override bool Init()
     {
@@ -154,7 +154,7 @@ public class MusicPlayer : BaseInit
             {
                 if (PlayingMusic.GetBpmChangeTiming(bpmCounter) < _audioSource.time)
                 {
-                    Managers.Instance.Game.SetBPM(PlayingMusic.GetBpmChangeTiming(bpmCounter));
+                    Managers.Instance.Game.SetBPM(PlayingMusic.GetBPM(bpmCounter));
                     bpmCounter++;
                 }
             }

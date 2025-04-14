@@ -77,9 +77,9 @@ public class BuildCanvas : BaseUI, IMusicPlayHandle
         _stringTower.onClick.AddListener(HandleStringTower);
         _exitButton.onClick.AddListener(HandleExitButton);
 
-        PianoCost = 150;
-        DrumCost = 150;
-        StringCost = 150;
+        PianoCost = 50;
+        DrumCost = 50;
+        StringCost = 50;
 
         return true;
     }

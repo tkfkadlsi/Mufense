@@ -9,6 +9,8 @@ public class BlinkEnemy : Enemy
             return false;
         }
 
+        _moveCooltime = 4;
+
         return true;
     }
 
@@ -16,7 +18,7 @@ public class BlinkEnemy : Enemy
     {
         base.Setting();
 
-        HP = 4 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemyHPLevel * 2;
+        HP = 10 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemyHPLevel * 2;
         HPSlider.Slider.value = HP;
         HPSlider.Slider.maxValue = HP;
     }
@@ -27,5 +29,6 @@ public class BlinkEnemy : Enemy
 
         Managers.Instance.Pool.PopObject(PoolType.BlinkEffect, transform.position);
 
+        Jump(2);
     }
 }

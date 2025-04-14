@@ -43,7 +43,8 @@ public class TowerSpawner : BaseInit
     {
         if (_state == TowerSpawnState.Create)
         {
-            _guide.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            _guide.transform.position = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y), 0);
         }
     }
 }

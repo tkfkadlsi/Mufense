@@ -34,30 +34,44 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
         return true;
     }
 
-    public void EnemySetting(Way way)
+    protected override void Setting()
     {
         base.Setting();
 
         HPSlider = Managers.Instance.Pool.PopObject(PoolType.HPSlider, transform.position).GetComponent<HPSlider>();
+
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent += HandleMusicBeat;
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
+    }
+
+    public void EnemySetting(Way way)
+    {
+        base.Setting();
+
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
         transform.rotation = Quaternion.identity;
         _isStun = false;
         _currentWay = way;
         _moveCooldown = _moveCooltime;
-
-        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
+        _collider.isTrigger = true;
     }
 
     protected override void Release()
     {
         if (Managers.Instance != null)
         {
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent -= HandleMusicBeat;
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
         }
 
         HPSlider.PushThisObject();
         HPSlider = null;
         base.Release();
+    }
+
+    private void Update()
+    {
+        HPSlider.transform.position = transform.position + Vector3.up * 0.5f;
     }
 
 
@@ -130,12 +144,12 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
         _poolable.PushThisObject();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.collider.CompareTag("Core"))
+        if(collision.CompareTag("Core"))
         {
-            collision.collider.GetComponent<Core>().Hit(HP);
-            Die();
+            Managers.Instance.Game.FindBaseInitScript<Core>().Hit(HP);
+            PushThisObject();
         }
     }
 
@@ -174,5 +188,18 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
 
             transform.position = Vector3.Lerp(transform.position, endPos, t / lerpTime);
         }
+    }
+
+    protected void Jump(int count)
+    {
+        for(int i = 0; i < count; i++)
+        {
+            if(_currentWay.GetNextWay() != null)
+            {
+                _currentWay = _currentWay.GetNextWay();
+            }
+        }
+
+        transform.position = _currentWay.transform.position;
     }
 }

@@ -98,6 +98,10 @@ public class Music
     {
         return _bpmChangeTimings.Count;
     }
+    public float GetBPM(int count)
+    {
+        return BpmChangeDict[GetBeatTiming(count)];
+    }
 
     public TowerNote GetTowerNote(int count)
     {

@@ -9,6 +9,7 @@ TagManager:
   - Tower
   - CircleArc
   - Treasure
+  - Way
   layers:
   - Default
   - TransparentFX

@@ -9,6 +9,8 @@ public class NormalEnemy : Enemy
             return false;
         }
 
+        _moveCooltime = 1;
+
         return true;
     }
 
@@ -16,7 +18,7 @@ public class NormalEnemy : Enemy
     {
         base.Setting();
 
-        HP = 4 * Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemyHPLevel * 2;
+        HP = 22 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemyHPLevel * 2;
         HPSlider.Slider.maxValue = HP;
         HPSlider.Slider.value = HP;
     }

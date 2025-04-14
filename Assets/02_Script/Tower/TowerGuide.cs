@@ -8,7 +8,7 @@ public class TowerGuide : BaseObject, IMusicPlayHandle
 
     private TowerSpawner _towerSpawner;
     private Rigidbody2D _rigidbody;
-    private CircleCollider2D _collider;
+    private Collider2D _collider;
     private TextMeshProUGUI _text;
 
     private List<Collider2D> _colliders = new List<Collider2D>();
@@ -31,7 +31,7 @@ public class TowerGuide : BaseObject, IMusicPlayHandle
 
         _objectType = ObjectType.TowerGuide;
         _rigidbody = GetComponent<Rigidbody2D>();
-        _collider = GetComponent<CircleCollider2D>();
+        _collider = GetComponent<Collider2D>();
         _canBuild = true;
         _isOverlap = false;
         _isRangeOut = false;
@@ -45,7 +45,6 @@ public class TowerGuide : BaseObject, IMusicPlayHandle
 
         _rigidbody.gravityScale = 0f;
         _collider.isTrigger = true;
-        _collider.radius = 1.5f;
     }
 
     private void Update()
@@ -115,7 +114,7 @@ public class TowerGuide : BaseObject, IMusicPlayHandle
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Tower") || collision.CompareTag("Core"))
+        if (collision.CompareTag("Tower") || collision.CompareTag("Core") || collision.CompareTag("Way"))
         {
             _colliders.Add(collision);
 

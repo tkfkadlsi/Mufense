@@ -9,13 +9,13 @@ public class EnemySpawnData
         {
             switch (EnemyType)
             {
-                case EnemyType.None:
+                case EnemyType.None_0:
                     return PoolType.Null;
-                case EnemyType.Normal:
+                case EnemyType.Normal_1:
                     return PoolType.Enemy;
-                case EnemyType.Blink:
+                case EnemyType.Blink_2:
                     return PoolType.BlinkEnemy;
-                case EnemyType.Cancled:
+                case EnemyType.Cancled_3:
                     return PoolType.CancledEnemy;
             }
 

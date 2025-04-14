@@ -15,6 +15,7 @@ public class StringTower : Tower
         }
 
         _filter.layerMask = _whatIsEnemy;
+        _filter.useTriggers = true;
 
         return true;
     }
@@ -24,7 +25,7 @@ public class StringTower : Tower
         base.Setting();
 
         TowerLevel = 1;
-        Range = 9;
+        Range = 10;
         Damage = 1;
     }
 
