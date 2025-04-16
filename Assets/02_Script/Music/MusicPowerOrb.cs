@@ -1,21 +1,12 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
-public enum OrbState
-{
-    Create,
-    Enable,
-    Disable
-}
 
 public class MusicPowerOrb : BaseObject
 {
     private TrailRenderer _trailRenderer;
-    private Core _core;
-    private CircleCollider2D _collider;
     private PoolableObject _poolable;
-
-    private OrbState _state;
 
     protected override bool Init()
     {
@@ -25,8 +16,6 @@ public class MusicPowerOrb : BaseObject
         }
 
         _trailRenderer = GetComponent<TrailRenderer>();
-        _core = Managers.Instance.Game.FindBaseInitScript<Core>();
-        _collider = GetComponent<CircleCollider2D>();
         _poolable = GetComponent<PoolableObject>();
         _objectType = ObjectType.MusicPowerOrb;
 
@@ -38,38 +27,28 @@ public class MusicPowerOrb : BaseObject
     protected override void Setting()
     {
         base.Setting();
-        _state = OrbState.Create;
-        _collider.isTrigger = true;
-        _collider.radius = 1.5f;
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.EnemyColor;
         _trailRenderer.startColor = Managers.Instance.Game.PlayingMusic.EnemyColor;
         _trailRenderer.endColor = Color.clear;
         _trailRenderer.Clear();
-        StartCoroutine(EnableCoroutine());
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Core") && _state == OrbState.Enable)
+        Vector3 startPos = transform.position;
+        Vector3 endPos = Managers.Instance.UI.GameRootUI.MainCanvas.GetPickPos();
+
+        Vector3 peakPos = new Vector3((startPos.x + endPos.x) * 0.5f, startPos.y - 1);
+
+
+        transform.DOPath(new Vector3[]
         {
-            _state = OrbState.Disable;
+            startPos,
+            peakPos,
+            endPos,
+
+        }, 1.5f, PathType.CatmullRom).SetEase(Ease.InCubic)
+            .OnComplete(() =>
+        {
             Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().AddMusicPower(1);
             _poolable.PushThisObject();
-        }
-    }
-
-    private IEnumerator EnableCoroutine()
-    {
-        yield return Managers.Instance.Game.GetWaitForSecond(0.5f);
-        _state = OrbState.Enable;
-    }
-
-    private void Update()
-    {
-        if(_state == OrbState.Enable)
-        {
-            Vector3 direction = _core.transform.position - transform.position;
-            transform.position += direction.normalized * 10f * Time.deltaTime;
-        }
+        });
     }
 }

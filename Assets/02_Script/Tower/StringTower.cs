@@ -25,8 +25,10 @@ public class StringTower : Tower
         base.Setting();
 
         TowerLevel = 1;
-        Range = 10;
+        Range = 11;
         Damage = 1;
+
+        _target = null;
     }
 
     private void Update()

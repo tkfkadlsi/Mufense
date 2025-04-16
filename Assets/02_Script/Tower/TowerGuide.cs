@@ -17,7 +17,6 @@ public class TowerGuide : BaseObject, IMusicPlayHandle
     private bool _canBuild;
 
     private bool _isOverlap;
-    private bool _isRangeOut;
 
     protected override bool Init()
     {
@@ -34,7 +33,6 @@ public class TowerGuide : BaseObject, IMusicPlayHandle
         _collider = GetComponent<Collider2D>();
         _canBuild = true;
         _isOverlap = false;
-        _isRangeOut = false;
 
         return true;
     }
@@ -49,16 +47,8 @@ public class TowerGuide : BaseObject, IMusicPlayHandle
 
     private void Update()
     {
-        if (transform.position.magnitude > 15f)
-        {
-            _isRangeOut = true;
-        }
-        else
-        {
-            _isRangeOut = false;
-        }
 
-        if (_isRangeOut || _isOverlap)
+        if (_isOverlap)
         {
             _spriteRenderer.color = Color.red;
             _canBuild = false;

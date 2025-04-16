@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff4ddcd60de2d0b47ae2aa52ef275584, type: 3}
+  m_Name: 0000Roop
+  m_EditorClassIdentifier: 
+  One_Beat: 0
+  Two_Beat: 0
+  Three_Beat: 0
+  Four_Beat: 0
+  Five_Beat: 0
+  Six_Beat: 0
+  Seven_Beat: 0
+  Eight_Beat: 0
+  Nine_Beat: 0
+  Ten_Beat: 0
+  Eleven_Beat: 0
+  Twelve_Beat: 0
+  Thirteen_Beat: 0
+  Fourteen_Beat: 0
+  Fifteen_Beat: 0
+  Sixteen_Beat: 0

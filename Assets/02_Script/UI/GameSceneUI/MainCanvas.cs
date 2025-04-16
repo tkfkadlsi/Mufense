@@ -19,11 +19,20 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
         SongChangeDescription
     }
 
+    private enum ERectTransform
+    {
+        PickMusicPowerPoint
+    }
+
     private Button _towerBuildButton;
     private Button _songChangeButton;
 
     private TextMeshProUGUI _towerBuildDesc;
     private TextMeshProUGUI _songChangeDesc;
+
+    private RectTransform _pickPoint;
+
+    private Vector3 _pickpos;
 
     protected override bool Init()
     {
@@ -34,6 +43,7 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
 
         Bind<Button>(typeof(EButtons));
         Bind<TextMeshProUGUI>(typeof(ETexts));
+        Bind<RectTransform>(typeof(ERectTransform));
 
         _towerBuildButton = Get<Button>((int)EButtons.TowerBuildButton);
         _songChangeButton = Get<Button>((int)EButtons.SongChangeButton);
@@ -41,8 +51,14 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
         _towerBuildDesc = Get<TextMeshProUGUI>((int)ETexts.TowerBuildDescription);
         _songChangeDesc = Get<TextMeshProUGUI>((int)ETexts.SongChangeDescription);
 
+        _pickPoint = Get<RectTransform>((int)ERectTransform.PickMusicPowerPoint);
+
         _towerBuildButton.onClick.AddListener(HandleTowerBuildButton);
         _songChangeButton.onClick.AddListener(HandleSongChangeButton);
+
+        Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, _pickPoint.position);
+        _pickpos = Camera.main.ScreenToWorldPoint(screenPos);
+        _pickpos.z = 0;
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
 
@@ -73,6 +89,8 @@ public class MainCanvas : BaseUI, IMusicPlayHandle
         _towerBuildDesc.DOColor(music.TextColor, 1f);
         _songChangeDesc.DOColor(music.TextColor, 1f);
     }
+
+    public Vector3 GetPickPos() => _pickpos;
 
     private void Update()
     {

@@ -25,6 +25,6 @@ public abstract class Unit : BaseObject
         _rigidbody.gravityScale = 0;
         _rigidbody.linearDamping = 1;
         _rigidbody.angularDamping = 1;
-        _collider.isTrigger = false;
+        _collider.isTrigger = true;
     }
 }

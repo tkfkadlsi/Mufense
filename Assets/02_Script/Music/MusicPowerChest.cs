@@ -1,17 +1,20 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MusicPowerChest : BaseInit
+public class MusicPowerChest : BaseInit, IMusicHandleObject
 {
     public int MaxMusicPower { get; private set; }
     private int _musicPower;
 
     [SerializeField] private Image _backGround;
     [SerializeField] private Image _fill;
+    [SerializeField] private Image _subFill;
 
     private Slider _musicPowerSlider;
     private TextMeshProUGUI _musicPowerCounter;
+    private int _cooldown;
 
     protected override bool Init()
     {
@@ -20,10 +23,11 @@ public class MusicPowerChest : BaseInit
             return false;
         }
 
+        _musicPower = 100;
         _musicPowerCounter = gameObject.FindChild<TextMeshProUGUI>("");
         _musicPowerSlider = GetComponent<Slider>();
-
-        _musicPower = 300;
+        _musicPowerSlider.value = _musicPower;
+        _subFill.fillAmount = 0;
 
         SetMaxMusicPower(500);
 
@@ -35,6 +39,7 @@ public class MusicPowerChest : BaseInit
         base.Setting();
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += HandlePlayMusic;
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent += HandleMusicBeat;
     }
 
     protected override void Release()
@@ -44,6 +49,7 @@ public class MusicPowerChest : BaseInit
             if (Managers.Instance.Game.FindBaseInitScript<MusicPlayer>() != null)
             {
                 Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= HandlePlayMusic;
+                Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent -= HandleMusicBeat;
             }
         }
 
@@ -55,6 +61,7 @@ public class MusicPowerChest : BaseInit
         _fill.color = music.EnemyColor;
         _backGround.color = _fill.color * 0.5f;
         _musicPowerCounter.color = new Color(255 - music.EnemyColor.r, 255 - music.EnemyColor.g, 255 - music.EnemyColor.b);
+        _subFill.color = new Color(music.EnemyColor.r, music.EnemyColor.g, music.EnemyColor.b, 0.5f);
     }
 
     public void SetMaxMusicPower(int value)
@@ -97,8 +104,18 @@ public class MusicPowerChest : BaseInit
 
     private void SetCounter()
     {
-        _musicPowerSlider.value = _musicPower;
+        _subFill.fillAmount = _musicPower / MaxMusicPower;
+        _cooldown = 4;
         _musicPowerSlider.maxValue = MaxMusicPower;
         _musicPowerCounter.text = $"({_musicPower} / {MaxMusicPower})";
+    }
+
+    public void HandleMusicBeat()
+    {
+        _cooldown--;
+        if(_cooldown == 0)
+        {
+            _musicPowerSlider.DOValue(_musicPower, Managers.Instance.Game.UnitTime * 4);
+        }
     }
 }

@@ -39,6 +39,7 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
         base.Setting();
 
         HPSlider = Managers.Instance.Pool.PopObject(PoolType.HPSlider, transform.position).GetComponent<HPSlider>();
+        _collider.isTrigger = true;
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent += HandleMusicBeat;
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
@@ -53,7 +54,6 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
         _isStun = false;
         _currentWay = way;
         _moveCooldown = _moveCooltime;
-        _collider.isTrigger = true;
     }
 
     protected override void Release()
@@ -177,6 +177,8 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
 
     private IEnumerator Move()
     {
+        if (_currentWay == null) yield break;
+
         float t = 0f;
         float lerpTime = Managers.Instance.Game.UnitTime;
         Vector3 endPos = _currentWay.transform.position;

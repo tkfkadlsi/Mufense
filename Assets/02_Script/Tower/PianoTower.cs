@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PianoTower : Tower
@@ -25,8 +26,10 @@ public class PianoTower : Tower
         base.Setting();
 
         TowerLevel = 1;
-        Damage = 1;
         Range = 8;
+        Damage = 1;
+
+        _target = null;
     }
 
     private void Update()
@@ -53,7 +56,10 @@ public class PianoTower : Tower
         if (_isStun) return;
         if (type != TowerType.Piano) return;
 
-        SearchTarget();
+        if(_target == null || _target.gameObject.activeSelf == false || Vector3.Distance(_target.transform.position, transform.position) > Range)
+        {
+            SearchTarget();
+        }
 
         int atkCount = Random.Range(TowerLevel, TowerLevel + 3);
 
