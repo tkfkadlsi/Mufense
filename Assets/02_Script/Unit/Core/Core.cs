@@ -5,13 +5,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class Core : Unit, IMusicPlayHandle, IHealth
+public class Core : Unit, IMusicPlayHandle, IHealth, IMusicHandleObject
 {
     public event Action<float> HPChangeEvent;
     public float HP { get; set; }
     public HPSlider HPSlider { get; set; }
+    public float Damage {  get; private set; }
 
-    private float _damage;
+
     private IEnumerator HitCoroutine;
 
     protected override bool Init()
@@ -30,7 +31,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth
     {
         base.Setting();
 
-        _damage = 1f;
+        Damage = 1f;
         HP = 100f;
         HPSlider = Managers.Instance.Pool.PopObject(PoolType.HPSlider, transform.position + Vector3.up * 1.5f).GetComponent<HPSlider>();
         HPSlider.Slider.maxValue = HP;
@@ -38,7 +39,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth
         HPSlider.transform.localScale = new Vector3(0.02f, 0.01f, 0.01f);
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
-        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().NoteEvent += HandleNoteEvent;
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent += HandleMusicBeat;
     }
 
     protected override void Release()
@@ -46,15 +47,10 @@ public class Core : Unit, IMusicPlayHandle, IHealth
         if (Managers.Instance != null)
         {
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
-            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().NoteEvent -= HandleNoteEvent;
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent -= HandleMusicBeat;
         }
 
         base.Release();
-    }
-
-    private void Update()
-    {
-        transform.Rotate(0, 0, (120f / Managers.Instance.Game.UnitTime) * Time.deltaTime);
     }
 
     public void CircleArcAttack()
@@ -69,23 +65,13 @@ public class Core : Unit, IMusicPlayHandle, IHealth
 
     public void SettingColor(Music music)
     {
+        transform.rotation = Quaternion.identity;
         _spriteRenderer.DOColor(music.PlayerColor, 1f);
-    }
-
-    public void HandleNoteEvent(TowerType type)
-    {
-        if (type == TowerType.Core)
-        {
-            Vector3 randPos = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-
-            CoreAttack coreAttack = Managers.Instance.Pool.PopObject(PoolType.CoreAttack, transform.position).GetComponent<CoreAttack>();
-            coreAttack.Attack(randPos, _damage);
-        }
     }
 
     public void SetDamage(float damage)
     {
-        _damage = damage;
+        Damage = damage;
     }
 
     public void Hit(float damage, int debuff = 0, Tower attacker = null)
@@ -137,5 +123,32 @@ public class Core : Unit, IMusicPlayHandle, IHealth
         //게임오버
 
         SceneManager.LoadScene("ResultScene");
+    }
+
+    public void HandleMusicBeat()
+    {
+        StartCoroutine(RotateCoroutine());
+    }
+
+    private IEnumerator RotateCoroutine()
+    {
+        Vector3 endrot = (transform.up + transform.right).normalized;
+
+        float t = 0f;
+        float lerpTime = Managers.Instance.Game.UnitTime;
+
+        while (t < lerpTime)
+        {
+            t += Time.deltaTime;
+            yield return null;
+
+            transform.up = Vector3.Lerp(transform.up, endrot, t / lerpTime).normalized;
+        }
+        transform.up = endrot;
+
+        if(transform.up == Vector3.up)
+        {
+            Managers.Instance.Pool.PopObject(PoolType.CircleArc, transform.position);
+        }
     }
 }

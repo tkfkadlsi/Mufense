@@ -43,11 +43,19 @@ public class StringTower : Tower
 
     private void SearchTarget()
     {
-        int count = Physics2D.OverlapCircle(transform.position, Range, _filter, _enemies);
-        if (count > 0)
+        (Enemy, float) distance = (null, float.MaxValue);
+        Enemy[] enemies = FindObjectsByType<Enemy>(sortMode: FindObjectsSortMode.None);
+        foreach (Enemy e in enemies)
         {
-            _target = _enemies[Random.Range(0, count)].GetComponent<Enemy>();
+            float d = Vector3.Distance(e.transform.position, transform.position);
+
+            if (distance.Item2 > d)
+            {
+                distance = (e, d);
+            }
         }
+
+        _target = distance.Item1 == null ? null : distance.Item1;
     }
 
     protected override void HandleNoteEvent(TowerType type)

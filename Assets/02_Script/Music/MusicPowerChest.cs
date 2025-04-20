@@ -67,7 +67,7 @@ public class MusicPowerChest : BaseInit, IMusicHandleObject
     public void SetMaxMusicPower(int value)
     {
         MaxMusicPower = value;
-        SetCounter();
+        SetCounter(true);
     }
 
     public void AddMusicPower(int value)
@@ -80,7 +80,7 @@ public class MusicPowerChest : BaseInit, IMusicHandleObject
             _musicPower = MaxMusicPower;
         }
 
-        SetCounter();
+        SetCounter(false);
     }
 
     public bool CanRemoveMusicPower(int value)
@@ -93,7 +93,7 @@ public class MusicPowerChest : BaseInit, IMusicHandleObject
         if (_musicPower >= value)
         {
             _musicPower -= value;
-            SetCounter();
+            SetCounter(true);
             return true;
         }
         else
@@ -102,12 +102,22 @@ public class MusicPowerChest : BaseInit, IMusicHandleObject
         }
     }
 
-    private void SetCounter()
+    private void SetCounter(bool isRemove)
     {
-        _subFill.fillAmount = _musicPower / MaxMusicPower;
-        _cooldown = 4;
-        _musicPowerSlider.maxValue = MaxMusicPower;
-        _musicPowerCounter.text = $"({_musicPower} / {MaxMusicPower})";
+        if(isRemove)
+        {
+            _subFill.fillAmount = (float)_musicPower / MaxMusicPower;
+            _musicPowerSlider.maxValue = MaxMusicPower;
+            _musicPowerSlider.value = _musicPower;
+            _musicPowerCounter.text = $"({_musicPower} / {MaxMusicPower})";
+        }
+        else
+        {
+            _subFill.fillAmount = (float)_musicPower / MaxMusicPower;
+            _cooldown = 8;
+            _musicPowerSlider.maxValue = MaxMusicPower;
+            _musicPowerCounter.text = $"({_musicPower} / {MaxMusicPower})";
+        }
     }
 
     public void HandleMusicBeat()

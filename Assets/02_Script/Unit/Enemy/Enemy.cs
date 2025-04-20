@@ -64,6 +64,7 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
         }
 
+        EnemySpawner.SavedEnemyCount--;
         HPSlider.PushThisObject();
         HPSlider = null;
         base.Release();
@@ -200,6 +201,12 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
             {
                 _currentWay = _currentWay.GetNextWay();
             }
+        }
+
+        if(MoveCoroutine is not null)
+        {
+            StopCoroutine(MoveCoroutine);
+            MoveCoroutine = null;
         }
 
         transform.position = _currentWay.transform.position;

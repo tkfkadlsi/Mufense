@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class CircleArcAttack : Attack
 {
-    PoolableObject _poolable;
+    private PoolableObject _poolable;
+    private float _damage = 0f;
 
     protected override bool Init()
     {
@@ -22,6 +23,7 @@ public class CircleArcAttack : Attack
         base.Setting();
 
         transform.localScale = Vector3.zero;
+        _damage = Managers.Instance.Game.FindBaseInitScript<Core>().Damage;
         StartCoroutine(CircleArcCoroutine());
     }
 
@@ -47,7 +49,7 @@ public class CircleArcAttack : Attack
         if (collision.CompareTag("Enemy"))
         {
             Enemy enemy = collision.GetComponent<Enemy>();
-            enemy.Hit(float.MaxValue);
+            enemy.Hit(_damage);
         }
     }
 }

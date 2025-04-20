@@ -44,7 +44,7 @@ public class MusicPowerOrb : BaseObject
             peakPos,
             endPos,
 
-        }, 1.5f, PathType.CatmullRom).SetEase(Ease.InCubic)
+        }, 2.5f, PathType.CatmullRom).SetEase(Ease.InCubic)
             .OnComplete(() =>
         {
             Managers.Instance.Game.FindBaseInitScript<MusicPowerChest>().AddMusicPower(1);

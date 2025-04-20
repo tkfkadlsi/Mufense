@@ -4,7 +4,6 @@ public enum ObjectType
 {
     BackGround = 0,
     Way = 1,
-    MusicPowerOrb = 10,
     Effect = 11,
     Attacks = 12,
     Tower = 100,
@@ -14,7 +13,8 @@ public enum ObjectType
     Player = 201,
     Treasure = 210,
     Core = 300,
-    FrontEffect = 999
+    FrontEffect = 999,
+    MusicPowerOrb = 1000,
 }
 
 public abstract class BaseObject : BaseInit
