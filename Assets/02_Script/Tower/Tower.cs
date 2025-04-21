@@ -8,7 +8,10 @@ public enum TowerType
     Piano,
     Drum,
     String,
-    Core
+    CoreRotate,
+    CoreRotate2,
+    CoreRotate4,
+    CoreAttack
 }
 
 public abstract class Tower : BaseObject, IMusicPlayHandle

@@ -20,6 +20,7 @@ public class MusicPlayer : BaseInit
 
     public Music PlayingMusic { get; private set; } = null;
     public float MusicTime => _audioSource == null ? 0 : _audioSource.time;
+    public int BeatCount { get { return beatCounter; } }
 
     protected override bool Init()
     {

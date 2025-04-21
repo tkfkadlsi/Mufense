@@ -17,10 +17,13 @@ public class Music
             case "182":
                 return TowerType.String;
             case "256":
+                return TowerType.CoreRotate;
             case "329":
+                return TowerType.CoreRotate2;
             case "402":
+                return TowerType.CoreRotate4;
             case "475":
-                return TowerType.Core;
+                return TowerType.CoreAttack;
             default:
                 return TowerType.None;
         }
@@ -31,6 +34,7 @@ public class Music
     public AudioClip Clip;
     public TextAsset TowerChaebo;
     [SerializedDictionary("Timing", "BPM")] public SerializedDictionary<float, float> BpmChangeDict;
+    public int BeatInBar;
     public Color PlayerColor;
     public Color EnemyColor;
     public Color BackGroundColor;

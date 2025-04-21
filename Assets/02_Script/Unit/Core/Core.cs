@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class Core : Unit, IMusicPlayHandle, IHealth, IMusicHandleObject
+public class Core : Unit, IMusicPlayHandle, IHealth
 {
     public event Action<float> HPChangeEvent;
     public float HP { get; set; }
@@ -14,6 +14,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth, IMusicHandleObject
 
 
     private IEnumerator HitCoroutine;
+    private float _plusAngle;
 
     protected override bool Init()
     {
@@ -39,7 +40,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth, IMusicHandleObject
         HPSlider.transform.localScale = new Vector3(0.02f, 0.01f, 0.01f);
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
-        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent += HandleMusicBeat;
+        Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().NoteEvent += HandleNoteEvent;
     }
 
     protected override void Release()
@@ -47,7 +48,8 @@ public class Core : Unit, IMusicPlayHandle, IHealth, IMusicHandleObject
         if (Managers.Instance != null)
         {
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic -= SettingColor;
-            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().BeatEvent -= HandleMusicBeat;
+
+            Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().NoteEvent -= HandleNoteEvent;
         }
 
         base.Release();
@@ -66,6 +68,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth, IMusicHandleObject
     public void SettingColor(Music music)
     {
         transform.rotation = Quaternion.identity;
+        _plusAngle = 360f / music.BeatInBar;
         _spriteRenderer.DOColor(music.PlayerColor, 1f);
     }
 
@@ -125,30 +128,38 @@ public class Core : Unit, IMusicPlayHandle, IHealth, IMusicHandleObject
         SceneManager.LoadScene("ResultScene");
     }
 
-    public void HandleMusicBeat()
+    private void HandleNoteEvent(TowerType type)
     {
-        StartCoroutine(RotateCoroutine());
+        if(type == TowerType.CoreRotate)
+        {
+            CoreRotate(1);
+        }
+        if(type == TowerType.CoreRotate2)
+        {
+            CoreRotate(2);
+        }
+        if(type == TowerType.CoreRotate4)
+        {
+            CoreRotate(4);
+        }
+        if(type == TowerType.CoreAttack)
+        {
+            CoreAttack();
+        }
     }
 
-    private IEnumerator RotateCoroutine()
+    private void CoreRotate(int multiple)
     {
-        Vector3 endrot = (transform.up + transform.right).normalized;
+        float lerpTime = Managers.Instance.Game.UnitTime * multiple;
 
-        float t = 0f;
-        float lerpTime = Managers.Instance.Game.UnitTime;
+        float startAngle = transform.localEulerAngles.z;
+        float endAngle = transform.localEulerAngles.z + _plusAngle * multiple;
 
-        while (t < lerpTime)
-        {
-            t += Time.deltaTime;
-            yield return null;
+        transform.DOLocalRotate(new Vector3(0, 0, endAngle), lerpTime * 0.9f);
+    }
 
-            transform.up = Vector3.Lerp(transform.up, endrot, t / lerpTime).normalized;
-        }
-        transform.up = endrot;
-
-        if(transform.up == Vector3.up)
-        {
-            Managers.Instance.Pool.PopObject(PoolType.CircleArc, transform.position);
-        }
+    private void CoreAttack()
+    {
+        Managers.Instance.Pool.PopObject(PoolType.CircleArc, transform.position).GetComponent<CircleArcAttack>();
     }
 }
