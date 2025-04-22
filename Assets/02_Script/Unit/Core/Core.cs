@@ -155,7 +155,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth
         float startAngle = transform.localEulerAngles.z;
         float endAngle = transform.localEulerAngles.z + _plusAngle * multiple;
 
-        transform.DOLocalRotate(new Vector3(0, 0, endAngle), lerpTime * 0.9f);
+        transform.DOLocalRotate(new Vector3(0, 0, endAngle), lerpTime * 0.9f).SetEase(Ease.InOutExpo);
     }
 
     private void CoreAttack()

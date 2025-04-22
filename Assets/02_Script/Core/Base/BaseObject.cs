@@ -11,6 +11,7 @@ public enum ObjectType
     TowerGuide = 102,
     Enemy = 200,
     Player = 201,
+    EnemyIcon = 202,
     Treasure = 210,
     Core = 300,
     FrontEffect = 999,
