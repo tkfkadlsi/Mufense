@@ -130,7 +130,7 @@ public class MusicPlayer : BaseInit
 
             if (beatCounter < PlayingMusic.GetBeatTimingCount())
             {
-                if (PlayingMusic.GetBeatTiming(beatCounter) < _audioSource.time)
+                if (PlayingMusic.GetBeatTiming(beatCounter) <= _audioSource.time)
                 {
                     BeatEvent?.Invoke();
                     beatCounter++;
@@ -139,7 +139,7 @@ public class MusicPlayer : BaseInit
 
             if (noteCounter < PlayingMusic.GetTowerNoteCount())
             {
-                while (PlayingMusic.GetTowerNote(noteCounter).timing < _audioSource.time)
+                while (PlayingMusic.GetTowerNote(noteCounter).timing <= _audioSource.time)
                 {
                     NoteEvent?.Invoke(PlayingMusic.GetTowerNote(noteCounter).type);
                     noteCounter++;
@@ -153,7 +153,7 @@ public class MusicPlayer : BaseInit
 
             if (bpmCounter < PlayingMusic.GetBpmChangeTimingCount())
             {
-                if (PlayingMusic.GetBpmChangeTiming(bpmCounter) < _audioSource.time)
+                if (PlayingMusic.GetBpmChangeTiming(bpmCounter) <= _audioSource.time)
                 {
                     Managers.Instance.Game.SetBPM(PlayingMusic.GetBPM(bpmCounter));
                     bpmCounter++;

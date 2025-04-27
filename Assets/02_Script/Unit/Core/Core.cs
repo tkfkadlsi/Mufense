@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -150,15 +151,35 @@ public class Core : Unit, IMusicPlayHandle, IHealth
 
     private void CoreRotate(int multiple)
     {
-        float lerpTime = Managers.Instance.Game.UnitTime * multiple;
+        float lerpTime = Managers.Instance.Game.UnitTime * multiple * 0.5f;
+        float addAngle = _plusAngle * multiple;
 
-        float startAngle = transform.localEulerAngles.z;
-        float endAngle = transform.localEulerAngles.z + _plusAngle * multiple;
+        if(lerpTime == Mathf.Infinity || lerpTime == 0)
+        {
+            return;
+        }
 
-        transform.DOLocalRotate(new Vector3(0, 0, endAngle), lerpTime * 0.9f).SetEase(Ease.InOutExpo);
+        StartCoroutine(RotateCoroutine(lerpTime, addAngle));
     }
 
-    private void CoreAttack()
+    private IEnumerator RotateCoroutine(float lerpTime, float addAngle)
+    {
+        float t = 0f;
+        Quaternion startRot = transform.rotation;
+        Quaternion endRot = startRot * Quaternion.AngleAxis(addAngle, Vector3.forward);
+
+        while(t < lerpTime)
+        {
+            transform.rotation = Quaternion.Lerp(startRot, endRot, t / lerpTime);
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.rotation = endRot;
+    }
+
+    private void CoreAttack() 
     {
         Managers.Instance.Pool.PopObject(PoolType.CircleArc, transform.position).GetComponent<CircleArcAttack>();
     }
