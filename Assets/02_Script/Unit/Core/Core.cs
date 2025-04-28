@@ -165,18 +165,22 @@ public class Core : Unit, IMusicPlayHandle, IHealth
     private IEnumerator RotateCoroutine(float lerpTime, float addAngle)
     {
         float t = 0f;
-        Quaternion startRot = transform.rotation;
-        Quaternion endRot = startRot * Quaternion.AngleAxis(addAngle, Vector3.forward);
+
+        float startZ = transform.rotation.eulerAngles.z;
+        float endZ = startZ + addAngle;
+
+        float currentZ = startZ;
 
         while(t < lerpTime)
         {
-            transform.rotation = Quaternion.Lerp(startRot, endRot, t / lerpTime);
-
             t += Time.deltaTime;
             yield return null;
+
+            currentZ = Mathf.Lerp(startZ, endZ, t / lerpTime);
+            transform.rotation = Quaternion.Euler(0, 0, currentZ);
         }
 
-        transform.rotation = endRot;
+        transform.rotation = Quaternion.Euler(0, 0, currentZ % 360f);
     }
 
     private void CoreAttack() 

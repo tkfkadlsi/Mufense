@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum TowerType
 {
@@ -14,7 +15,7 @@ public enum TowerType
     CoreAttack
 }
 
-public abstract class Tower : BaseObject, IMusicPlayHandle
+public abstract class Tower : BaseObject, IMusicPlayHandle, IPointerClickHandler
 {
     public int TowerLevel { get; set; }
     public float Damage { get; set; }
@@ -92,5 +93,12 @@ public abstract class Tower : BaseObject, IMusicPlayHandle
 
         yield return Managers.Instance.Game.GetWaitForSecond(time);
         _isStun = false;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (Managers.Instance.Game.FindBaseInitScript<InGameCamera>().IsLock == true) return;
+        Managers.Instance.UI.GameRootUI.SetActiveCanvas("TowerUpCanvas", true);
+        Managers.Instance.Game.FindBaseInitScript<InGameCamera>().CamLockToObject(transform);
     }
 }
