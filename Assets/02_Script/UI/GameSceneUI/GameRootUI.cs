@@ -5,8 +5,6 @@ public class GameRootUI : BaseUI, ISetActiveCanvases
 {
     private Dictionary<string, Canvas> CanvasDict = new Dictionary<string, Canvas>();
 
-    private bool _isOpenTowerUpCanvas;
-
     public MainCanvas MainCanvas { get; private set; }
     public BuildCanvas BuildingsCanvas { get; private set; }
     public SongCanvas SongCanvas { get; private set; }
