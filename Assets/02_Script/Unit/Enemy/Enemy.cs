@@ -108,7 +108,7 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
     {
         float t = 0f;
 
-        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
+        _spriteRenderer.color = Color.white;
 
         while (t < lerpTime)
         {

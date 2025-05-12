@@ -18,7 +18,7 @@ public class EnemyIcon : BaseObject, IMusicPlayHandle
     {
         base.Setting();
 
-        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
+        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.TextColor;
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
     }
@@ -35,6 +35,6 @@ public class EnemyIcon : BaseObject, IMusicPlayHandle
 
     public void SettingColor(Music music)
     {
-        _spriteRenderer.DOColor(music.PlayerColor, 1f);
+        _spriteRenderer.DOColor(music.TextColor, 1f);
     }
 }

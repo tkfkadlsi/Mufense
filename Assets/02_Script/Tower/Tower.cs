@@ -20,6 +20,8 @@ public abstract class Tower : BaseObject, IMusicPlayHandle, IPointerClickHandler
     public int TowerLevel { get; set; }
     public float Damage { get; set; }
     public float Range { get; set; }
+    public int Level2Upgrade { get; set; } = 0;
+    public int Level3Upgrade { get; set; } = 0;
 
     [SerializeField] private Sprite _iconSprite;
     protected TowerIcon _towerIcon;
