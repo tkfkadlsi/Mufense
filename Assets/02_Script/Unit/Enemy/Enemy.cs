@@ -2,10 +2,9 @@ using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
-
-
 public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObject
 {
+    public static int HPLevel;
     public float HP { get; set; }
     public HPSlider HPSlider { get; set; }
 

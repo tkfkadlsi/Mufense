@@ -18,10 +18,8 @@ public class NormalEnemy : Enemy
     {
         base.Setting();
 
-        HP = 22 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemyHPLevel * 9;
+        HP = 22 + HPLevel * 9;
         HPSlider.Slider.maxValue = HP;
         HPSlider.Slider.value = HP;
     }
-
-
 }

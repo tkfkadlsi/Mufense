@@ -18,7 +18,7 @@ public class BlinkEnemy : Enemy
     {
         base.Setting();
 
-        HP = 14 + Managers.Instance.Game.FindBaseInitScript<GameTimer>().EnemyHPLevel * 7;
+        HP = 14 + HPLevel * 7;
         HPSlider.Slider.value = HP;
         HPSlider.Slider.maxValue = HP;
     }

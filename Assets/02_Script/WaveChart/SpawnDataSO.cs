@@ -36,7 +36,7 @@ public class SpawnDataSO : ScriptableObject
             case EnemyType.Cancled_3:
                 return PoolType.CancledEnemy;
             case EnemyType.HP_UP_10:
-                Managers.Instance.Game.FindBaseInitScript<GameTimer>().UpgradeEnemyHPLevel();
+                Enemy.HPLevel++;
                 return PoolType.Null;
             default:
                 return PoolType.Null;

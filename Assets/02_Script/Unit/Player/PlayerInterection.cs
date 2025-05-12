@@ -65,12 +65,6 @@ public class PlayerInterection : BaseInit, IMusicPlayHandle
                 tower.Interection();
                 return;
             }
-            else if (_colliders[i].CompareTag("Treasure"))
-            {
-                Treasure treasure = _colliders[i].GetComponent<Treasure>();
-                treasure.Interection();
-                return;
-            }
         }
     }
 
