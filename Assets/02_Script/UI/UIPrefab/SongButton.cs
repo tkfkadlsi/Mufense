@@ -4,6 +4,12 @@ using UnityEngine.UI;
 
 public class SongButton : BaseUI, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IMusicPlayHandle
 {
+    enum EImages
+    {
+        SongButton,
+        Icon
+    }
+
     private Music _music;
     private PoolableObject _poolable;
     private Image _image;
@@ -17,8 +23,9 @@ public class SongButton : BaseUI, IPointerEnterHandler, IPointerExitHandler, IPo
         }
 
         _poolable = GetComponent<PoolableObject>();
+
         _image = GetComponent<Image>();
-        _icon = GetComponentInChildren<Image>();
+        _icon = transform.GetChild(0).GetComponent<Image>();
 
         return true;
     }

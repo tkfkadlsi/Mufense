@@ -2206,12 +2206,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1170115753450382605, guid: 0d809767ce755b0498322ca49fd0df42, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0d809767ce755b0498322ca49fd0df42, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.96, y: 2.95}
+  m_Size: {x: 2.46, y: 2.46}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -8749,9 +8749,9 @@ MonoBehaviour:
       - Key: 1.5
         Value: 120
     BeatInBar: 3
-    PlayerColor: {r: 0.9882353, g: 0.9490196, b: 0.77254903, a: 1}
-    EnemyColor: {r: 0.9882353, g: 0.8392157, b: 0.77254903, a: 1}
-    BackGroundColor: {r: 0.91764706, g: 0.9882353, b: 0.77254903, a: 1}
+    PlayerColor: {r: 0.9607843, g: 0.83137256, b: 0.9882353, a: 1}
+    EnemyColor: {r: 0.9882353, g: 0.83137256, b: 0.9372549, a: 1}
+    BackGroundColor: {r: 0.88235295, g: 0.83137256, b: 0.9882353, a: 1}
     TextColor: {r: 0, g: 0, b: 0, a: 1}
     PianoAmount: 3
     DrumAmount: 2
@@ -8766,9 +8766,9 @@ MonoBehaviour:
       - Key: 2
         Value: 120
     BeatInBar: 4
-    PlayerColor: {r: 0.6392157, g: 0.98039216, b: 0.7254902, a: 1}
-    EnemyColor: {r: 0.63529414, g: 0.972549, b: 0.5254902, a: 1}
-    BackGroundColor: {r: 0.5254902, g: 0.972549, b: 0.8627451, a: 1}
+    PlayerColor: {r: 0.6862745, g: 0.972549, b: 0.81960785, a: 1}
+    EnemyColor: {r: 0.8392157, g: 0.972549, b: 0.6862745, a: 1}
+    BackGroundColor: {r: 0.69411767, g: 0.972549, b: 0.6862745, a: 1}
     TextColor: {r: 0, g: 0, b: 0, a: 1}
     PianoAmount: 4
     DrumAmount: 3
@@ -8783,9 +8783,9 @@ MonoBehaviour:
       - Key: 2.182
         Value: 110
     BeatInBar: 4
-    PlayerColor: {r: 0.32941177, g: 0.20392157, b: 0.39607844, a: 1}
-    EnemyColor: {r: 0.39607844, g: 0.20392157, b: 0.27058825, a: 1}
-    BackGroundColor: {r: 0.20392157, g: 0.39607844, b: 0.23529412, a: 1}
+    PlayerColor: {r: 0.38431373, g: 0.29803923, b: 0.11372549, a: 1}
+    EnemyColor: {r: 0.38431373, g: 0.16470589, b: 0.11372549, a: 1}
+    BackGroundColor: {r: 0.29803923, g: 0.11372549, b: 0.38431373, a: 1}
     TextColor: {r: 1, g: 1, b: 1, a: 1}
     PianoAmount: 2
     DrumAmount: 2
@@ -8800,9 +8800,9 @@ MonoBehaviour:
       - Key: 1.6
         Value: 150
     BeatInBar: 4
-    PlayerColor: {r: 0.9411765, g: 0.8235294, b: 0.81960785, a: 1}
-    EnemyColor: {r: 0.81960785, g: 0.8784314, b: 0.9411765, a: 1}
-    BackGroundColor: {r: 0.81960785, g: 0.9411765, b: 0.88235295, a: 1}
+    PlayerColor: {r: 0.9137255, g: 0.8039216, b: 0.8039216, a: 1}
+    EnemyColor: {r: 0.99215686, g: 0.8784314, b: 0.7294118, a: 1}
+    BackGroundColor: {r: 0.99215686, g: 0.74509805, b: 0.7294118, a: 1}
     TextColor: {r: 0, g: 0, b: 0, a: 1}
     PianoAmount: 2
     DrumAmount: 3
@@ -8817,9 +8817,9 @@ MonoBehaviour:
       - Key: 0
         Value: 180
     BeatInBar: 4
-    PlayerColor: {r: 1, g: 0.65882355, b: 0.7058824, a: 1}
-    EnemyColor: {r: 1, g: 0.65882355, b: 0.8784314, a: 1}
-    BackGroundColor: {r: 1, g: 0.78039217, b: 0.65882355, a: 1}
+    PlayerColor: {r: 0.99607843, g: 0.87058824, b: 0.6666667, a: 1}
+    EnemyColor: {r: 0.99607843, g: 0.6666667, b: 0.7882353, a: 1}
+    BackGroundColor: {r: 0.6666667, g: 0.9529412, b: 0.99607843, a: 1}
     TextColor: {r: 0, g: 0, b: 0, a: 1}
     PianoAmount: 4
     DrumAmount: 3

@@ -11,7 +11,6 @@ public class DrumAttack : TowerAttack
     {
         base.Setting();
         transform.localScale = Vector3.one;
-        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
     }
 
     public override void SettingTarget(Vector3 target, float musicPower, Tower attacker)

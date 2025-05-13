@@ -7,7 +7,7 @@ public abstract class Attack : BaseObject, IMusicPlayHandle
 
     public void SettingColor(Music music)
     {
-        _spriteRenderer.DOColor(music.PlayerColor, 1f);
+        _spriteRenderer.DOColor(music.TextColor, 1f);
         TrailRenderer[] trailRenderers = GetComponentsInChildren<TrailRenderer>();
         Color color = music.PlayerColor;
         if(trailRenderers.Length > 0)
@@ -43,7 +43,7 @@ public abstract class Attack : BaseObject, IMusicPlayHandle
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
         _collider.isTrigger = true;
-        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
+        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.TextColor;
     }
 
     protected override void Release()

@@ -24,7 +24,6 @@ public abstract class Tower : BaseObject, IMusicPlayHandle, IPointerClickHandler
     public int Level3Upgrade { get; set; } = 0;
 
     [SerializeField] private Sprite _iconSprite;
-    protected TowerIcon _towerIcon;
     protected Enemy _target;
     protected bool _isStun;
 
@@ -46,8 +45,6 @@ public abstract class Tower : BaseObject, IMusicPlayHandle, IPointerClickHandler
     {
         base.Setting();
 
-        _towerIcon = Managers.Instance.Pool.PopObject(PoolType.TowerIcon, transform.position).GetComponent<TowerIcon>();
-        _towerIcon.TowerIconSetting(_iconSprite, this);
         _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PlayerColor;
         _canInterection = true;
         _isStun = false;
@@ -62,8 +59,6 @@ public abstract class Tower : BaseObject, IMusicPlayHandle, IPointerClickHandler
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().NoteEvent -= HandleNoteEvent;
             Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
         }
-        _towerIcon.PushThisObject();
-        _towerIcon = null;
         _canInterection = false;
         base.Release();
     }

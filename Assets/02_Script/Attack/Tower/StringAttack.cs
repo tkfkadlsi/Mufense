@@ -23,7 +23,7 @@ public class StringAttack : TowerAttack
     protected override void Setting()
     {
         base.Setting();
-        Color color = Managers.Instance.Game.PlayingMusic.PlayerColor;
+        Color color = _spriteRenderer.color;
 
         for (int i = 0; i < _trailRenderers.Length; i++)
         {

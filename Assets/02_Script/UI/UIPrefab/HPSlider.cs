@@ -53,6 +53,7 @@ public class HPSlider : BaseUI
         base.Setting();
         _backgroundImage.color = _originBackgroundColor;
         _fillImage.color = _originFillColor;
+        Slider.enabled = false;
     }
 
     public void PushThisObject()
