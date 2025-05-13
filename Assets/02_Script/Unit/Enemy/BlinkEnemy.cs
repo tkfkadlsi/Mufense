@@ -19,8 +19,7 @@ public class BlinkEnemy : Enemy
         base.Setting();
 
         HP = 14 + HPLevel * 7;
-        HPSlider.Slider.value = HP;
-        HPSlider.Slider.maxValue = HP;
+        HPSlider.SetMaxValue(HP);
     }
 
     public override void Hit(float damage, int debuff = 0, Tower attacker = null)

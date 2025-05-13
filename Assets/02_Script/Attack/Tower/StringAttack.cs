@@ -23,13 +23,13 @@ public class StringAttack : TowerAttack
     protected override void Setting()
     {
         base.Setting();
-        Color color = _spriteRenderer.color;
+        Color color = Managers.Instance.Game.PlayingMusic.StringAttackColor;
 
         for (int i = 0; i < _trailRenderers.Length; i++)
         {
-            color.a = 0.8f;
+            color.a = 0.33f;
             _trailRenderers[i].startColor = color;
-            color.a = 0f;
+            color.a = 0f;  
             _trailRenderers[i].endColor = color;
             _trailRenderers[i].Clear();
         }

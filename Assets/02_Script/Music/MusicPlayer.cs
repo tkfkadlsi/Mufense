@@ -132,6 +132,7 @@ public class MusicPlayer : BaseInit
             {
                 if (PlayingMusic.GetBeatTiming(beatCounter) <= _audioSource.time)
                 {
+                    Managers.Instance.Game.FindBaseInitScript<SoundEffectPlayer>().PlaySoundEffect(SoundEffect.Metronome);
                     BeatEvent?.Invoke();
                     beatCounter++;
                 }

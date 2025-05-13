@@ -15,8 +15,7 @@ public class CancledEnemy : Enemy
         base.Setting();
 
         HP = 1;
-        HPSlider.Slider.maxValue = HP;
-        HPSlider.Slider.value = HP;
+        HPSlider.SetMaxValue(HP);
     }
 
     public override void Hit(float damage, int debuff = 0, Tower attacker = null)

@@ -30,15 +30,15 @@ public class CircleArcAttack : Attack
     private IEnumerator CircleArcCoroutine()
     {
         float t = 0f;
-        float lerpTime = Managers.Instance.Game.UnitTime * 4f;
+        float lerpTime = Managers.Instance.Game.UnitTime * 2f;
 
         while (t < lerpTime)
         {
             t += Time.deltaTime;
             yield return null;
 
-            _spriteRenderer.color = Color.Lerp(Color.white, Color.clear, t / lerpTime);
-            transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 30f, t / lerpTime);
+            _spriteRenderer.color = Color.Lerp(Color.white, new Color(1, 1, 1, 0), t / lerpTime);
+            transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 20f, t / lerpTime);
         }
 
         _poolable.PushThisObject();

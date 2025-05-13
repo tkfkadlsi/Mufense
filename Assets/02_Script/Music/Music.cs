@@ -39,6 +39,10 @@ public class Music
     public Color EnemyColor;
     public Color BackGroundColor;
     public Color TextColor;
+    public Color IconColor;
+    public Color PianoAttackColor;
+    public Color DrumAttackColor;
+    public Color StringAttackColor;
     public int PianoAmount;
     public int DrumAmount;
     public int StringAmount;

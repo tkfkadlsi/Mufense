@@ -2803,6 +2803,7 @@ Transform:
   m_Children:
   - {fileID: 1020295794}
   - {fileID: 422105737}
+  - {fileID: 1851260398}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &329334590
@@ -8752,7 +8753,11 @@ MonoBehaviour:
     PlayerColor: {r: 0.9607843, g: 0.83137256, b: 0.9882353, a: 1}
     EnemyColor: {r: 0.9882353, g: 0.83137256, b: 0.9372549, a: 1}
     BackGroundColor: {r: 0.88235295, g: 0.83137256, b: 0.9882353, a: 1}
-    TextColor: {r: 0, g: 0, b: 0, a: 1}
+    TextColor: {r: 1, g: 1, b: 1, a: 1}
+    IconColor: {r: 0, g: 0, b: 0, a: 1}
+    PianoAttackColor: {r: 0, g: 0, b: 0, a: 1}
+    DrumAttackColor: {r: 0, g: 0, b: 0, a: 1}
+    StringAttackColor: {r: 0, g: 0, b: 0, a: 1}
     PianoAmount: 3
     DrumAmount: 2
     StringAmount: 1
@@ -8769,7 +8774,11 @@ MonoBehaviour:
     PlayerColor: {r: 0.6862745, g: 0.972549, b: 0.81960785, a: 1}
     EnemyColor: {r: 0.8392157, g: 0.972549, b: 0.6862745, a: 1}
     BackGroundColor: {r: 0.69411767, g: 0.972549, b: 0.6862745, a: 1}
-    TextColor: {r: 0, g: 0, b: 0, a: 1}
+    TextColor: {r: 1, g: 1, b: 1, a: 1}
+    IconColor: {r: 0, g: 0, b: 0, a: 1}
+    PianoAttackColor: {r: 0, g: 0, b: 0, a: 1}
+    DrumAttackColor: {r: 0, g: 0, b: 0, a: 1}
+    StringAttackColor: {r: 0, g: 0, b: 0, a: 1}
     PianoAmount: 4
     DrumAmount: 3
     StringAmount: 0
@@ -8783,10 +8792,14 @@ MonoBehaviour:
       - Key: 2.182
         Value: 110
     BeatInBar: 4
-    PlayerColor: {r: 0.38431373, g: 0.29803923, b: 0.11372549, a: 1}
+    PlayerColor: {r: 0.38431373, g: 0.11372548, b: 0.30602726, a: 1}
     EnemyColor: {r: 0.38431373, g: 0.16470589, b: 0.11372549, a: 1}
     BackGroundColor: {r: 0.29803923, g: 0.11372549, b: 0.38431373, a: 1}
     TextColor: {r: 1, g: 1, b: 1, a: 1}
+    IconColor: {r: 1, g: 1, b: 1, a: 1}
+    PianoAttackColor: {r: 1, g: 1, b: 1, a: 1}
+    DrumAttackColor: {r: 1, g: 1, b: 1, a: 1}
+    StringAttackColor: {r: 1, g: 1, b: 1, a: 1}
     PianoAmount: 2
     DrumAmount: 2
     StringAmount: 2
@@ -8803,7 +8816,11 @@ MonoBehaviour:
     PlayerColor: {r: 0.9137255, g: 0.8039216, b: 0.8039216, a: 1}
     EnemyColor: {r: 0.99215686, g: 0.8784314, b: 0.7294118, a: 1}
     BackGroundColor: {r: 0.99215686, g: 0.74509805, b: 0.7294118, a: 1}
-    TextColor: {r: 0, g: 0, b: 0, a: 1}
+    TextColor: {r: 1, g: 1, b: 1, a: 1}
+    IconColor: {r: 0, g: 0, b: 0, a: 1}
+    PianoAttackColor: {r: 0, g: 0, b: 0, a: 1}
+    DrumAttackColor: {r: 0, g: 0, b: 0, a: 1}
+    StringAttackColor: {r: 0, g: 0, b: 0, a: 1}
     PianoAmount: 2
     DrumAmount: 3
     StringAmount: 2
@@ -8820,7 +8837,11 @@ MonoBehaviour:
     PlayerColor: {r: 0.99607843, g: 0.87058824, b: 0.6666667, a: 1}
     EnemyColor: {r: 0.99607843, g: 0.6666667, b: 0.7882353, a: 1}
     BackGroundColor: {r: 0.6666667, g: 0.9529412, b: 0.99607843, a: 1}
-    TextColor: {r: 0, g: 0, b: 0, a: 1}
+    TextColor: {r: 1, g: 1, b: 1, a: 1}
+    IconColor: {r: 0, g: 0, b: 0, a: 1}
+    PianoAttackColor: {r: 0, g: 0, b: 0, a: 1}
+    DrumAttackColor: {r: 1, g: 1, b: 1, a: 1}
+    StringAttackColor: {r: 0, g: 0, b: 0, a: 1}
     PianoAmount: 4
     DrumAmount: 3
     StringAmount: 1
@@ -8838,6 +8859,10 @@ MonoBehaviour:
     EnemyColor: {r: 0.34117648, g: 0.25882354, b: 0.44313726, a: 1}
     BackGroundColor: {r: 0.25882354, g: 0.36078432, b: 0.44313726, a: 1}
     TextColor: {r: 1, g: 1, b: 1, a: 1}
+    IconColor: {r: 1, g: 1, b: 1, a: 1}
+    PianoAttackColor: {r: 1, g: 1, b: 1, a: 1}
+    DrumAttackColor: {r: 1, g: 1, b: 1, a: 1}
+    StringAttackColor: {r: 1, g: 1, b: 1, a: 1}
     PianoAmount: 2
     DrumAmount: 4
     StringAmount: 3
@@ -14985,6 +15010,154 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1748058761705871412, guid: fc328cc119a444342984ad0195c30dfb, type: 3}
   m_PrefabInstance: {fileID: 1838504480}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1851260397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1851260398}
+  - component: {fileID: 1851260400}
+  - component: {fileID: 1851260399}
+  m_Layer: 0
+  m_Name: SoundEffectPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1851260398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851260397}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 314399560}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1851260399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851260397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caa19524b6d0c5e45906f9b5d5b2a8c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundEffects:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 8300000, guid: 0e75115616790b04ab3ec8426e37f93d, type: 3}
+    - Key: 1
+      Value: {fileID: 8300000, guid: b43eed5fb26f07048aecb6644965de0b, type: 3}
+--- !u!82 &1851260400
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851260397}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8404797581655705315, guid: 08e09d8f4676b9e468e02224736929bc, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &1865965487
 PrefabInstance:
   m_ObjectHideFlags: 0

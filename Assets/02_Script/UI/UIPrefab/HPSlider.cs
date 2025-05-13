@@ -17,10 +17,12 @@ public class HPSlider : BaseUI
         Fill
     }
 
-    public Slider Slider;
+    private Slider _slider;
 
     private Image _backgroundImage;
     private Image _fillImage;
+
+    private Canvas _canvas;
 
     private Color _originBackgroundColor;
     private Color _originFillColor;
@@ -35,7 +37,7 @@ public class HPSlider : BaseUI
         Bind<Slider>(typeof(ESliders));
         Bind<Image>(typeof(EImages));
 
-        Slider = Get<Slider>((int)ESliders.Slider);
+        _slider = Get<Slider>((int)ESliders.Slider);
 
         _backgroundImage = Get<Image>((int)EImages.Background);
         _fillImage = Get<Image>((int)EImages.Fill);
@@ -44,6 +46,7 @@ public class HPSlider : BaseUI
         _originFillColor = _fillImage.color;
 
         _poolable = GetComponent<PoolableObject>();
+        _canvas = GetComponent<Canvas>();
 
         return true;
     }
@@ -53,7 +56,7 @@ public class HPSlider : BaseUI
         base.Setting();
         _backgroundImage.color = _originBackgroundColor;
         _fillImage.color = _originFillColor;
-        Slider.enabled = false;
+        _canvas.enabled = false;
     }
 
     public void PushThisObject()
@@ -77,5 +80,17 @@ public class HPSlider : BaseUI
 
         _backgroundImage.color = _originBackgroundColor;
         _fillImage.color = _originFillColor;
+    }
+
+    public void SetMaxValue(float maxValue)
+    {
+        _slider.maxValue = maxValue;
+        _slider.value = maxValue;
+    }
+
+    public void SetValue(float value)
+    {
+        _slider.value = value;
+        _canvas.enabled = true;
     }
 }

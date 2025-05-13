@@ -36,8 +36,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth
         Damage = 1f;
         HP = 100f;
         HPSlider = Managers.Instance.Pool.PopObject(PoolType.HPSlider, transform.position + Vector3.up * 1.5f).GetComponent<HPSlider>();
-        HPSlider.Slider.maxValue = HP;
-        HPSlider.Slider.value = HP;
+        HPSlider.SetMaxValue(HP);
         HPSlider.transform.localScale = new Vector3(0.02f, 0.01f, 0.01f);
 
         Managers.Instance.Game.FindBaseInitScript<MusicPlayer>().PlayMusic += SettingColor;
@@ -86,7 +85,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth
         {
             Die();
         }
-        HPSlider.Slider.value = HP;
+        HPSlider.SetValue(HP);
         HPChangeEvent?.Invoke(HP);
 
         if (HitCoroutine is not null)
@@ -104,7 +103,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth
         {
             HP = 100f;
         }
-        HPSlider.Slider.value = HP;
+        HPSlider.SetValue(HP);
         HPChangeEvent?.Invoke(HP);
     }
 
@@ -151,7 +150,7 @@ public class Core : Unit, IMusicPlayHandle, IHealth
 
     private void CoreRotate(int multiple)
     {
-        float lerpTime = Managers.Instance.Game.UnitTime * multiple * 0.5f;
+        float lerpTime = Managers.Instance.Game.UnitTime * multiple * 0.33f;
         float addAngle = _plusAngle * multiple;
 
         if(lerpTime == Mathf.Infinity || lerpTime == 0)

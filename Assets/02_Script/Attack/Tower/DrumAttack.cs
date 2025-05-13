@@ -16,6 +16,7 @@ public class DrumAttack : TowerAttack
     public override void SettingTarget(Vector3 target, float musicPower, Tower attacker)
     {
         base.SettingTarget(target, musicPower, attacker);
+        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.DrumAttackColor;    
         _damage = musicPower;
         _range = target.x;
         StartCoroutine(DrumCoroutine());

@@ -19,7 +19,6 @@ public class NormalEnemy : Enemy
         base.Setting();
 
         HP = 22 + HPLevel * 9;
-        HPSlider.Slider.maxValue = HP;
-        HPSlider.Slider.value = HP;
+        HPSlider.SetMaxValue(HP);
     }
 }

@@ -9,6 +9,7 @@ public class PianoAttack : TowerAttack
     public override void SettingTarget(Vector3 target, float musicPower, Tower attacker)
     {
         base.SettingTarget(target, musicPower, attacker);
+        _spriteRenderer.color = Managers.Instance.Game.PlayingMusic.PianoAttackColor;
         _speed = Managers.Instance.Game.CurrentBPM / 7.5f;
         _direction = target;
         StartCoroutine(PushCoroutine());

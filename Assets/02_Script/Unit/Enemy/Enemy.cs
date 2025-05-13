@@ -9,6 +9,7 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
     public HPSlider HPSlider { get; set; }
 
     protected bool _isStun;
+    private bool _isMoving = false;
     protected int _moveCooltime;
 
     private PoolableObject _poolable;
@@ -84,7 +85,7 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
             Die();
             return;
         }
-        HPSlider.Slider.value = HP;
+        HPSlider.SetValue(HP);
 
         if (HitedCoroutine is not null)
         {
@@ -136,6 +137,7 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
     {
         Managers.Instance.Pool.PopObject(PoolType.EnemyDeathEffect, transform.position);
         Managers.Instance.Pool.PopObject(PoolType.MusicPowerOrb, transform.position);
+        Managers.Instance.Game.FindBaseInitScript<SoundEffectPlayer>().PlaySoundEffect(SoundEffect.EnemyDie);
         _poolable.PushThisObject();
     }
 
@@ -177,10 +179,11 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
 
     private IEnumerator Move()
     {
+        _isMoving = true;
         if (_currentWay == null) yield break;
 
         float t = 0f;
-        float lerpTime = Managers.Instance.Game.UnitTime;
+        float lerpTime = Managers.Instance.Game.UnitTime * 0.5f;
         Vector3 endPos = _currentWay.transform.position;
 
         while(t < lerpTime)
@@ -190,6 +193,7 @@ public abstract class Enemy : Unit, IHealth, IMusicPlayHandle, IMusicHandleObjec
 
             transform.position = Vector3.Lerp(transform.position, endPos, t / lerpTime);
         }
+        _isMoving = false;
     }
 
     protected void Jump(int count)
